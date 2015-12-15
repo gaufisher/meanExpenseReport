@@ -15,6 +15,7 @@ router.get('/', function(req, res, next) {
 });
 
 
+
 // Test routes to get data from db
 router.get('/users', function(req, res, next) {
     User.find(function(err, users) {
@@ -44,12 +45,9 @@ router.get('/reports', function(req, res, next) {
 });
 
 
-var mongoose = require('mongoose');
-var ExpenseReport = mongoose.model('Report');
-
 // Get all line item types
 router.get('/line-item-types', function(req, res, next) {
-    var lineItemTypes = [{value: 'Mileage'}, {value: 'Per Diem'}, {value: 'Lodging'}, {value: 'Travel'}, {value: 'Meals'}, {value: 'Entertainment'}, {value: 'Parking'}, {value: 'Other'}];
+    var lineItemTypes = [{name: 'Mileage'}, {name: 'Per Diem'}, {name: 'Lodging'}, {name: 'Travel'}, {name: 'Meals'}, {name: 'Entertainment'}, {name: 'Parking'}, {name: 'Other'}];
     res.json(lineItemTypes);
 });
 
@@ -63,15 +61,15 @@ router.get('/line-item-types', function(req, res, next) {
 //    });
 //});
 //
-//router.get('/projects', function(req, res, next) {
-//    Project.find(function(err, projects) {
-//        if (err) {
-//            return next(err);
-//        }
-//        res.json(projects);
-//    });
-//});
-//
+router.get('/project', function(req, res, next) {
+    Project.find(function(err, projects) {
+        if (err) {
+            return next(err);
+        }
+        res.json(projects);
+    });
+});
+
 //router.get('/reports', function(req, res, next) {
 //    Report.find(function(err, reports) {
 //        if (err) {
