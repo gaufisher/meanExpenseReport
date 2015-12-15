@@ -5,14 +5,14 @@
         <input type="text" class="form-control" ng-model="expenseReport.name" id="inputExpenseReportName" placeholder="Name">
     </div>
 
-    <div class="form-group" ng-repeat="line in expenseReport.lineItems">
-        <label>{{line.type.name}}</label>
+    <div class="form-group" ng-repeat="line in expenseReport.items">
+        <label>{{line.type}}</label>
         <input type="text" class="form-control" ng-model="line.datMoney" ui-money-mask placeholder="Value Amount Here">
     </div>
 
     <div class="form-group" >
         <label for="drpdwnvalue">Add Line Item</label>
-        <select class="form-control" id="drpdwnvalue" ng-change="addItem()" ng-model="dropdownvalue" ng-options="type.name for type in LineItemTypes track by type.id">
+        <select class="form-control" id="drpdwnvalue" ng-change="addItem()" ng-model="dropdownvalue" ng-options="type.name for type in LineItemTypes">
             <option></option>
         </select>
     </div>

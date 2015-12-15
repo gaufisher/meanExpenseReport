@@ -8,7 +8,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             }
         );
 
-        $scope.expenseReport.lineItems = [];
+        $scope.expenseReport.items = [];
 
         $scope.save = function() {
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
@@ -22,16 +22,19 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         }
 
-        var nameArray = [];
+
         $scope.addItem = function() {
             var item = {};
-            name = $scope.dropdownvalue.name;
-            item.type = $scope.dropdownvalue;
+            item.type = $scope.dropdownvalue.name;
             $scope.showButton = true;
-            var arr = $scope.expenseReport.lineItems;
-            if(nameArray.indexOf(name) == -1){
-                arr.push(item);
-                nameArray.push(name)
+            var arr = $scope.expenseReport.items;
+            arr.push(item);
+            for (var i = 0; i < $scope.LineItemTypes.length; i++){
+                if($scope.LineItemTypes[i].name === item.type){
+                    $scope.dropdownvalue = {name:''};
+                    $scope.LineItemTypes.splice(i,1);
+                    break;
+                }
             }
         }
 
