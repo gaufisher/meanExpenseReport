@@ -14,6 +14,17 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* Post a project to database*/
+router.post('/projects', function(req, res, next) {
+  var project = new Project(req.body);
+
+  project.save(function(err, project){
+    if(err){ return next(err); }
+
+    res.json(project);
+  });
+});
+
 ////Test routes to get data from db
 //router.get('/users', function(req, res, next) {
 //    User.find(function(err, users) {
