@@ -1,0 +1,25 @@
+
+<div>
+    <div class="form-group">
+        <label for="inputExpenseReportName">Name</label>
+        <input type="text" class="form-control" ng-model="expenseReport.name" id="inputExpenseReportName" placeholder="Name">
+    </div>
+
+    <div class="form-group" ng-repeat="line in expenseReport.lineItems">
+        <label>{{line.type.name}}</label>
+        <input type="text" class="form-control" ng-model="line.datMoney" ui-money-mask placeholder="Value Amount Here">
+    </div>
+
+    <div class="form-group" >
+        <label for="drpdwnvalue">Add Line Item</label>
+        <select class="form-control" id="drpdwnvalue" ng-change="addItem()" ng-model="dropdownvalue" ng-options="type.name for type in LineItemTypes track by type.id">
+            <option></option>
+        </select>
+    </div>
+
+    <div ui-view="projectSelect"></div>
+
+    <div>
+        <button data-ng-show="showButton" type="submit" ng-click="save()" class="btn btn-default">Save</button>
+    </div>
+</div>

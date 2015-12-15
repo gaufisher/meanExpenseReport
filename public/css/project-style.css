@@ -1,0 +1,144 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+
+div.projectBody {
+    position: relative;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: black;
+    font-weight: 300;
+    text-align: center;
+}
+
+div.projectBody ::-webkit-input-placeholder {
+    /* WebKit browsers */
+    font-family: 'Source Sans Pro', sans-serif;
+    color: cadetblue;
+    font-weight: 300;
+}
+
+div.projectBody :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    font-family: 'Source Sans Pro', sans-serif;
+    color: cadetblue;
+    opacity: 1;
+    font-weight: 300;
+}
+
+div.projectBody ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    font-family: 'Source Sans Pro', sans-serif;
+    color: cadetblue;
+    opacity: 1;
+    font-weight: 300;
+}
+
+div.projectBody :-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    font-family: 'Source Sans Pro', sans-serif;
+    color: cadetblue;
+    font-weight: 300;
+}
+
+.projectWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+.projectWrapper.form-success .productContainer h1.projectHeader {
+    -webkit-transform: translateY(85px);
+    -ms-transform: translateY(85px);
+    transform: translateY(85px);
+}
+.projectContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 80px 0;
+    height: 400px;
+    text-align: center;
+}
+.projectContainer h1.projectHeader {
+    font-size: 40px;
+    -webkit-transition-duration: 1s;
+    transition-duration: 1s;
+    -webkit-transition-timing-function: ease-in-put;
+    transition-timing-function: ease-in-put;
+    font-weight: 200;
+}
+.projectForm {
+    padding: 20px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.projectInput {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    border: 1px solid grey;
+    background-color: lightgrey;
+    width: 250px;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    -webkit-transition-duration: 0.25s;
+    transition-duration: 0.25s;
+    font-weight: 300;
+}
+
+.projectInput:hover {
+    background-color: grey;
+    color: lightgrey;
+}
+
+.projectInput:focus {
+    background-color: whitesmoke;
+    width: 300px;
+    color: black;
+}
+
+.projectButton {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    background-color: lightgrey;
+    border: 0;
+    padding: 10px 15px;
+    color: black;
+    border-radius: 3px;
+    width: 250px;
+    cursor: hand;
+    font-size: 18px;
+    -webkit-transition-duration: 0.25s;
+    transition-duration: 0.25s;
+}
+.projectButton:hover {
+    background-color: grey;
+}
+
+.projectSelect select {
+    background: transparent;
+    width: 268px;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1;
+    border: 0;
+    border-radius: 0;
+    height: 34px;
+    -webkit-appearance: none;
+}
+
+.projectSelect {
+    width: 240px;
+    height: 34px;
+    overflow: hidden;
+    background: url(new_arrow.png) no-repeat right #ddd;
+    border: 1px solid #ccc;
+}

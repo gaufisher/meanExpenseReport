@@ -1,0 +1,16 @@
+<div>
+    <h2>Expense Reports</h2>
+    <h4 ng-hide="reports.length >  0" style="text-align:center;" >No Reports to show</h4>
+    <table ng-show="reports.length >  0" class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="report in reports">
+                <td>{{report.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

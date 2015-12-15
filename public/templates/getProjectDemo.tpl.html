@@ -1,0 +1,33 @@
+
+<div ng-if="!projects">
+    <h1>Loading <i class='fa fa-cog fa-spin'></i></h1>
+</div>
+
+<div ng-if="projects !== undefined">
+
+    <!-- This page is to demo the project drop down only -->
+    <div class="projectBody">
+        <div class="projectWrapper">
+            <div class="projectContainer">
+                <div>
+                    <h5 class="projectResult">This is for demo purposes only.</h5>
+                </div>
+                <h1 class="projectHeader">Projects</h1>
+                <div class="button custom-select">
+                  <!--  <select ng-model="projectSelect" ng-change="getProject()" ng-options="project.id as project.name for project in projects | orderBy:'name'">-->
+
+                    <select ng-model="projectSelect" ng-change="getProject()" ng-options="project as project.name for project in projects | orderBy:'name' track by project.id">
+                        <option value="">Select Project</option>
+                    </select>
+                </div>
+                <div>
+                    <h5 class="projectResult">You selected project with name: {{ projectSelect ? projectSelect.name : 'No project yet' }} and id: {{projectSelect.id}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="projects === undefined">
+    No results found.
+</div>

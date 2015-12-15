@@ -1,0 +1,12 @@
+<!--<a href="" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false">Create <span class="caret"></span></a>-->
+<!--<ul class="dropdown-menu">-->
+  <!--<li ><a>Project</a></li>-->
+  <!--<li ng-repeat="p in projects"><a>{{p.name}}</a></li>-->
+<!--</ul>-->
+
+<div class="form-group" >
+  <label for="selectDropdown">Select a Project</label>
+  <select class="form-control" id="selectDropdown" ng-change="addItem()" ng-model="dropdownvalue" ng-options="p.name for p in projects">
+    <option></option>
+  </select>
+</div>
