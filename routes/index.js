@@ -14,7 +14,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-/* Test routes to get data from db
+
+// Test routes to get data from db
 router.get('/users', function(req, res, next) {
     User.find(function(err, users) {
         if (err) {
@@ -41,6 +42,15 @@ router.get('/reports', function(req, res, next) {
         res.json(reports);
     });
 });
-*/
+
+
+var mongoose = require('mongoose');
+var ExpenseReport = mongoose.model('Report');
+
+// Get all line item types
+router.get('/line-item-types', function(req, res, next) {
+    var lineItemTypes = [{value: 'Mileage'}, {value: 'Per Diem'}, {value: 'Lodging'}, {value: 'Travel'}, {value: 'Meals'}, {value: 'Entertainment'}, {value: 'Parking'}, {value: 'Other'}];
+    res.json(lineItemTypes);
+});
 
 module.exports = router;
