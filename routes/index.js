@@ -46,7 +46,6 @@ router.get('/expense-report', function(req, res, next) {
 
 router.post('/expense-report', function(req, res, next){
 	var report = new Report(req.body);
-	console.log(report);
 	report.save(function(err, report){
     if(err){ return next(err); }
 
