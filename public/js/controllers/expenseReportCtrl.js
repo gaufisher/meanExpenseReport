@@ -2,13 +2,15 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
     function($scope, $state, expenseReportFactory, LineItemTypes, userFactory){
         $scope.expenseReport = {};
         $scope.showButton = false;
-        userFactory.getCurrentUser().then(
+        /*userFactory.getCurrentUser().then(
             function(success) {
                 $scope.expenseReport.user = success.data;
             }
-        );
+        );*/
 
-
+		$scope.expenseReport.user = {
+							"_id": "56707a9e2c29fc36bf61955f"	
+						};
         $scope.expenseReport.items = [];
             
         $scope.persist = function(status){

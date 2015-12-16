@@ -44,6 +44,18 @@ router.get('/expense-report', function(req, res, next) {
     });
 });
 
+router.get('/expense-report/:id', function(req, res, next){
+	var idString = req.params.id.toString();
+	console.log(idString);
+	var objId = mongoose.Types.ObjectId(idString);
+	Report.find({'user': objId}, function(err, reports){
+		if (err) {
+            return next(err);
+        }
+        res.json(reports);
+	});
+});
+
 router.post('/expense-report', function(req, res, next){
 	var report = new Report(req.body);
 	report.save(function(err, report){
