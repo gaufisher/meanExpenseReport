@@ -23,16 +23,17 @@ router.get('/line-item-types', function(req, res, next) {
     res.json(lineItemTypes);
 });
 
-////Test routes to get data from db
-//router.get('/users', function(req, res, next) {
+// //Test routes to get data from db
+// router.get('/users', function(req, res, next) {
 //    User.find(function(err, users) {
 //        if (err) {
 //            return next(err);
 //        }
 //        res.json(users);
 //    });
-//});
+// });
 //
+
 router.get('/project', function(req, res, next) {
     Project.find(function(err, projects) {
         if (err) {
@@ -43,11 +44,22 @@ router.get('/project', function(req, res, next) {
 });
 
 //router.get('/reports', function(req, res, next) {
-//    Report.find(function(err, reports) {
+// router.get('/projects', function(req, res, next) {
+//    Project.find(function(err, projects) {
 //        if (err) {
 //            return next(err);
 //        }
-//        res.json(reports);
+//        res.json(projects);
+//    });
+// });
+//
+// router.post('/reports', function(req, res, next) {
+//     var aReport = new Report(req.body);
+//     aReport.save(function(err, aReport) {
+//        if (err) {
+//            return next(err);
+//        }
+//        res.json(aReport);
 //    });
 //});
 router.post('/expense-report', function (req, res, next) {

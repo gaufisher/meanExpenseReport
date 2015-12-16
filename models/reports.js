@@ -17,7 +17,15 @@ var ReportSchema = new mongoose.Schema({
 /*    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     
     Uncomment project and user when they are linked properly */
-    status: String
+    status: {
+                type: String,
+                validate: {
+                    validator: function(v) {
+                        return /saved|submitted|approved|denied/.test(v);
+                    },
+                    message: "{VALUE} is incorrect, needs to be: 'saved, submitted, approved, denied'"
+                }
+            }
 });
 
 mongoose.model('Report', ReportSchema);
