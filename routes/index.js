@@ -50,5 +50,14 @@ router.get('/project', function(req, res, next) {
 //        res.json(reports);
 //    });
 //});
+router.post('/expense-report', function (req, res, next) {
+    console.log("attempting to post");
+    var expenseReport = new Report(req.body);
+    expenseReport.save(function(err, post){
+        if(err) { return next(err); }
+        
+        res.json(post);
+    });
+});
 
 module.exports = router;

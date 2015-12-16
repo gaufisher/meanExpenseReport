@@ -9,8 +9,9 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         );
 
         $scope.expenseReport.items = [];
-
-        $scope.save = function() {
+            
+        $scope.persist = function(status){
+            $scope.expenseReport.status = status;
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
                 function(success) {
                     $state.go("viewReports", {}, {reload: true})
@@ -19,10 +20,8 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                    //console.log("working as intended");
                 }
             );
-
         }
-
-
+        
         $scope.addItem = function() {
             var item = {};
             item.type = $scope.dropdownvalue.name;
