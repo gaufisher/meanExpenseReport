@@ -7,11 +7,10 @@ app.controller('projectSelectCtrl', ['$scope','getAllProjects',
 
     if($.expenseReport === undefined)
         $.expenseReport = {};
-
     $.expenseReport.project = {};
-
     $.addItem = function(){
-      $.expenseReport.project.id = $.dropdownvalue.id;
+      $.expenseReport.project._id = $.dropdownvalue._id;
     }
+    
   }
 ]);
