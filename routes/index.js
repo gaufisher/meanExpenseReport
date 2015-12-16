@@ -14,8 +14,45 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-var mongoose = require('mongoose');
-var ExpenseReport = mongoose.model('Report');
+
+
+// Test routes to get data from db
+router.get('/users', function(req, res, next) {
+    User.find(function(err, users) {
+        if (err) {
+            return next(err);
+        }
+        res.json(users);
+    });
+});
+
+router.get('/projects', function(req, res, next) {
+    Project.find(function(err, projects) {
+        if (err) {
+            return next(err);
+        }
+        res.json(projects);
+    });
+});
+
+router.get('/expense-report', function(req, res, next) {
+    Report.find(function(err, reports) {
+        if (err) {
+            return next(err);
+        }
+        res.json(reports);
+    });
+});
+
+router.post('/expense-report', function(req, res, next){
+	var report = new Report(req.body);
+	report.save(function(err, report){
+    if(err){ return next(err); }
+
+		res.json(report);
+	});
+});
+
 
 // Get all line item types
 router.get('/line-item-types', function(req, res, next) {
@@ -43,6 +80,8 @@ router.get('/project', function(req, res, next) {
     });
 });
 
+
+
 //router.get('/reports', function(req, res, next) {
 // router.get('/projects', function(req, res, next) {
 //    Project.find(function(err, projects) {
@@ -62,6 +101,15 @@ router.get('/project', function(req, res, next) {
 //        res.json(aReport);
 //    });
 //});
+
+router.get('/expense-report', function (req, res, next) {
+    Report.find(function(err, reports) {
+        if (err) {
+            return next(err);
+        }
+        res.json(reports);
+    });
+});
 router.post('/expense-report', function (req, res, next) {
     console.log("attempting to post");
     var expenseReport = new Report(req.body);
