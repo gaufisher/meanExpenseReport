@@ -9,9 +9,8 @@ passport.use('activeDirectory', new CustomStrategy(
         var config = {  url: 'ldap://corpdc01.catalystsolves.com:389',
                 baseDN: 'dc=catalystsolves,dc=com'
                  }
-        var ad = new ActiveDirectory(config);
-        console.log("HIIIIIIIIIIIIIII")
-       ad.authenticate(req.body.username, req.body.password, function(err, auth) {
+       var ad = new ActiveDirectory(config);
+       ad.authenticate(req.body.username+"@catalystsolves.com", req.body.password, function(err, auth) {
          if (err) {
                  console.log('ERROR: '+JSON.stringify(err));
                      
@@ -47,5 +46,7 @@ router.post('/', function(req, res, next) {
     
        
 });
-
+router.get('/current',function(req,res,next){
+    console.log(req.user)
+})
 module.exports = router;
