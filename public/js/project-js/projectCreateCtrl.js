@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', 'projectFactory', 'userFactory', function($scope, projectFactory, userFactory) {
+angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state', 'projectFactory', 'userFactory', function($scope, $state, projectFactory, userFactory) {
     $scope.newProject = {};
     userFactory.getCurrentUser().then(
         function(success) {
@@ -37,6 +37,10 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', 'projec
         $scope.showButton = false;
         $scope.result = "Project " + $scope.projectName + " saved.";
         $scope.projectName = "";
+    }
+
+    $scope.cancel = function() {
+        $state.go("viewReports", {}, {reload: true});
     }
 
 }]);
