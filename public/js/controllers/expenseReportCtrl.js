@@ -36,6 +36,10 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 }
             }
         }
+        
+        $scope.cancel = function() {
+            $state.go("viewReports", {}, {reload: true});   
+        }
 
         $scope.LineItemTypes = LineItemTypes.data;
 
