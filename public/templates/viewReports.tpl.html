@@ -1,16 +1,54 @@
 <div>
     <h2>Expense Reports</h2>
     <h4 ng-hide="reports.length >  0" style="text-align:center;" >No Reports to show</h4>
-    <table ng-show="reports.length >  0" class="table table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr data-ng-repeat="report in reports">
-                <td>{{report.name}}</td>
-            </tr>
-        </tbody>
-    </table>
+	<div ng-show="reports.length > 0">
+		<table ng-show="reports.length >  0" class="table table-hover">
+			<thead>
+				<tr>
+					<th>Saved</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="report in reports | filter:{ status: 'saved'}">
+					<td>{{report.name}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table ng-show="reports.length >  0" class="table table-hover">
+			<thead>
+				<tr>
+					<th>Submitted</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="report in reports | filter:{ status: 'submitted'}">
+					<td>{{report.name}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table ng-show="reports.length >  0" class="table table-hover">
+			<thead>
+				<tr>
+					<th>Approved</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="report in reports | filter:{ status: 'approved'}">
+					<td>{{report.name}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table ng-show="reports.length >  0" class="table table-hover">
+			<thead>
+				<tr>
+					<th>Rejected</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="report in reports | filter:{ status: 'denied'}">
+					<td>{{report.name}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
