@@ -9,7 +9,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var passport = require('passport');
-var app = express();
+var app = module.exports = express();
 var session = require("express-session")
 
 //define mongoose stuff
@@ -38,8 +38,8 @@ app.use(session({
         resave: true,
         saveUninitialized: false
 }))
-  app.use(passport.initialize());
-    app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/user', users);
