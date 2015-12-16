@@ -10,10 +10,9 @@ var Report = mongoose.model('Report');
 
 //router.use("/js")express.static(__dirname + "../p")
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send('index');
-});
-
+router.get('/',function(req,res,next){
+    res.render('index');
+})
 
 
 // Test routes to get data from db

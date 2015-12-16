@@ -16,8 +16,7 @@ passport.use('activeDirectory', new CustomStrategy(
 
        ad.authenticate(req.body.username+"@catalystsolves.com", req.body.password, function(err, auth) {
 	if (err) {
-        	console.log('ERROR: '+JSON.stringify(err));
-                     
+        	console.log('ERROR: '+JSON.stringify(err)); 
                 callback(err, null);
                  }
 
@@ -53,8 +52,14 @@ router.get('/',function(req,res,next){
 });
 
 router.post('/', function(req, res, next) {
-   passport.authenticate('activeDirectory',{ successRedirect: '/',
-                                             failureRedirect: '/login' })
+
+   passport.authenticate('activeDirectory',function(err){
+    if(err){
+        res.redirect('/login?error');
+            }
+    else
+        res.redirect('/');
+   })
   (req,res,next)
     
        
