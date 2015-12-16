@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>QuickrBooks</title>
+        <link rel="icon" type="image/png" href="images/quickrbooks-favicon.png" sizes="32x32" />
+        <!-- dependencies -->
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.6/angular-strap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.6/angular-strap.tpl.min.js"></script>
+        <script src='lib/js/angular-input-masks-standalone.min.js'></script>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/getProjectDemo-style.css" />
+        <link rel="stylesheet" type="text/css" href="css/project-style.css" />
+
+        <!-- scripts -->
+        <script src="js/angularApp.js"></script>
+        <script src="js/controllers/expenseReportCtrl.js"></script>
+        <script src="js/factory/expenseReportFactory.js"></script>
+        <script src="js/routes.js"></script>
+        <script src="js/project-js/projectCreateCtrl.js"></script>
+        <script src="js/project-js/projectGetCtrl.js"></script>
+        <script src="js/factory/projectFactory.js"></script>
+        <script src="js/factory/userFactory.js"></script>
+        <script src="js/project-js/projectEnterKeyDirective.js"></script>
+        <script src="js/controllers/projectSelectCtrl.js"></script>
+        <script src="js/controllers/viewReportsCtrl.js"></script>
+        <script src="js/controllers/userCtrl.js"></script>
+
+
+        <meta charset="UTF-8">
+    </head>
+    <body ng-app="QuickrBooks">
+    <nav class="navbar navbar-default navbar-static-top" ng-controller="userCtrl">
+        <div class="container-fluid" ng-init="setUsername()">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="viewReports"><img class="logo" alt="Brand" src="images/outhreeit-quickrbooks.png"></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false">Create <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li ui-sref="createProject"><a>Project</a></li>
+                            <li ui-sref="expenseReport"><a>Expense Report</a></li>
+                        </ul>
+                    </li>
+                    <li><a><br></a></li>
+                    <!--<li><a href="">Link</a></li>-->
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li> <!--class="dropdown"-->
+                        <a> <!--href="#" id="account-dropdown" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false"--><!--<img class="user-icon" src="images/user.png">--> {{userName}} <!--<span class="caret"></span>--></a>
+                        <!--<ul class="dropdown-menu">
+                           <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Account Settings</a></li>
+                        </ul>-->
+                    </li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        <ui-view></ui-view>
+    </div>
+    </body>
+</html>

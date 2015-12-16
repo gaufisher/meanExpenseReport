@@ -1,0 +1,51 @@
+
+<html>
+    <head>
+        <title>Login</title>
+        <link rel="icon" type="image/png" href="images/quickrbooks-favicon.png" sizes="32x32" />
+        <!-- dependencies -->
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/getProjectDemo-style.css" />
+        <link rel="stylesheet" type="text/css" href="css/project-style.css" />
+
+        <script src="lib/js/login.js"></script>
+    </head>
+<body id="loginPage">
+	<nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="home"><img class="logo" alt="Brand" src="images/outhreeit-quickrbooks.png"></a>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+	<div tiles:fragment="content">
+		<form name="f"  method="post">
+			<fieldset>
+				<h3>Please Login</h3>
+				<div id="invalidLoginError" class="alert alert-error error">
+
+				</div>
+				<label for="username">Username</label>
+				<input type="text" id="username" name="username"/>
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password"/>
+
+				<div id="loginButton" class="form-actions">
+					<button type="submit" class="btn">Log In</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</body>
+
+</html>
