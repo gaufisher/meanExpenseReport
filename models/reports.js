@@ -13,6 +13,7 @@ var ReportSchema = new mongoose.Schema({
             value: {type: Currency}
         }
     ],
+
     project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     

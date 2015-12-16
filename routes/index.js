@@ -113,6 +113,15 @@ router.get('/project', function(req, res, next) {
 //        res.json(aReport);
 //    });
 //});
+
+router.get('/expense-report', function (req, res, next) {
+    Report.find(function(err, reports) {
+        if (err) {
+            return next(err);
+        }
+        res.json(reports);
+    });
+});
 router.post('/expense-report', function (req, res, next) {
     console.log("attempting to post");
     var expenseReport = new Report(req.body);

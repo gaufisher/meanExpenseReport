@@ -13,7 +13,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 						};
         $scope.expenseReport.items = [];
             
-        $scope.persist = function(status){
+        var persist = function(status){
             $scope.expenseReport.status = status;
 			for(var i = 0; i < $scope.expenseReport.items.length; i++)
 			{
@@ -23,7 +23,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 				}
 				var datMoney = $scope.expenseReport.items[i].value.toString();
 				$scope.expenseReport.items[i].value = datMoney;
-				
+
 			}
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
                 function(success) {
@@ -35,6 +35,21 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             );
         }
         
+        $scope.save = function(){
+            console.log($scope.expenseReport.project);
+            if(Object.keys($scope.expenseReport.project).length == 0){
+            delete $scope.expenseReport.project;
+            }
+            console.log($scope.expenseReport);
+            persist("saved");
+        }
+
+        $scope.submit = function(){
+            if($scope.expenseReport.project != null) {
+                persist("submitted");
+            }
+        }
+
         $scope.addItem = function() {
             var item = {};
             item.type = $scope.dropdownvalue.name;
@@ -48,6 +63,10 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                     break;
                 }
             }
+        }
+        
+        $scope.cancel = function() {
+            $state.go("viewReports", {}, {reload: true});   
         }
 
         $scope.LineItemTypes = LineItemTypes.data;
