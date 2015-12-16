@@ -8,10 +8,21 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             }
         );
 
+
         $scope.expenseReport.items = [];
             
         $scope.persist = function(status){
             $scope.expenseReport.status = status;
+			for(var i = 0; i < $scope.expenseReport.items.length; i++)
+			{
+				if($scope.expenseReport.items[i].value == null)
+				{
+					$scope.expenseReport.items[i].value = 0.00;
+				}
+				var datMoney = $scope.expenseReport.items[i].value.toString();
+				$scope.expenseReport.items[i].value = datMoney;
+				
+			}
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
                 function(success) {
                     $state.go("viewReports", {}, {reload: true})
@@ -39,8 +50,8 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.LineItemTypes = LineItemTypes.data;
 
-        $scope.validateDatMoney = function(datMoney) {
+        //$scope.validateDatMoney = function(datMoney) {
             //console.log(datMoney);
-        }
+        //}
     }
 ]);

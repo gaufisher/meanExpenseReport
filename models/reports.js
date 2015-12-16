@@ -10,7 +10,7 @@ var ReportSchema = new mongoose.Schema({
     items: [
         {
             type: {type: String},
-            value: {type: Currency, min: 0}
+            value: {type: Currency}
         }
     ],
     project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
