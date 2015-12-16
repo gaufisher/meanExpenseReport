@@ -118,6 +118,8 @@ div.projectBody :-ms-input-placeholder {
     font-size: 18px;
     -webkit-transition-duration: 0.25s;
     transition-duration: 0.25s;
+    display: block;
+    margin: 5px auto;
 }
 .projectButton:hover {
     background-color: grey;

@@ -12,6 +12,13 @@ var passport = require('passport');
 var app = express();
 var session = require("express-session")
 
+//define mongoose stuff
+var mongoose = require('mongoose');
+require('./models/users');
+require('./models/reports');
+require('./models/projects');
+mongoose.connect('mongodb://localhost/quickrbooks');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
