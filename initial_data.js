@@ -24,26 +24,26 @@ db.projects.save(
 );
 
 db.reports.save(
-    { "_id" : ObjectId("567080c1198a856138841a31"), "name" : "KCLS report", "items" : [ { "type" : "milage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707a9e2c29fc36bf61955d") }
+    { "_id" : ObjectId("567080c1198a856138841a31"), "name" : "KCLS report", "items" : [ { "type" : "mileage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707a9e2c29fc36bf61955d") }
 
 );
 db.reports.save(
-    { "_id" : ObjectId("567080c1198a856138841a32"), "name" : "KCLS report", "items" : [ { "type" : "milage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707a9e2c29fc36bf61955e") }
+    { "_id" : ObjectId("567080c1198a856138841a32"), "name" : "KCLS report", "items" : [ { "type" : "mileage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707a9e2c29fc36bf61955e") }
 
 );
 db.reports.save(
-    { "_id" : ObjectId("567080c1198a856138841a33"), "name" : "KCLS report", "items" : [ { "type" : "milage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707a9e2c29fc36bf61955f") }
+    { "_id" : ObjectId("567080c1198a856138841a33"), "name" : "KCLS report", "items" : [ { "type" : "mileage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707a9e2c29fc36bf61955f") }
 
 );
 db.reports.save(
-    { "_id" : ObjectId("567080c1198a856138841a34"), "name" : "KCLS report", "items" : [ { "type" : "milage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707a9e2c29fc36bf619560") }
+    { "_id" : ObjectId("567080c1198a856138841a34"), "name" : "KCLS report", "items" : [ { "type" : "mileage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707a9e2c29fc36bf619560") }
 
 );
 db.reports.save(
-    { "_id" : ObjectId("567080c1198a856138841a35"), "name" : "KCLS report", "items" : [ { "type" : "milage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707a9e2c29fc36bf619561") }
+    { "_id" : ObjectId("567080c1198a856138841a35"), "name" : "KCLS report", "items" : [ { "type" : "mileage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707a9e2c29fc36bf619561") }
 
 );
 db.reports.save(
-    { "_id" : ObjectId("567080c3198a856138841a36"), "name" : "KCLS report", "items" : [ { "type" : "milage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707aa12c29fc36bf619562") }
+    { "_id" : ObjectId("567080c3198a856138841a36"), "name" : "KCLS report", "items" : [ { "type" : "mileage", "value" : "20.00" } ], "project" : ObjectId("56707f04b33a9abdcbb597e9"), "user" : ObjectId("56707aa12c29fc36bf619562") }
 
 );

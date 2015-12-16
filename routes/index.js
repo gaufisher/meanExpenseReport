@@ -35,13 +35,22 @@ router.get('/projects', function(req, res, next) {
     });
 });
 
-router.get('/reports', function(req, res, next) {
+router.get('/expense-report', function(req, res, next) {
     Report.find(function(err, reports) {
         if (err) {
             return next(err);
         }
         res.json(reports);
     });
+});
+
+router.post('/expense-report', function(req, res, next){
+	var report = new Post(req.body);
+	post.save(function(err, post){
+    if(err){ return next(err); }
+
+		res.json(post);
+	});
 });
 
 
@@ -69,6 +78,8 @@ router.get('/project', function(req, res, next) {
         res.json(projects);
     });
 });
+
+
 
 //router.get('/reports', function(req, res, next) {
 //    Report.find(function(err, reports) {
