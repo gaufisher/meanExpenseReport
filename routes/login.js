@@ -1,31 +1,51 @@
 var router = require('express').Router();
 var path = require('path');
-var LdapStrategy = require('passport-ldapauth').Strategy;
+var ActiveDirectory = require('activedirectory');
 var passport = require('passport');
 var app = require('../app');
-var options = {server :{
-        url: 'ldap://corpdc01.catalystsolves.com:389',
-        bindDn: "{{username}}",
-        bindCredentials: "{{password}}",
-        searchBase: 'dc=catalystsolves,dc=com',
-        searchFilter: '(|(sAMAccountName={{username}})(uid={{username}}))'
-        }};
+var CustomStrategy = require('passport-custom')
+passport.use('activeDirectory', new CustomStrategy(
+    function(req, callback) {
+        var config = {  url: 'ldap://corpdc01.catalystsolves.com:389',
+                baseDN: 'dc=catalystsolves,dc=com'
+                 }
+        var ad = new ActiveDirectory(config);
+        console.log("HIIIIIIIIIIIIIII")
+       ad.authenticate(req.body.username, req.body.password, function(err, auth) {
+         if (err) {
+                 console.log('ERROR: '+JSON.stringify(err));
+                     
+                callback(err, null);
+                       }
 
-passport.use(new LdapStrategy(options));
+           if (auth) {
+                   console.log('Authenticated!');
+                   callback(null,req.body.username);                     }
+             else {
+                     console.log('Authentication failed!');
+                       }
+   });
+    
+    }
+));
+passport.serializeUser(function(user, done) {
+      done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+      done(null, user);
+});
+
 
 router.get('/',function(req,res,next){
     res.sendFile(path.normalize(__dirname + '/../public/login.html'));
 });
 
 router.post('/', function(req, res, next) {
-    passport.authenticate('ldapauth' ,{ session: false }, function (err, user, info) {
-        var error = err || info;
-        console.log(user)
-        if (error) return res.json(401, error);
-        if (!user) return res.json(404, {message: 'Something went wrong, please try again.'});
-       // var token = auth.signToken(user._id, user.role);
-       // res.json({token: token});
-    })(req, res, next)
+   passport.authenticate('activeDirectory',{ successRedirect: '/',
+                                             failureRedirect: '/login' })(req,res,next)
+    
+       
 });
 
 module.exports = router;
