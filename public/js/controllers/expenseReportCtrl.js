@@ -10,7 +10,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.expenseReport.items = [];
             
-        $scope.persist = function(status){
+        var persist = function(status){
             $scope.expenseReport.status = status;
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
                 function(success) {
@@ -20,6 +20,21 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                    //console.log("working as intended");
                 }
             );
+        }
+        
+        $scope.save = function(){
+            console.log($scope.expenseReport.project);
+            if(Object.keys($scope.expenseReport.project).length == 0){
+            delete $scope.expenseReport.project;
+            }
+            console.log($scope.expenseReport);
+            persist("saved");
+        }
+        
+        $scope.submit = function(){
+            if($scope.expenseReport.project != null) {
+                persist("submitted");   
+            }
         }
         
         $scope.addItem = function() {
