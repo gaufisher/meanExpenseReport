@@ -41,13 +41,13 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             console.log($scope.expenseReport);
             persist("saved");
         }
-        
+
         $scope.submit = function(){
             if($scope.expenseReport.project != null) {
-                persist("submitted");   
+                persist("submitted");
             }
         }
-        
+
         $scope.addItem = function() {
             var item = {};
             item.type = $scope.dropdownvalue.name;
@@ -61,6 +61,10 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                     break;
                 }
             }
+        }
+        
+        $scope.cancel = function() {
+            $state.go("viewReports", {}, {reload: true});   
         }
 
         $scope.LineItemTypes = LineItemTypes.data;

@@ -38,7 +38,7 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state
         $scope.result = "Project " + $scope.projectName + " saved.";
         $scope.projectName = "";
     }
-    
+
     $scope.cancel = function() {
         $state.go("viewReports", {}, {reload: true});
     }
