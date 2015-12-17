@@ -6,7 +6,7 @@
 app.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider){
 
-        $urlRouterProvider.otherwise('home');
+        $urlRouterProvider.otherwise('/viewReports');
 
         $stateProvider.state('viewReports', {
             url: '/',
@@ -47,8 +47,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
               url: '/createProject',
               templateUrl: '../templates/project.tpl.html',
               controller: 'projectCreateCtrl'
-        }).state('home', {
-            url: '/'
         });
 
     }]);

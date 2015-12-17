@@ -7,14 +7,16 @@
   },
   "dependencies": {
     "angular": "^1.4.8",
+    "activedirectory": "^0.7.1",
     "body-parser": "^1.13.3",
+    "connect-ensure-login": "^0.1.1",
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "express-session": "^1.12.1",
-    "ldapjs": "git://github.com/mcavage/node-ldapjs.git",
     "kerberos": "0.0.17",
+    "ldapjs": "git://github.com/mcavage/node-ldapjs.git",
     "mongodb": "^2.0.52",
     "mongoose": "^4.3.1",
     "mongoose-currency": "^0.2.0",
@@ -28,7 +30,6 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "passport": "^0.3.2",
     "passport-custom": "^1.0.5",
-    "serve-favicon": "~2.3.0",
-    "activedirectory":"^0.7.1"
+    "serve-favicon": "~2.3.0"
   }
 }
