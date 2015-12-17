@@ -10,11 +10,22 @@ var ReportSchema = new mongoose.Schema({
     items: [
         {
             type: {type: String},
-            value: {type: Currency, min: 0}
+            value: {type: Currency}
         }
     ],
-    project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
-    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+    project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: false},
+/*    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    
+    Uncomment project and user when they are linked properly */
+    status: {
+                type: String,
+                validate: {
+                    validator: function(v) {
+                        return /saved|submitted|approved|denied/.test(v);
+                    },
+                    message: "{VALUE} is incorrect, needs to be: 'saved, submitted, approved, denied'"
+                }
+            }
 });
 
 mongoose.model('Report', ReportSchema);
