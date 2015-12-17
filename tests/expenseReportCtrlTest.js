@@ -1,4 +1,4 @@
-/*describe('ExpenseReportController', function(){
+describe('ExpenseReportController', function(){
     beforeEach(module('QuickrBooks'));
 
     //this loads a controlller
@@ -6,6 +6,17 @@
         $controller = _$controller_;
       }));
 
+/*    describe('$scope.save', function () {
+        it ('creates a project with the given scope name', function (){
+            var $scope = {};
+            var lit = {};
+            var controller = $controller ('expenseReportCtrl', { $scope: $scope LineItemTypes:lit });
+            $scope.projectName =  "My Project";
+            $scope.save();
+            expect ($scope.newProject.name).toEqual ("My Project");
+        });
+    });
+*/
 
     it('creates a expenseReport object on the scope', function(){
         var scope = {};
@@ -29,4 +40,4 @@
         var controller = $controller('expenseReportCtrl', { $scope: scope,  LineItemTypes:lit});
 
     });
-});*/
+});
