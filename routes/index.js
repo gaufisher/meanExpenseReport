@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var path = require('path')
 require('../models/users');
 var User = mongoose.model('User');
 require('../models/projects');
@@ -10,9 +11,21 @@ var Report = mongoose.model('Report');
 
 //router.use("/js")express.static(__dirname + "../p")
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+
+function checkAuth(req,res,next){
+  console.log(req.user)
+   if(!req.user){
+     if(req.xhr)res.send({message:"no can do!"})
+     else res.redirect('/')
+ }
+ else next()
+}
+router.all('/*',checkAuth)
+
+router.get('/',function(req,res,next){
+   res.render('index');
+})
+
 
 /* Post a project to database*/
 router.post('/projects', function(req, res, next) {
@@ -29,7 +42,7 @@ router.post('/projects', function(req, res, next) {
 });
 
 // Test routes to get data from db
-router.get('/users', function(req, res, next) {
+router.get('/users',function(req, res, next) {
     User.find(function(err, users) {
         if (err) {
             return next(err);
@@ -38,7 +51,7 @@ router.get('/users', function(req, res, next) {
     });
 });
 
-router.get('/projects', function(req, res, next) {
+router.get('/projects', checkAuth,function(req, res, next) {
     Project.find(function(err, projects) {
         if (err) {
             return next(err);
@@ -48,12 +61,18 @@ router.get('/projects', function(req, res, next) {
 });
 
 router.get('/expense-report', function(req, res, next) {
-    Report.find(function(err, reports) {
+    User.findOne({"name" : req.user}, "_id", function(err, id) {
         if (err) {
             return next(err);
         }
-        res.json(reports);
+        Report.find({"user" : id}, function(err, reports) {
+            if (err) {
+                return next(err);
+            }
+            res.json(reports);
+        });
     });
+
 });
 
 router.post('/expense-report', function(req, res, next){
@@ -103,6 +122,7 @@ router.get('/expense-report', function (req, res, next) {
 router.post('/expense-report', function (req, res, next) {
     console.log("attempting to post");
     var expenseReport = new Report(req.body);
+
     expenseReport.save(function(err, post){
         if(err) { return next(err); }
 

@@ -16,7 +16,7 @@ passport.use('activeDirectory', new CustomStrategy(
 
        ad.authenticate(req.body.username+"@catalystsolves.com", req.body.password, function(err, auth) {
 	if (err) {
-        	console.log('ERROR: '+JSON.stringify(err)); 
+        	console.log('ERROR: '+JSON.stringify(err));
                 callback(err, null);
                  }
 
@@ -34,7 +34,7 @@ passport.use('activeDirectory', new CustomStrategy(
                 callback(null,req.body.username);}
        	else
                 console.log('Authentication failed!');
-             
+
    });
     }
 ));
@@ -48,24 +48,27 @@ passport.deserializeUser(function(user, done) {
 
 
 router.get('/',function(req,res,next){
+		if (req.user) {
+        res.redirect('/app');
+    }
     res.sendFile(path.normalize(__dirname + '/../public/login.html'));
 });
 
 router.post('/', function(req, res, next) {
-
    passport.authenticate('activeDirectory',function(err,user,info){
-     if (err) { return res.redirect('/login?error'); }
-    if (!user) { return res.redirect('/login?error'); }
+     if (err) { return res.redirect('/?error'); }
+    if (!user) { return res.redirect('/?error'); }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      return res.redirect('/');
+      return res.redirect('/app');
     });
    })
   (req,res,next)
-    
-       
+
+
 });
-router.get('/current',function(req,res,next){
-    console.log(req.user)
+router.get('/logout',function(req,res,next){
+    req.logout();
+    res.redirect('/');
 });
 module.exports = router;
