@@ -54,7 +54,7 @@ router.get('/',function(req,res,next){
 router.post('/', function(req, res, next) {
 
    passport.authenticate('activeDirectory',function(err,user,info){
-     if (err) { return next(err); }
+     if (err) { return res.redirect('/login?error'); }
     if (!user) { return res.redirect('/login?error'); }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
