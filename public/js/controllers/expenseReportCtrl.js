@@ -63,6 +63,14 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             }
         }
         
+        $scope.delete = function(index) {
+            var lineItem = {};
+            lineItem.name = $scope.expenseReport.items[index].type;
+            $scope.LineItemTypes.push(lineItem);
+            //To Do: remove the line item when I press delete
+            $scope.expenseReport.items.splice(index,1);
+        }
+        
         $scope.cancel = function() {
             $state.go("viewReports", {}, {reload: true});   
         }
