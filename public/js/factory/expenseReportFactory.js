@@ -3,19 +3,26 @@
  */
 app.factory('expenseReportFactory', ['$http',
     function($http) {
+        var id;
+        function getId() {
+            return id;
+        }
+        function setId(id) {
+            this.id = id;
+        }
         return {
             createExpenseReport: function(data){
                 console.log(data);
-                return $http.post('/expense-report', data);
+                return $http.post('/app/expense-report', data);
             },
             getDatExpenseReport: function(){
-                return $http.get('/expense-report');
+                return $http.get('/app/expense-report');
             },
             getAllListItems: function(){
-                return $http.get('/line-item-types');
+                return $http.get('/app/line-item-types');
             },
             getAllExpenseReports: function(id) {
-                return $http.get("/expense-report");
+                return $http.get("/app/expense-report");
             }
         };
     }
