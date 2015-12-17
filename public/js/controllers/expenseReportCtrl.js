@@ -1,9 +1,11 @@
-app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'LineItemTypes', 'userFactory',
-    function($scope, $state, expenseReportFactory, LineItemTypes, userFactory){
+app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'LineItemTypes', 'userFactory', 'sharedProperties',
+    function($scope, $state, expenseReportFactory, LineItemTypes, userFactory, sharedProperties){
         $scope.expenseReport = {};
 		
-		$scope.setExpenseReport = function(report){
-			$scope.expenseReport = report;
+		
+	
+		$scope.setExpenseReport = function(){
+			$scope.expenseReport = sharedProperties.getExpenseReport();
 		};
         $scope.showButton = false;
         /*userFactory.getCurrentUser().then(
@@ -18,6 +20,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         $scope.expenseReport.items = [];
             
         var persist = function(status){
+			sharedProperties.setExpenseReport({items:[]});
             $scope.expenseReport.status = status;
 			for(var i = 0; i < $scope.expenseReport.items.length; i++)
 			{
@@ -70,6 +73,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         }
         
         $scope.cancel = function() {
+			sharedProperties.setExpenseReport({items:[]});
             $state.go("viewReports", {}, {reload: true});   
         }
 

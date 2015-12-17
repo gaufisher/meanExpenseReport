@@ -1,6 +1,6 @@
 
-app.controller('userCtrl', ['$scope', 'userFactory', 
-   function($scope, userFactory){
+app.controller('userCtrl', ['$scope', 'userFactory', 'sharedProperties',
+   function($scope, userFactory, sharedProperties){
 	    $scope.user = {};
 		
 		$scope.setUsername = function(){
