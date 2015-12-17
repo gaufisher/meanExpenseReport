@@ -1,4 +1,4 @@
-describe('ExpenseReportController', function(){
+/*describe('ExpenseReportController', function(){
     beforeEach(module('QuickrBooks'));
 
     //this loads a controlller
@@ -29,4 +29,4 @@ describe('ExpenseReportController', function(){
         var controller = $controller('expenseReportCtrl', { $scope: scope,  LineItemTypes:lit});
 
     });
-});
+});*/
