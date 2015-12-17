@@ -9,7 +9,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.6/angular-strap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.6/angular-strap.tpl.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
         <script src='lib/js/angular-input-masks-standalone.min.js'></script>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css" />
@@ -18,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="css/project-style.css" />
 
         <!-- scripts -->
-        <script src="js/angularApp.js"></script>
+        <script src="../js/angularApp.js"></script>
         <script src="js/controllers/expenseReportCtrl.js"></script>
         <script src="js/factory/expenseReportFactory.js"></script>
         <script src="js/routes.js"></script>
@@ -30,7 +29,6 @@
         <script src="js/controllers/projectSelectCtrl.js"></script>
         <script src="js/controllers/viewReportsCtrl.js"></script>
         <script src="js/controllers/userCtrl.js"></script>
-
 
         <meta charset="UTF-8">
     </head>
@@ -58,9 +56,16 @@
                             <li ng-click="newExpenseReport()"><a>Expense Report</a></li>
                         </ul>
                     </li>
-                    <li><a><br></a></li>
                 </ul>
-
+                <ul class="nav navbar-nav theme">
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false">Theme <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li ui-sref="hayes"><a>Subdued Fall</a></li>
+                            <li onclick="alert('Subdued Fall theme added')"><a>Add Theme</a></li>
+                        </ul>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a>{{userName}}</a></li>
                     <li><a href="/logout">Logout</a></li>

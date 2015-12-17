@@ -69,7 +69,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                    //console.log("working as intended");
                 }
             );
-        }
+        };
         
         $scope.save = function(){
             console.log($scope.expenseReport.project);
@@ -78,13 +78,13 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             }
             console.log($scope.expenseReport);
             persist("saved");
-        }
+        };
 
         $scope.submit = function(){
             if($scope.expenseReport.project != null) {
                 persist("submitted");
             }
-        }
+        };
 
         $scope.addItem = function() {
             var item = {};
@@ -100,12 +100,13 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                     break;
                 }
             }
-        }
-        
+        };
+
         $scope.cancel = function() {
 			sharedProperties.setExpenseReport({items:[]});
             $state.go("viewReports", {}, {reload: true});   
-        }
+
+        ;
 
         $scope.LineItemTypes = LineItemTypes.data;
 

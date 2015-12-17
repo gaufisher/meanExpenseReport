@@ -5,5 +5,6 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
 			 sharedProperties.setExpenseReport(report);
 			 $state.go("expenseReport", {}, {reload: true});	
 		};
+
     }
 ]);
