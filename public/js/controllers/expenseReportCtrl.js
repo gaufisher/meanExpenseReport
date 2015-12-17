@@ -1,11 +1,26 @@
-app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'LineItemTypes', 'userFactory', 'sharedProperties',
-    function($scope, $state, expenseReportFactory, LineItemTypes, userFactory, sharedProperties){
+app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory', 'sharedProperties',
+    function($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, sharedProperties){
         $scope.expenseReport = {};
 		
-		
+		$scope.project = {};
 	
 		$scope.setExpenseReport = function(){
 			$scope.expenseReport = sharedProperties.getExpenseReport();
+			if($scope.expenseReport.hasOwnProperty('project')){
+				//console.log($scope.expenseReport.project);
+				projectFactory.getById($scope.expenseReport.project).then(
+					function(success){
+						sharedProperties.setProject(success.data);
+						$scope.project = success.data;
+						//console.log($scope.project);
+					}
+				);
+			}
+			/*for(var i = 0; i < $scope.expenseReport.items.length; i++)
+			{
+				$scope.dropdownvalue.name = $scope.expenseReport.items[i].type;
+				$scope.addItem();
+			}*/
 		};
         $scope.showButton = false;
         /*userFactory.getCurrentUser().then(

@@ -92,6 +92,18 @@ router.get('/project', function(req, res, next) {
     });
 });
 
+router.get('/project/:id', function(req, res, next){
+	var idString = req.params.id.toString();
+	console.log(idString);
+	var objId = mongoose.Types.ObjectId(idString);
+	Project.findById(objId, function(err, project){
+		if (err) {
+            return next(err);
+        }
+        res.json(project);
+	});
+});
+
 
 
 //router.get('/reports', function(req, res, next) {

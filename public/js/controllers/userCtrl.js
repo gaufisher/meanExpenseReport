@@ -1,6 +1,6 @@
 
-app.controller('userCtrl', ['$scope', 'userFactory', 'sharedProperties',
-   function($scope, userFactory, sharedProperties){
+app.controller('userCtrl', ['$scope', '$state', 'userFactory', 'sharedProperties',
+   function($scope, $state, userFactory, sharedProperties){
 	    $scope.user = {};
 		
 		$scope.setUsername = function(){
@@ -16,6 +16,20 @@ app.controller('userCtrl', ['$scope', 'userFactory', 'sharedProperties',
 			$scope.userObject = {
 				"_id": $scope.userId
 			};
+		};
+		
+		$scope.clearData = function(){
+			sharedProperties.setExpenseReport({items:[]});
+		};
+		
+		$scope.newProject = function(){
+			$scope.clearData();
+			$state.go("createProject", {}, {reload: true});
+		};
+		
+		$scope.newExpenseReport = function(){
+			$scope.clearData();
+			$state.go("expenseReport", {}, {reload: true});
 		};
 	}                               
 ]);
