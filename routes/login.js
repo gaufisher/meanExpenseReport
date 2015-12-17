@@ -16,7 +16,7 @@ passport.use('activeDirectory', new CustomStrategy(
 
        ad.authenticate(req.body.username+"@catalystsolves.com", req.body.password, function(err, auth) {
 	if (err) {
-        	console.log('ERROR: '+JSON.stringify(err)); 
+        	console.log('ERROR: '+JSON.stringify(err));
                 callback(err, null);
                  }
 
@@ -34,7 +34,7 @@ passport.use('activeDirectory', new CustomStrategy(
                 callback(null,req.body.username);}
        	else
                 console.log('Authentication failed!');
-             
+
    });
     }
 ));
@@ -56,16 +56,16 @@ router.get('/',function(req,res,next){
 
 router.post('/', function(req, res, next) {
    passport.authenticate('activeDirectory',function(err,user,info){
-     if (err) { return res.redirect('/login?error'); }
-    if (!user) { return res.redirect('/login?error'); }
+     if (err) { return res.redirect('/?error'); }
+    if (!user) { return res.redirect('/?error'); }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
       return res.redirect('/app');
     });
    })
   (req,res,next)
-    
-       
+
+
 });
 router.get('/current',function(req,res,next){
     console.log(req.user)
