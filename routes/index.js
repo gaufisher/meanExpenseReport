@@ -17,12 +17,15 @@ router.get('/', function(req, res, next) {
 /* Post a project to database*/
 router.post('/projects', function(req, res, next) {
   var project = new Project(req.body);
+  User.findOne({"name": req.user}, "_id", function(err, id) {
+      project.approver = id;
+      project.save(function(err, project){
+        if(err){ return next(err); }
 
-  project.save(function(err, project){
-    if(err){ return next(err); }
-
-    res.json(project);
+        res.json(project);
+      });
   });
+
 });
 
 // Test routes to get data from db

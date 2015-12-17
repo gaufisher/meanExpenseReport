@@ -1,14 +1,14 @@
 
 angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state', 'projectFactory', 'userFactory', function($scope, $state, projectFactory, userFactory) {
     $scope.newProject = {};
-    userFactory.getCurrentUser().then(
-        function(success) {
-            $scope.newProject.approver = success.data;
-        },
-        function(error) {
-           $scope.newProject.approver = null;
-        }
-    );
+    // userFactory.getCurrentUser().then(
+    //     function(success) {
+    //         $scope.newProject.approver = success.data._id;
+    //     },
+    //     function(error) {
+    //        $scope.newProject.approver = null;
+    //     }
+    // );
 
     /* Clears the project save message */
     $scope.clearResult = function () {
