@@ -18,7 +18,7 @@ function checkAuth(req,res,next){
  }
  else next()
 }
-router.all('/',checkAuth)
+router.all('/*',checkAuth)
 
 router.get('/',function(req,res,next){
    res.render('index');
