@@ -24,7 +24,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('public', path.join(__dirname,'public'));
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -36,27 +36,31 @@ app.use(session({
   //      key: 'asdasdasd', 
         cookie: { maxAge: 60000, secure: false },
         resave: true,
-        saveUninitialized: false
+        saveUninitialized: true
 }))
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', routes);
+app.use('/app',routes);
 app.use('/user', users);
-app.use('/login', login);
+app.use('/', login);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-app.all(requireLogin)
+
 function requireLogin(req, res, next){
+console.log("middleWare")
 console.log(req.user)
+console.log(req.path)
+    
     if (!req.user) {
-            req.session.prevUrl = req.body.url;
-            if(req.xhr) res.send({"err":"usrErr"});
-            else res.redirect('/login');
+        console.log("no user")
+        console.log(req.path)
+            //res.redirect('/login');
+            next()
     }
     else next();
 }
@@ -66,8 +70,8 @@ console.log(req.user)
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
+    res.status(err.status || 500)
+    .render('error', {
       message: err.message,
       error: err
     });
@@ -77,12 +81,10 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
+  res.status(err.status || 500)
+  .render('error', {
     message: err.message,
     error: {}
   });
 });
 
-
-module.exports = app;
