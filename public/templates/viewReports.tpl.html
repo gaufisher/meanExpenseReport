@@ -9,7 +9,7 @@
         </thead>
         <tbody>
             <tr data-ng-repeat="report in reports">
-                <td>{{report.name}}</td>
+                <td data-ng-click="getReport(report._id)">{{report.name}}</td>
             </tr>
         </tbody>
     </table>

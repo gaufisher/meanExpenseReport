@@ -24,6 +24,15 @@ app.config(['$stateProvider', '$urlRouterProvider',
                     );
                 }
             }
+        }).state('viewReport', {
+            url: '/report',
+            templateUrl: '../templates/viewReport.tpl.html',
+            controller: 'viewReportCtrl',
+            resolve: {
+                ExpenseReport: function(viewReportFactory) {
+                    //stuff
+                }
+            }
         }).state('project', {
             url:'/projects',
             templateUrl: '../templates/project.tpl.html',
@@ -47,6 +56,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
               url: '/createProject',
               templateUrl: '../templates/project.tpl.html',
               controller: 'projectCreateCtrl'
+        }).state('hayes', {
+            url:'/hayes',
+            templateUrl: '../templates/theme.tpl.html'
         });
 
-    }]);
+}]);

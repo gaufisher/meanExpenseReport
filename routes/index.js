@@ -11,6 +11,7 @@ var Report = mongoose.model('Report');
 
 //router.use("/js")express.static(__dirname + "../p")
 /* GET home page. */
+
 function checkAuth(req,res,next){
   console.log(req.user)
    if(!req.user){
@@ -115,6 +116,7 @@ router.get('/expense-report', function (req, res, next) {
 router.post('/expense-report', function (req, res, next) {
     console.log("attempting to post");
     var expenseReport = new Report(req.body);
+
     expenseReport.save(function(err, post){
         if(err) { return next(err); }
 

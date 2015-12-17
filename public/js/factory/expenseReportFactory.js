@@ -3,6 +3,13 @@
  */
 app.factory('expenseReportFactory', ['$http',
     function($http) {
+        var id;
+        function getId() {
+            return id;
+        }
+        function setId(id) {
+            this.id = id;
+        }
         return {
             createExpenseReport: function(data){
                 console.log(data);
