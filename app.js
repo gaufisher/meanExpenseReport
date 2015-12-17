@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
         secret: "hidden",
-  //      key: 'asdasdasd', 
+  //      key: 'asdasdasd',
         cookie: { maxAge: 60000, secure: false },
         resave: true,
         saveUninitialized: true
@@ -56,7 +56,7 @@ function requireLogin(req, res, next){
 console.log("middleWare")
 console.log(req.user)
 console.log(req.path)
-    
+
     if (!req.user) {
         console.log("no user")
         console.log(req.path)
