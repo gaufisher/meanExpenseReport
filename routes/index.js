@@ -11,23 +11,19 @@ var Report = mongoose.model('Report');
 
 //router.use("/js")express.static(__dirname + "../p")
 /* GET home page. */
-<<<<<<< HEAD
 function checkAuth(req,res,next){
-   if(!req.user){ 
+   if(!req.user){
      if(req.xhr)res.send({message:"no can do!"})
      else res.redirect('/')
  }
- else next()  
+ else next()
 }
 router.all('/',checkAuth)
 
 router.get('/',function(req,res,next){
    res.render('index');
 })
-=======
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+
 
 /* Post a project to database*/
 router.post('/projects', function(req, res, next) {
@@ -40,7 +36,6 @@ router.post('/projects', function(req, res, next) {
         res.json(project);
       });
   });
->>>>>>> 844141ff88537528f8515b98a4cef2a9dd81fcec
 
 });
 
