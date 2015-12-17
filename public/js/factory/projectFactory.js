@@ -3,17 +3,10 @@
 angular.module('QuickrBooks').factory('projectFactory', ['$http', function($http) {
     return {
         create: function(project) {
-            $http({
-                method: 'POST',
-                url: "/project",
-                data: project
-            });
+            $http.post("/projects", project);
         },
         getAll: function() {
-            return $http({
-            method: 'GET',
-            url: "/project"
-            });
+            return $http.get("/projects");
         },
         deleteById: function(id) {
             $http({
@@ -24,5 +17,6 @@ angular.module('QuickrBooks').factory('projectFactory', ['$http', function($http
 		getById: function(id){
 			return $http.get("/project/" + id);
 		}
+	
     };
 }]);
