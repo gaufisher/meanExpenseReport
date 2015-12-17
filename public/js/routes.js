@@ -23,7 +23,10 @@ app.config(['$stateProvider', '$urlRouterProvider',
                             return "Not working";
                         }
                     );*/
-                }
+                }/*,
+				SetExpenseReport: function(report, expenseReportCtrl) {
+					expenseReportCtrl.setExpenseReport(report);
+				}*/
             }
         }).state('project', {
             url:'/project',

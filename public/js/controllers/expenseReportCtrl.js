@@ -1,6 +1,10 @@
 app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'LineItemTypes', 'userFactory',
     function($scope, $state, expenseReportFactory, LineItemTypes, userFactory){
         $scope.expenseReport = {};
+		
+		$scope.setExpenseReport = function(report){
+			$scope.expenseReport = report;
+		};
         $scope.showButton = false;
         /*userFactory.getCurrentUser().then(
             function(success) {
