@@ -31,3 +31,11 @@
 #loginPage #loginButton{
 	padding-top: 2em;
 }
+
+.theme a {
+    visibility: hidden;
+}
+
+.theme:hover a {
+    visibility: visible;
+}

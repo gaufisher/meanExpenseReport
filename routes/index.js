@@ -11,7 +11,7 @@ var Report = mongoose.model('Report');
 //router.use("/js")express.static(__dirname + "../p")
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'QuickrBooks' });
 });
 
 var mongoose = require('mongoose');
@@ -65,10 +65,23 @@ router.get('/project', function(req, res, next) {
 router.post('/expense-report', function (req, res, next) {
     console.log("attempting to post");
     var expenseReport = new Report(req.body);
-    expenseReport.save(function(err, post){
-        if(err) { return next(err); }
-        
-        res.json(post);
+    expenseReport.save(function(err, report){
+        if(err) {
+            return next(err);
+        }
+
+        res.json(report);
+    });
+});
+
+router.get('/expense-report/:id', function(req, res, next) {
+    console.log(req.params.id);
+    Report.findOne({"_id": req.params.id}, function(err, report) {
+        if (err) {
+            return next(err);
+        } else {
+            res.json(report);
+        }
     });
 });
 

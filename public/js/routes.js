@@ -6,7 +6,7 @@
 app.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider){
 
-        $urlRouterProvider.otherwise('home');
+        $urlRouterProvider.otherwise('/');
 
         $stateProvider.state('viewReports', {
             url: '/',
@@ -22,6 +22,15 @@ app.config(['$stateProvider', '$urlRouterProvider',
                             return "Not working";
                         }
                     );
+                }
+            }
+        }).state('viewReport', {
+            url: '/report',
+            templateUrl: '../templates/viewReport.tpl.html',
+            controller: 'viewReportCtrl',
+            resolve: {
+                ExpenseReport: function(viewReportFactory) {
+                    //stuff
                 }
             }
         }).state('project', {
@@ -47,8 +56,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
               url: '/createProject',
               templateUrl: '../templates/project.tpl.html',
               controller: 'projectCreateCtrl'
-        }).state('home', {
-            url: '/'
+        }).state('hayes', {
+            url:'/hayes',
+            templateUrl: '../templates/theme.tpl.html'
         });
 
-    }]);
+}]);
