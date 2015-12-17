@@ -14,8 +14,8 @@ app.factory('expenseReportFactory', ['$http',
             getAllListItems: function(){
                 return $http.get('/line-item-types');
             },
-            getAllExpenseReports: function(id) {
-                return $http.get("/expense-report/" + id);
+            getAllExpenseReports: function() {
+                return $http.get("/expense-report");
             }
         };
     }
