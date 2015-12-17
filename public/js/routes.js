@@ -25,7 +25,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
                 }
             }
         }).state('project', {
-            url:'/project',
+            url:'/projects',
             templateUrl: '../templates/project.tpl.html',
             controller: 'projectCtrl'
         }).state('expenseReport', {

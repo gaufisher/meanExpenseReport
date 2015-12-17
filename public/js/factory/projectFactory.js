@@ -6,7 +6,7 @@ angular.module('QuickrBooks').factory('projectFactory', ['$http', function($http
             $http.post("/projects", project);
         },
         getAll: function() {
-            return $http.get("/project");
+            return $http.get("/projects");
         }
     };
 }]);
