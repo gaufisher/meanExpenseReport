@@ -8,8 +8,10 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
-var app = express();
+var login = require('./routes/login');
+var passport = require('passport');
+var app = module.exports = express();
+var session = require("express-session")
 
 //define mongoose stuff
 var mongoose = require('mongoose');
@@ -21,7 +23,7 @@ mongoose.connect('mongodb://localhost/quickrbooks');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.set('public', path.join(__dirname,'public'));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -30,10 +32,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+        secret: "hidden",
+  //      key: 'asdasdasd', 
+        cookie: { maxAge: 60000, secure: false },
+        resave: true,
+        saveUninitialized: false
+}))
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
-app.use('/users', users);
-
+app.use('/user', users);
+app.use('/login', login);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

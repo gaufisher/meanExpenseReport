@@ -1,9 +1,6 @@
 use quickrbooks;
 
 db.users.save(
-    { "_id" : ObjectId("56707a9e2c29fc36bf61955d"), "name" : "gstringfellow" }
-);
-db.users.save(
     { "_id" : ObjectId("56707a9e2c29fc36bf61955e"), "name" : "jjacobson" }
 );
 db.users.save(

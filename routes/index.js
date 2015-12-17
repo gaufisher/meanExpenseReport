@@ -102,7 +102,7 @@ router.post('/expense-report', function (req, res, next) {
     var expenseReport = new Report(req.body);
     expenseReport.save(function(err, post){
         if(err) { return next(err); }
-        
+
         res.json(post);
     });
 });
