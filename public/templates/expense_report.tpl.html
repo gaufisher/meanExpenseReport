@@ -14,13 +14,14 @@
 
     <div class="form-group" ng-repeat="line in expenseReport.items">
         <label>{{line.type}}</label>
-        <input type="text" class="form-control" ng-model="line.datMoney" ui-money-mask placeholder="Value Amount Here">
+        <input type="text" class="form-control" ng-model="line.value" ui-money-mask placeholder="Value Amount Here">
     </div>
 
     <div ui-view="projectSelect"></div>
 
     <div>
-        <button data-ng-show="showButton" type="submit" ng-click="persist('saved')" class="btn btn-default">Save</button>
-        <button data-ng-show="showButton" type="submit" ng-click="persist('submitted')" class="btn btn-default">Submit</button>
+        <button data-ng-show="showButton" type="submit" ng-click="save()" class="btn btn-default">Save</button>
+        <button data-ng-show="showButton" type="submit" ng-click="submit()" class="btn btn-default">Submit</button>
+        <button type="submit" ng-click="cancel()" class="btn pull-right btn-default">Cancel</button>
     </div>
 </div>

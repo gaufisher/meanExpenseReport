@@ -34,7 +34,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
                 }
             }
         }).state('project', {
-            url:'/project',
+            url:'/projects',
             templateUrl: '../templates/project.tpl.html',
             controller: 'projectCtrl'
         }).state('expenseReport', {
@@ -56,9 +56,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
               url: '/createProject',
               templateUrl: '../templates/project.tpl.html',
               controller: 'projectCreateCtrl'
+<<<<<<< HEAD
         }).state('hayes', {
             url:'/hayes',
             templateUrl: '../templates/theme.tpl.html'
+=======
+>>>>>>> origin/Sprint_2
         });
 
 }]);
