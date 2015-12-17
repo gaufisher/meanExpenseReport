@@ -50,7 +50,16 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
+app.all(requireLogin)
+function requireLogin(req, res, next){
+console.log(req.user)
+    if (!req.user) {
+            req.session.prevUrl = req.body.url;
+            if(req.xhr) res.send({"err":"usrErr"});
+            else res.redirect('/login');
+    }
+    else next();
+}
 // error handlers
 
 // development error handler
