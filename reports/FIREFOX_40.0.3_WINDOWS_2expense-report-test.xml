@@ -3,11 +3,11 @@
             failures="0"
             tests="1">
 
-  <testsuite name="1expense-report-test"
-    errors="0" failures="0" hostname="" id="" package="1expense-report-test" skipped="0"
-    tests="1" time="31.64" timestamp="Fri, 18 Dec 2015 23:25:23 GMT">
+  <testsuite name="2expense-report-test"
+    errors="0" failures="0" hostname="" id="" package="2expense-report-test" skipped="0"
+    tests="1" time="31.06" timestamp="Fri, 18 Dec 2015 23:33:27 GMT">
   
-    <testcase name="Expense Report Test" time="31.64" assertions="20">
+    <testcase name="Expense Report Test" time="31.06" assertions="20">
 
     
 

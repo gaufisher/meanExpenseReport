@@ -7,6 +7,7 @@ module.exports = {
         .pause(300)
         .clickCancel()
         .navToProject()
+        .makeNewProject('KCLS')
         .makeNewProject('New Fake Project')
         .enterTextForProject('Awesome Project')
         .clickCancel()
