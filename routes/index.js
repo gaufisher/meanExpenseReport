@@ -92,9 +92,26 @@ router.get('/expense-report', function(req, res, next){
 
 router.post('/expense-report', function(req, res, next){
 	var report = new Report(req.body);
-    report.save(function(err, report){
-      if(err){ return next(err); }
-      res.json(report);
+    // report.save(function(err, report){
+    //   if(err){ return next(err); }
+    //   res.json(report);
+    // });
+    console.log(report);
+    Report.findOne({"_id": report._id}, "status", function(err, status) {
+        if (err) {
+            return next(err);
+        }
+        console.log(status);
+        if (status === "saved" || status === null) {
+            report.save(function(err, report) {
+                if (err) {
+                    return next(err);
+                }
+                res.json(report);
+            });
+        } else {
+            console.log("I can't do that");
+        }
     });
 });
 
@@ -119,6 +136,11 @@ router.put('/expense-report', function(req, res, next){
 	}
 	Report.findById(rep._id, function(err, report){
 		if(err){ return next(err);}
+        if ((report.status === "approved" || report.status === "denied") || (report.status !== "saved" && rep.status !== "saved")) {
+            //Will need to validate if approver is approving/denying
+            console.log("I can't do that");
+            return;
+        }
 		for(var field in Report.schema.paths){
 			if((field !== '_id') && (field !== '__v')){
 				if(rep[field] !== undefined)
@@ -135,7 +157,7 @@ router.put('/expense-report', function(req, res, next){
 			if(error){ return next(error); }
 			res.json(report);
 		});
-	});	
+	});
 });
 
 
