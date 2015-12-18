@@ -14,7 +14,10 @@
 
     <div class="form-group" ng-repeat="line in expenseReport.items">
         <label>{{line.type}}</label>
-        <input type="text" class="form-control" ng-model="line.value" ui-money-mask placeholder="Value Amount Here">
+        <div class="input-group">
+            <input type="text" class="form-control line-item" ng-model="line.value" ui-money-mask placeholder="Value Amount Here">
+            <span class="input-group-addon red-x" ng-click="delete($index)">&times;</span>
+        </div>
     </div>
 
     <div ui-view="projectSelect"></div>

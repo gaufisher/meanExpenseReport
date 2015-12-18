@@ -87,12 +87,20 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                     break;
                 }
             }
+
+        }
+
+        $scope.delete = function(index) {
+            var lineItem = {};
+            lineItem.name = $scope.expenseReport.items[index].type;
+            $scope.LineItemTypes.push(lineItem);
+            //To Do: remove the line item when I press delete
+            $scope.expenseReport.items.splice(index,1);
         };
 
         $scope.cancel = function() {
 			sharedProperties.setExpenseReport({items:[]});
             $state.go("viewReports", {}, {reload: true});
-
         };
 
         $scope.LineItemTypes = LineItemTypes.data;
