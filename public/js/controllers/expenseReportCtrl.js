@@ -80,7 +80,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.submit = function () {
-            if ($scope.expenseReport.project != null) {
+            if ($scope.expenseReport.project !== undefined || Object.keys($scope.expenseReport.project).length !== 0) {
 				if($scope.expenseReport.hasOwnProperty('status'))
 				{
 					$scope.expenseReport.status = "submitted";
