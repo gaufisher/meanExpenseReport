@@ -1,8 +1,8 @@
-exports.command = function(value, callback){
+exports.command = function(lineItem, value, callback){
     var self = this;
     this
-        .useXpath()
-        .setValue('/html/body/div/ui-view/div/div[3]/div/input', value)
+        .useCss()
+        .setValue('input[id='+lineItem+'InputID', value)
     if(typeof callback === "function") {
         callback.call(self);
     }

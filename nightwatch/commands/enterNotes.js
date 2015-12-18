@@ -2,8 +2,8 @@ exports.command = function(notes, callback){
     var self = this;
     this
         .useCss()
-        .waitForElementVisible('input[id=notesInput]', 1000)
-        .setValue('input[id=inputExpenseReportName', notes)
+        .waitForElementVisible('textarea[id=notesInput]', 1000)
+        .setValue('textarea[id=notesInput', notes)
         .pause(500)
     
     if(typeof callback === "function") {

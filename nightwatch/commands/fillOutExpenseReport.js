@@ -3,7 +3,7 @@ exports.command = function(reportName, lineItem, value, project, notes, callback
     this
         .enterReportName(reportName)
         .selectLineItem(lineItem)
-        .enterValueForLineItem(value)
+        .enterValueForLineItem(lineItem, value)
         .selectProject(project)
         .enterNotes(notes)
     

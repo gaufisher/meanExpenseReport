@@ -5,9 +5,13 @@
 
   <testsuite name="1expense-report-test"
     errors="0" failures="0" hostname="" id="" package="1expense-report-test" skipped="0"
-    tests="1" time="30.30" timestamp="Fri, 18 Dec 2015 20:02:58 GMT">
+    tests="1" time="30.64" timestamp="Fri, 18 Dec 2015 20:41:21 GMT">
   
-    <testcase name="Expense Report Test" time="30.30" assertions="18">
+    <testcase name="Expense Report Test" time="30.64" assertions="20">
+
+    
+
+    
 
     
 

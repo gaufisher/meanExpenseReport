@@ -3,7 +3,7 @@
     <h4 ng-hide="reports.length >  0" style="text-align:center;" >No Reports to show</h4>
 
 	<div>
-		<table ng-show="reports.length >  0" class="table table-hover">
+		<table ng-show="reports.length >  0" class="table table-hover" id="savedTable">
 			<thead>
 				<tr>
 					<th>Saved</th>
@@ -15,7 +15,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<table ng-show="reports.length >  0" class="table table-hover">
+		<table ng-show="reports.length >  0" class="table table-hover" id="submittedTable">
 			<thead>
 				<tr>
 					<th>Submitted</th>
@@ -27,7 +27,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<table ng-show="reports.length >  0" class="table table-hover">
+		<table ng-show="reports.length >  0" class="table table-hover" id="approvedTable">
 			<thead>
 				<tr>
 					<th>Approved</th>
@@ -39,7 +39,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<table ng-show="reports.length >  0" class="table table-hover">
+		<table ng-show="reports.length >  0" class="table table-hover" id="rejectedTable">
 			<thead>
 				<tr>
 					<th>Rejected</th>
