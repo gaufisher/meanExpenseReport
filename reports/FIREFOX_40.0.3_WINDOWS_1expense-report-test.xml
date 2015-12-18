@@ -5,9 +5,9 @@
 
   <testsuite name="1expense-report-test"
     errors="0" failures="0" hostname="" id="" package="1expense-report-test" skipped="0"
-    tests="1" time="30.18" timestamp="Fri, 18 Dec 2015 19:51:06 GMT">
+    tests="1" time="30.30" timestamp="Fri, 18 Dec 2015 20:02:58 GMT">
   
-    <testcase name="Expense Report Test" time="30.18" assertions="18">
+    <testcase name="Expense Report Test" time="30.30" assertions="18">
 
     
 
@@ -45,9 +45,6 @@
 
     
     </testcase>
-      <system-err>
-         ERROR: Unable to locate element: &quot;//*[@id=&quot;bs-example-navbar-collapse-1&quot;]/ul[3]/li[2]/a&quot; using: xpath
-      </system-err>
   
   
   </testsuite>

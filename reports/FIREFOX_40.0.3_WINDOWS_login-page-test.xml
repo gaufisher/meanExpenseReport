@@ -5,9 +5,9 @@
 
   <testsuite name="login-page-test"
     errors="0" failures="0" hostname="" id="" package="login-page-test" skipped="0"
-    tests="1" time="11.10" timestamp="Fri, 18 Dec 2015 19:51:54 GMT">
+    tests="1" time="11.62" timestamp="Fri, 18 Dec 2015 20:03:46 GMT">
   
-    <testcase name="Login Page Test" time="11.10" assertions="7">
+    <testcase name="Login Page Test" time="11.62" assertions="7">
 
     
 
