@@ -68,7 +68,14 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 delete $scope.expenseReport.project;
             }
             console.log($scope.expenseReport);
-            persist("saved");
+			if($scope.expenseReport.hasOwnProperty('status'))
+			{
+				updateReport();
+			}
+			else
+			{
+				persist("saved");
+			}
             $state.go("viewReports", {}, {reload: true})
         };
 

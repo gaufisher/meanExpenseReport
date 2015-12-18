@@ -27,7 +27,7 @@
         <textarea ng-disabled="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" class="form-control" data-ng-model="expenseReport.notes"></textarea>
     </div>
     <div>
-        <button ng-hide="expenseReport.hasOwnProperty('status')" type="submit" ng-click="save()" class="btn btn-default">Save</button>
+        <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" type="submit" ng-click="save()" class="btn btn-default">Save</button>
         <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" type="submit" ng-click="submit()" class="btn btn-default">Submit</button>
         <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" type="submit" ng-click="cancel()" class="btn pull-right btn-default">Cancel</button>
     </div>
