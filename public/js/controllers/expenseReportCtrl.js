@@ -61,7 +61,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.save = function(){
-            if(Object.keys($scope.expenseReport.project).length == 0){
+            if($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0){
 				delete $scope.expenseReport.project;
             }
             console.log($scope.expenseReport);
@@ -99,9 +99,8 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.cancel = function() {
-			       sharedProperties.setExpenseReport({items:[]});
-             $state.go("viewReports", {}, {reload: true});   
-
+			sharedProperties.setExpenseReport({items:[]});
+            $state.go("viewReports", {}, {reload: true});
         };
 
         $scope.LineItemTypes = LineItemTypes.data;
