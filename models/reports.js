@@ -13,10 +13,11 @@ var ReportSchema = new mongoose.Schema({
             value: {type: Currency}
         }
     ],
-    project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: false},
-/*    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+
+    project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     
-    Uncomment project and user when they are linked properly */
+    //Uncomment project and user when they are linked properly 
     status: {
                 type: String,
                 validate: {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="1">
+
+  <testsuite name="1project-test"
+    errors="0" failures="1" hostname="" id="" package="1project-test" skipped="0"
+    tests="1" time="10.82" timestamp="Fri, 18 Dec 2015 16:53:54 GMT">
+  
+    <testcase name="Project Test" time="10.82" assertions="4">
+
+    
+
+    
+
+      <failure message="Timed out while waiting for element &lt;//*[@id=&#39;bs-example-navbar-collapse-1&#39;]//ul[1]//li[text()=&#39;Create&#39;]//ul//li[text()=&#39;Project&#39;]//a&gt; to be present for 1000 milliseconds.">    at Object.exports.command (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\nightwatch\commands\navToProject.js:7:10)
+    at Object.F.command (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\api.js:274:31)
+    at Object.commandFn (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\api.js:287:24)
+    at AsyncTree.runCommand (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:157:30)
+    at AsyncTree.runChildNode (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:117:8)
+    at AsyncTree.walkDown (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:83:10)
+    at AsyncTree.walkUp (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:100:8)
+    at AsyncTree.walkDown (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:93:12)
+    at AsyncTree.walkUp (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:100:8)
+    at AsyncTree.walkDown (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:93:12)</failure>
+
+    
+    </testcase>
+  
+  
+  </testsuite>
+</testsuites>

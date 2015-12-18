@@ -1,5 +1,5 @@
 
-<div>
+<div ng-init="setExpenseReport()">
     <div class="form-group">
         <label for="inputExpenseReportName">Name</label>
         <input type="text" class="form-control" ng-model="expenseReport.name" id="inputExpenseReportName" placeholder="Name">
@@ -19,9 +19,16 @@
 
     <div ui-view="projectSelect"></div>
 
+<<<<<<< HEAD
     <div>
         <button data-ng-show="showButton" type="submit" ng-click="save()" id="save" class="btn btn-default">Save</button>
         <button data-ng-show="showButton" type="submit" ng-click="submit()" id="submit" class="btn btn-default">Submit</button>
         <button type="submit" ng-click="cancel()" id="cancel" class="btn pull-right btn-default">Cancel</button>
+=======
+    <div ng-hide="expenseReport.hasOwnProperty('status')">
+        <button data-ng-show="showButton" type="submit" ng-click="save()" class="btn btn-default">Save</button>
+        <button data-ng-show="showButton" type="submit" ng-click="submit()" class="btn btn-default">Submit</button>
+        <button type="submit" ng-click="cancel()" class="btn pull-right btn-default">Cancel</button>
+>>>>>>> a645d5deaa4bbde190c94fafb603bb56667091c9
     </div>
 </div>

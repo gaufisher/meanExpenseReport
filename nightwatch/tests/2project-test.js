@@ -4,7 +4,7 @@ module.exports = {
         .logIn('LDAPUser', '@oxXiS,;AIry\\{8wixuf3;f^?')
         .assert.title('QuickrBooks')
         .navToProject()
-        .pause()
+        .pause(300)
         .fillOutExpenseReport()
         .clickSave()
         .navToExpenseReport()

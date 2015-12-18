@@ -59,7 +59,7 @@ router.get('/projects', checkAuth,function(req, res, next) {
         res.json(projects);
     });
 });
-
+/*
 router.get('/expense-report', function(req, res, next) {
     Report.find(function(err, reports) {
         if (err) {
@@ -67,15 +67,58 @@ router.get('/expense-report', function(req, res, next) {
         }
         res.json(reports);
     });
+});*/
+
+router.get('/expense-report/:id', function(req, res, next){
+	var idString = req.params.id.toString();
+	console.log("in route for /expense-report/:id");
+	console.log(idString);
+	var objId = mongoose.Types.ObjectId(idString);
+	Report.findById(objId, function(err, report){
+		if (err) {
+            return next(err);
+        }
+        res.json(report);
+	});
+});
+
+router.get('/expense-report', function(req, res, next){
+	//var idString = req.params.id.toString();
+	//var objId = mongoose.Types.ObjectId(idString);
+	
+	User.findOne({'name': req.user}, function(err, user){
+		if(err){
+			return next(err);
+		}
+		console.log("here's your user ID:");
+		console.log(user._id);
+		var usrId = user._id;
+		Report.find({'user': usrId}, function(error, reports){
+			if(error){
+				return next(error);
+			}
+			res.json(reports);
+		});
+	});
+		/*Project.findById(reports.project, function(err, project){
+			reports.project = project;
+		});*/    
 });
 
 router.post('/expense-report', function(req, res, next){
 	var report = new Report(req.body);
-	report.save(function(err, report){
-    if(err){ return next(err); }
-
-		res.json(report);
-	});
+	console.log("the new report:");
+	console.log(req.body);
+	/*console.log(req.user);
+	User.findOne({"name": req.user}, "_id", function(err, id) {
+      report.user = id;
+	  console.log("and here's the id:");
+	  console.log(id);*/
+    report.save(function(err, report){
+      if(err){ return next(err); }
+      res.json(report);
+     // });
+  });
 });
 
 
@@ -84,6 +127,34 @@ router.get('/line-item-types', function(req, res, next) {
     var lineItemTypes = [{name: 'Mileage'}, {name: 'Per Diem'}, {name: 'Lodging'}, {name: 'Travel'}, {name: 'Meals'}, {name: 'Entertainment'}, {name: 'Parking'}, {name: 'Other'}];
     res.json(lineItemTypes);
 });
+
+
+// //Test routes to get data from db
+// router.get('/users', function(req, res, next) {
+//    User.find(function(err, users) {
+//        if (err) {
+//            return next(err);
+//        }
+//        res.json(users);
+//    });
+// });
+//
+
+
+router.get('/project/:id', function(req, res, next){
+	var idString = req.params.id.toString();
+	console.log("in route for /project/:id");
+	console.log(idString);
+	var objId = mongoose.Types.ObjectId(idString);
+	Project.findById(objId, function(err, project){
+		if (err) {
+            return next(err);
+        }
+        res.json(project);
+	});
+});
+
+
 
 //router.get('/reports', function(req, res, next) {
 // router.get('/projects', function(req, res, next) {
@@ -104,7 +175,7 @@ router.get('/line-item-types', function(req, res, next) {
 //        res.json(aReport);
 //    });
 //});
-
+/*
 router.get('/expense-report', function (req, res, next) {
     Report.find(function(err, reports) {
         if (err) {
@@ -113,6 +184,7 @@ router.get('/expense-report', function (req, res, next) {
         res.json(reports);
     });
 });
+
 router.post('/expense-report', function (req, res, next) {
     console.log("attempting to post");
     var expenseReport = new Report(req.body);
@@ -122,6 +194,6 @@ router.post('/expense-report', function (req, res, next) {
 
         res.json(post);
     });
-});
+});*/
 
 module.exports = router;

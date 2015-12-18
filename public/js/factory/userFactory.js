@@ -4,6 +4,7 @@ angular.module('QuickrBooks').factory('userFactory', ['$http',
     return {
     	getCurrentUser: function(){
     		return $http.get('/user/currentuser');
+			
     	}
 
     };
