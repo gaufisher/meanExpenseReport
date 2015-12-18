@@ -32,6 +32,21 @@
 	padding-top: 2em;
 }
 
+input.line-item{
+ border-right: none;
+}
+
+.red-x{
+ color: red;
+}
+.red-x:hover{
+ cursor: pointer;
+}
+
+.input-group-addon{
+    background-color: white;
+}
+
 .theme a {
     visibility: hidden;
 }

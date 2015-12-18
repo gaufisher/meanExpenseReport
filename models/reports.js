@@ -15,8 +15,6 @@ var ReportSchema = new mongoose.Schema({
     ],
     project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: false},
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-
-    //Uncomment project and user when they are linked properly
     status: {
                 type: String,
                 validate: {

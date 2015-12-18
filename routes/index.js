@@ -60,19 +60,34 @@ router.get('/projects', checkAuth,function(req, res, next) {
     });
 });
 
-router.get('/expense-report', function(req, res, next) {
-    User.findOne({"name" : req.user}, "_id", function(err, id) {
-        if (err) {
+router.get('/expense-report/:id', function(req, res, next){
+	var idString = req.params.id.toString();
+	console.log("in route for /expense-report/:id");
+	console.log(idString);
+	var objId = mongoose.Types.ObjectId(idString);
+	Report.findById(objId, function(err, report){
+		if (err) {
             return next(err);
         }
-        Report.find({"user" : id}, function(err, reports) {
-            if (err) {
-                return next(err);
-            }
-            res.json(reports);
-        });
-    });
+        res.json(report);
+	});
+});
 
+router.get('/expense-report', function(req, res, next){
+	//var idString = req.params.id.toString();
+	//var objId = mongoose.Types.ObjectId(idString);
+
+	User.findOne({'name': req.user}, "_id", function(err, id){
+		if(err){
+			return next(err);
+		}
+		Report.find({'user': id}, function(error, reports){
+			if(error){
+				return next(error);
+			}
+			res.json(reports);
+		});
+	});
 });
 
 router.post('/expense-report', function(req, res, next){
@@ -84,11 +99,8 @@ router.post('/expense-report', function(req, res, next){
         report.user = id;
 
         report.save(function(err, report){
-        if(err){ return next(err); }
-
-            res.json(report);
+            if(err){ return next(err); }
         });
-    });
 });
 
 // Get all line item types
@@ -97,4 +109,16 @@ router.get('/line-item-types', function(req, res, next) {
     res.json(lineItemTypes);
 });
 
+router.get('/project/:id', function(req, res, next){
+	var idString = req.params.id.toString();
+	console.log("in route for /project/:id");
+	console.log(idString);
+	var objId = mongoose.Types.ObjectId(idString);
+	Project.findById(objId, function(err, project){
+		if (err) {
+            return next(err);
+        }
+        res.json(project);
+	});
+});
 module.exports = router;

@@ -14,9 +14,10 @@ app.config(['$stateProvider', '$urlRouterProvider',
             controller: 'viewReportsCtrl',
             resolve: {
                 ExpenseReports: function(userFactory, expenseReportFactory) {
+					//return expenseReportFactory.getAllExpenseReports("56707a9e2c29fc36bf61955f");
                     return userFactory.getCurrentUser().then(
                         function(success) {
-                            return expenseReportFactory.getAllExpenseReports(success.data.id);
+                            return expenseReportFactory.getAllExpenseReports(success.data.name);
                         },
                         function(error) {
                             return "Not working";
