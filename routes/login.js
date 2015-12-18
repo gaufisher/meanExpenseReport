@@ -67,7 +67,8 @@ router.post('/', function(req, res, next) {
 
 
 });
-router.get('/current',function(req,res,next){
-    console.log(req.user)
+router.get('/logout',function(req,res,next){
+    req.logout();
+    res.redirect('/');
 });
 module.exports = router;

@@ -27,5 +27,6 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
 			 	
 		};
 
+
     }
 ]);
