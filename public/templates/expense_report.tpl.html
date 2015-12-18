@@ -22,8 +22,8 @@
 
     <div ui-view="projectSelect"></div>
     <div ng-hide="expenseReport.hasOwnProperty('status')">
-        <button data-ng-show="showButton" type="submit" ng-click="save()" class="btn btn-default">Save</button>
-        <button data-ng-show="showButton" type="submit" ng-click="submit()" class="btn btn-default">Submit</button>
-        <button type="submit" ng-click="cancel()" class="btn pull-right btn-default">Cancel</button>
+        <button data-ng-show="showButton" type="submit" ng-click="save()" class="btn btn-default" id="save">Save</button>
+        <button data-ng-show="showButton" type="submit" ng-click="submit()" class="btn btn-default" id="submit">Submit</button>
+        <button type="submit" ng-click="cancel()" class="btn pull-right btn-default" id="cancel">Cancel</button>
     </div>
 </div>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites errors="3"
+<testsuites errors="4"
             failures="1"
             tests="1">
 
   <testsuite name="expense-report-test"
-    errors="3" failures="1" hostname="" id="" package="expense-report-test" skipped="0"
-    tests="1" time="18.73" timestamp="Fri, 18 Dec 2015 17:03:11 GMT">
+    errors="4" failures="1" hostname="" id="" package="expense-report-test" skipped="0"
+    tests="1" time="24.51" timestamp="Fri, 18 Dec 2015 17:38:52 GMT">
   
-    <testcase name="Expense Report Test" time="18.73" assertions="6">
+    <testcase name="Expense Report Test" time="24.51" assertions="11">
 
     
 
@@ -17,7 +17,17 @@
 
     
 
-      <failure message="Testing if element &lt;h2&gt; contains text: &quot;Expense Reports&quot;. Element could not be located.">    at Object.exports.command (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\nightwatch\commands\clickSave.js:7:17)
+    
+
+    
+
+    
+
+    
+
+    
+
+      <failure message="Testing if element &lt;h2&gt; contains text: &quot;Expense Reports&quot;. Element could not be located.">    at Object.exports.command (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\nightwatch\commands\clickCancel.js:7:17)
     at Object.F.command (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\api.js:274:31)
     at Object.commandFn (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\api.js:287:24)
     at AsyncTree.runCommand (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:157:30)
@@ -31,7 +41,9 @@
     
     </testcase>
       <system-err>
-         ERROR: Unable to locate element: &quot;button[id=save]&quot; using: css selector
+         ERROR: Unable to locate element: &quot;h2&quot; using: css selector
+ ERROR: Unable to locate element: &quot;/html/body/div/ui-view/div/div[3]/input&quot; using: xpath
+ ERROR: Unable to locate element: &quot;/html/body/div/ui-view/div/div[3]/input&quot; using: xpath
  ERROR: Unable to locate element: &quot;h2&quot; using: css selector
       </system-err>
   

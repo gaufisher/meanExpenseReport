@@ -5,12 +5,12 @@ module.exports = {
         .assert.title('QuickrBooks')
         .navToProject()
         .pause(300)
-        .fillOutExpenseReport()
+        .clickCancel()
+        .navToProject()
+        .makeNewProject()
         .clickSave()
-        .navToExpenseReport()
-        .fillOutExpenseReport()
-        .clickSubmit()
-        .navToExpenseReport()
+        .navToProject()
+        .makeNewProject()
         .clickCancel()
         .end();
   }
