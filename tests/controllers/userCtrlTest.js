@@ -1,18 +1,32 @@
 /*
 describe('UserController', function() {
-    beforeEach(module('QuickrBooks'));
+    beforeEach(module('QuickrBooks'), function($provide) {
+        $provide.value();
+    });
 
-    var $httpBackend, $rootScope, $controller, sharedProperties;
+    var q, deffered, $httpBackend, $rootScope, $controller, sharedPropertiesMock, userFactory;
 
-    beforeEach(inject(function(_$rootScope_, _$httpBackend_, _$controller_, _sharedProperties_) {
+    beforeEach(function() {
+        sharedPropertiesMock = {
+            setUserId: function(id) {
+                console.log("Id: " + id + " is set.");
+            }
+        };
+
+        userFactory = {
+            data: {"_id": 1, "name": "user"},
+            getCurrentUser: function() {
+                deffered = q.defer();
+                return deffered.promise;
+            }
+        };
+    });
+
+    beforeEach(inject(function(_$rootScope_, _$httpBackend_, _$controller_, $q) {
         $rootScope = _$rootScope_.$new();
         $httpBackend = _$httpBackend_;
         $controller = _$controller_;
-        _sharedProperties_ = {
-            setUserId: function(){
-                return "Id is set";
-            }
-        }
+        q = $q;
     }));
 
     afterEach(function() {
@@ -22,18 +36,24 @@ describe('UserController', function() {
 
     describe('$scope.setUsername', function() {
         it('should fetch authentication user name', function() {
-            sharedProperties = _sharedProperties_;
-            $controller('userCtrl', { $scope: $rootScope, sharedProperties: sharedProperties });
-            $httpBackend.when('GET', '/user/currentuser')
-                .respond({data: { "_id": 1, "name": "user" }});
+            $controller('userCtrl', { $scope: $rootScope, userFactory: userFactory, sharedProperties: sharedPropertiesMock });
+           // spyOn(userFactory, 'getCurrentUser').andCallThrough();
             $rootScope.userId = 2;
             $rootScope.setUsername();
-            $httpBackend.flush();
-            expect($rootScope.userName).toEqual("user");
+            deffered.resolve();
+            $rootScope.$root.$digest();
+            expect(peopleService.getCurrentUser).toHaveBeenCalled();
+          /*  $httpBackend.when('GET', '/user/currentuser')
+                .respond({data: { "_id": 1, "name": "user" }});*/
+          /*  $rootScope.userId = 2;
+            $rootScope.setUsername();*/
+            //$httpBackend.flush();
+            //expect($rootScope.userName).toEqual("user");
+           
 
-        });
+ /*       });
     });
-});
-*/
+});*/
+
 
 
