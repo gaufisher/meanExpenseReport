@@ -7,17 +7,18 @@ app.controller('projectSelectCtrl', ['$scope','getAllProjects', 'sharedPropertie
 
     if($.expenseReport === undefined)
         $.expenseReport = {};
-	
+
     $.addItem = function(){
-	  $.expenseReport.project = {};
-      $.expenseReport.project._id = $.dropdownvalue._id;
+	    $.expenseReport.project = {};
+        if ($.dropdownvalue !== null)
+            $.expenseReport.project._id = $.dropdownvalue._id;
     };
 	$.project = {};
 	$.selectProject = function(){
 		if(sharedProperties.getExpenseReport().hasOwnProperty('project')){
 			return sharedProperties.getProjectId();
-		}	
+		}
 	};
-    
+
   }
 ]);
