@@ -11,7 +11,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
             $scope.dropdownvalue = {};
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
-                //$scope.expenseReport.items[i].value = ($scope.expenseReport.items[i].value).toFixed(2);
                 $scope.dropdownvalue.name = $scope.expenseReport.items[i].type;
                 var item = {};
                 item.type = $scope.dropdownvalue.name;
@@ -72,10 +71,10 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.save = function () {
-            if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
-                delete $scope.expenseReport.project;
-            }
             console.log($scope.expenseReport);
+			if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
+				delete $scope.expenseReport.project;
+			}
             if ($scope.expenseReport.hasOwnProperty('status')) {
                 updateReport();
             } else {
@@ -87,8 +86,11 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.submit = function () {
+			if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
+                delete $scope.expenseReport.project;
+            }
             if ($scope.expenseReport.project != null) {
-                if ($scope.expenseReport.hasOwnProperty('status')) {
+ 			    if ($scope.expenseReport.hasOwnProperty('status')) {
                     $scope.expenseReport.status = "submitted";
                     updateReport();
                 } else {
@@ -96,7 +98,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 }
                 $state.go("viewReports", {}, {
                     reload: true
-                })
+                });
             } else {
                 $scope.hasProject = false
             }

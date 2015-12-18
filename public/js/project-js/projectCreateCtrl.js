@@ -1,14 +1,5 @@
-
-angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state', 'projectFactory', 'userFactory', function($scope, $state, projectFactory, userFactory) {
+angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state', 'projectFactory', 'userFactory', function ($scope, $state, projectFactory, userFactory) {
     $scope.newProject = {};
-    // userFactory.getCurrentUser().then(
-    //     function(success) {
-    //         $scope.newProject.approver = success.data._id;
-    //     },
-    //     function(error) {
-    //        $scope.newProject.approver = null;
-    //     }
-    // );
 
     /* Clears the project save message */
     $scope.clearResult = function () {
@@ -21,7 +12,7 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state
     $scope.textInput = function () {
         var namePattern = new RegExp("^[a-zA-Z0-9\-_ ]{1,255}$");
 
-        if($scope.projectName !== undefined) {
+        if ($scope.projectName !== undefined) {
             if (namePattern.test($scope.projectName)) {
                 $scope.showButton = true;
             } else {
@@ -39,8 +30,10 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state
         $scope.projectName = "";
     }
 
-    $scope.cancel = function() {
-        $state.go("viewReports", {}, {reload: true});
+    $scope.cancel = function () {
+        $state.go("viewReports", {}, {
+            reload: true
+        });
     }
 
 }]);
