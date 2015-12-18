@@ -4,6 +4,8 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.project = {};
 
+        $scope.hasProject = true;
+
         $scope.setExpenseReport = function () {
             $scope.expenseReport = sharedProperties.getExpenseReport();
 
@@ -43,61 +45,71 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
             }
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
-                function(success) {
-                    $state.go("viewReports", {}, {reload: true});
+                function (success) {
+                    $state.go("viewReports", {}, {
+                        reload: true
+                    });
 
                 },
                 function (error) {}
             );
         };
-		
-		var updateReport = function(){
-			sharedProperties.setExpenseReport({items:[]});
-			expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
-				function(success){
-					$state.go("viewReports", {}, {reload: true});
-				},
-				function(error) {
-					//console.log("working as intended");
-				}
-			);
-		};
+
+        var updateReport = function () {
+            sharedProperties.setExpenseReport({
+                items: []
+            });
+            expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
+                function (success) {
+                    $state.go("viewReports", {}, {
+                        reload: true
+                    });
+                },
+                function (error) {
+                    //console.log("working as intended");
+                }
+            );
+        };
 
         $scope.save = function () {
-            if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
-                delete $scope.expenseReport.project;
-            }
             console.log($scope.expenseReport);
-			if($scope.expenseReport.hasOwnProperty('status'))
-			{
-				updateReport();
+			if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
+				delete $scope.expenseReport.project;
 			}
-			else
-			{
-				persist("saved");
-			}
-            $state.go("viewReports", {}, {reload: true})
+            if ($scope.expenseReport.hasOwnProperty('status')) {
+                updateReport();
+            } else {
+                persist("saved");
+            }
+            $state.go("viewReports", {}, {
+                reload: true
+            })
         };
 
         $scope.submit = function () {
-            if ($scope.expenseReport.project !== undefined || Object.keys($scope.expenseReport.project).length !== 0) {
-				if($scope.expenseReport.hasOwnProperty('status'))
-				{
-					$scope.expenseReport.status = "submitted";
-					updateReport();
-				}
-				else{
-					persist("submitted");
-				}
-                
+			if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
+                delete $scope.expenseReport.project;
             }
-            $state.go("viewReports", {}, {reload: true})
+            if ($scope.expenseReport.project != null) {
+ 			    if ($scope.expenseReport.hasOwnProperty('status')) {
+                    $scope.expenseReport.status = "submitted";
+                    updateReport();
+                } else {
+                    persist("submitted");
+                }
+                $state.go("viewReports", {}, {
+                    reload: true
+                });
+            } else {
+                $scope.hasProject = false
+            }
+
         };
-		
-		$scope.unsubmit = function(){
-			$scope.expenseReport.status = "saved";
-			updateReport();
-		};
+
+        $scope.unsubmit = function () {
+            $scope.expenseReport.status = "saved";
+            updateReport();
+        };
 
         $scope.addItem = function () {
             var item = {};
@@ -122,7 +134,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             lineItem.name = $scope.expenseReport.items[index].type;
             $scope.LineItemTypes.push(lineItem);
             //To Do: remove the line item when I press delete
-            $scope.expenseReport.items.splice(index,1);
+            $scope.expenseReport.items.splice(index, 1);
             $scope.showButton = $scope.expenseReport.items.length < 1 ? false : true;
         };
 

@@ -125,6 +125,10 @@ router.put('/expense-report', function(req, res, next){
 				{
 					report[field] = rep[field];
 				}
+				else
+				{
+					report[field] = undefined;
+				}
 			}
 		}
 		report.save(function(error, report){
