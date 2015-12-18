@@ -9,11 +9,11 @@ exports.command = function(lineItem, callback){
         .click('option[label='+lineItem+']')
         .click('body')
         .pause(2000)
-        .useXpath()
-        .waitForElementVisible('/html/body/div/ui-view/div/div/label[text()="'+lineItem+'"]', 1000)
-        .click('/html/body/div/ui-view/div/div[3]/div/span')
+        .useCss()
+        .waitForElementVisible('label[id='+lineItem+'Label]', 1000)
+        .click('span[id='+lineItem+'Delete]')
         .pause(2000)
-        .waitForElementVisible('/html/body/div/ui-view/div/div[3]/div/label[text()="Select a Project"]', 1000)
+        .waitForElementVisible('label[id=selectProjectLabel]', 1000)
     if(typeof callback === "function") {
         callback.call(self);
     }

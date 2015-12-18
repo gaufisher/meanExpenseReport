@@ -8,8 +8,7 @@ exports.command = function(lineItem, callback){
         .click('option[label='+lineItem+']')
         .click('body')
         .pause(1000)
-        .useXpath()
-        .waitForElementVisible('/html/body/div/ui-view/div/div/label[text()="'+lineItem+'"]', 1000)
+        .waitForElementVisible('label[id='+lineItem+'Label]', 1000)
     if(typeof callback === "function") {
         callback.call(self);
     }

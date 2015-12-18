@@ -3,7 +3,7 @@
         <div class="projectContainer">
             <h1 class="projectHeader">Create Project</h1>
             <div class="projectForm">
-                <input class="projectInput" type="text" ng-model="projectName" ng-click="clearResult()" ng-keyup="textInput()" placeholder="Enter project name">
+                <input class="projectInput" id="projectInputField" type="text" ng-model="projectName" ng-click="clearResult()" ng-keyup="textInput()" placeholder="Enter project name">
                 <button class="projectButton" ng-show="showButton" ng-click="saveProject()" id="save">Save</button>
                 <button class="projectButton" ng-click="cancel()" id="cancel">Cancel</button>
             </div>

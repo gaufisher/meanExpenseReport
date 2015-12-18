@@ -1,11 +1,11 @@
 exports.command = function(callback){
     var self = this;
     this
-        .useXpath()
-        .click("//*[@id='bs-example-navbar-collapse-1']//ul[1]//li[1]//a")
+        .useCss()
+        .click('a[id=createNavbarDropdown]')
         .pause(1000)
-        .waitForElementVisible("//*[@id='bs-example-navbar-collapse-1']//ul[1]//li[1]//ul//li[2]//a", 1000)
-        .click("//*[@id='bs-example-navbar-collapse-1']//ul[1]//li[1]//ul//li[2]//a");
+        .waitForElementVisible('a[id=expenseReportNavbarLink]', 1000)
+        .click('a[id=expenseReportNavbarLink]');
     
     if(typeof callback === "function") {
         callback.call(self);
