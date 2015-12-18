@@ -5,9 +5,9 @@
 
   <testsuite name="1project-test"
     errors="0" failures="0" hostname="" id="" package="1project-test" skipped="0"
-    tests="1" time="19.56" timestamp="Fri, 18 Dec 2015 23:33:07 GMT">
+    tests="1" time="21.59" timestamp="Fri, 18 Dec 2015 23:51:01 GMT">
   
-    <testcase name="Project Test" time="19.56" assertions="12">
+    <testcase name="Project Test" time="21.59" assertions="12">
 
     
 
