@@ -13,7 +13,7 @@ describe('ProjectCreateController', function() {
     describe('$scope.saveProject', function () {
         it('creates a project with the given scope name', function(){
             var $scope = {};
-            var controller = $controller('projectCreateCtrl', { $scope: $scope });
+            $controller('projectCreateCtrl', { $scope: $scope });
             $scope.projectName =  "My Project";
             $scope.saveProject();
             expect($scope.newProject.name).toEqual("My Project");
@@ -23,7 +23,7 @@ describe('ProjectCreateController', function() {
     describe('$scope.clearResult', function() {
         it('clears the scope result', function(){
             var $scope = {};
-            var controller = $controller('projectCreateCtrl', { $scope: $scope });
+            $controller('projectCreateCtrl', { $scope: $scope });
             $scope.result =  "My Project";
             $scope.clearResult();
             expect($scope.result).toEqual("");
@@ -33,7 +33,7 @@ describe('ProjectCreateController', function() {
     describe('$scope.textInput', function() {
         it('validates the project name to be valid and show save button', function(){
             var $scope = {};
-            var controller = $controller('projectCreateCtrl', { $scope: $scope });
+            $controller('projectCreateCtrl', { $scope: $scope });
             $scope.projectName =  "My Project";
             $scope.textInput();
             expect($scope.showButton).toBeTruthy();
@@ -43,7 +43,7 @@ describe('ProjectCreateController', function() {
     describe('$scope.textInput', function() {
         it('validates the project name to be invalid and hide save button', function(){
             var $scope = {};
-            var controller = $controller('projectCreateCtrl', { $scope: $scope });
+            $controller('projectCreateCtrl', { $scope: $scope });
             $scope.projectName =  "My%Project";
             $scope.textInput();
             expect($scope.showButton).toBeFalsy();
@@ -53,7 +53,7 @@ describe('ProjectCreateController', function() {
     describe('$scope.cancel', function() {
         it('redirects to the view report page', function(){
             var $scope = {};
-            var controller = $controller('projectCreateCtrl', { $scope: $scope });
+            $controller('projectCreateCtrl', { $scope: $scope });
             $scope.cancel();
             expect($state.go).toHaveBeenCalledWith("viewReports", {}, {reload: true});
         });

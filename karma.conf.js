@@ -21,7 +21,7 @@ module.exports = function(config) {
       'public/js/*.js',
       'public/js/factory/*.js',
       'public/js/**/*.js',
-      'tests/*.js'
+      'tests/**/*.js'
     ],
 
     // list of files to exclude
