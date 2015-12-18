@@ -35,8 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
         secret: "hidden",
         rolling: true,
-  //      key: 'asdasdasd',
-        cookie: { maxAge: 600000, secure: false },
+        cookie: { maxAge: 3600000, secure: false },
         resave: true,
         saveUninitialized: true
 }))
@@ -53,40 +52,28 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-function requireLogin(req, res, next){
-console.log("middleWare")
-console.log(req.user)
-console.log(req.path)
-
-    if (!req.user) {
-        console.log("no user")
-        console.log(req.path)
-            //res.redirect('/login');
-            next()
-    }
-    else next();
-}
 // error handlers
 
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500)
+    res.redirect('/');
+    /*res.status(err.status || 500)
     .render('error', {
       message: err.message,
       error: err
-    });
+    });*/
   });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500)
+  res.redirect('/');
+  /*res.status(err.status || 500)
   .render('error', {
     message: err.message,
     error: {}
-  });
+  });*/
 });
-

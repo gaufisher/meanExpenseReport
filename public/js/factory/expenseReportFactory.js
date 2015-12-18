@@ -26,6 +26,9 @@ app.factory('expenseReportFactory', ['$http',
 			},
 			getById: function(id){
 				return $http.get('/app/expense-report/' + id);
+			},
+			updateExpenseReport: function(data) {
+				return $http.put('/app/expense-report', data);
 			}
     
         };
