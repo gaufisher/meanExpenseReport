@@ -81,7 +81,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             var arr = $scope.expenseReport.items;
             arr.push(item);
             for (var i = 0; i < $scope.LineItemTypes.length; i++){
-				console.log("test");
                 if($scope.LineItemTypes[i].name === item.type){
                     $scope.dropdownvalue = {name:''};
                     $scope.LineItemTypes.splice(i,1);

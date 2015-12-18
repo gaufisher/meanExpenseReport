@@ -17,18 +17,13 @@ app.config(['$stateProvider', '$urlRouterProvider',
 					//return expenseReportFactory.getAllExpenseReports("56707a9e2c29fc36bf61955f");
                     return userFactory.getCurrentUser().then(
                         function(success) {
-							console.log("here's your name");
-							console.log(success.data.name);
                             return expenseReportFactory.getAllExpenseReports(success.data.name);
                         },
                         function(error) {
                             return "Not working";
                         }
                     );
-                }/*,
-				SetExpenseReport: function(report, expenseReportCtrl) {
-					expenseReportCtrl.setExpenseReport(report);
-				}*/
+                }
             }
         }).state('viewReport', {
             url: '/report',
