@@ -98,6 +98,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             $scope.LineItemTypes.push(lineItem);
             //To Do: remove the line item when I press delete
             $scope.expenseReport.items.splice(index,1);
+            $scope.showButton = $scope.expenseReport.items.length < 1 ? false : true;
         };
 
         $scope.cancel = function() {
