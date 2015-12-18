@@ -7,16 +7,16 @@ angular.module('QuickrBooks').factory('projectFactory', ['$http', function($http
         },
         getAll: function() {
 
-            return $http.get("/projects");
+            return $http.get("app/projects");
         },
         deleteById: function(id) {
             $http({
                 method: 'DELETE',
-                url: "/project/" + id
+                url: "app/project/" + id
             });
         },
 		getById: function(id){
-			return $http.get("/project/" + id);
+			return $http.get("app/project/" + id);
 		}
     };
 }]);

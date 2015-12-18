@@ -19,13 +19,13 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 			$scope.dropdownvalue = {};
 			for(var i = 0; i < $scope.expenseReport.items.length; i++)
 			{
-				$scope.dropdownvalue.name = $scope.expenseReport.items[0].type;
-				console.log($scope.dropdownvalue.name);
+				//$scope.expenseReport.items[i].value = ($scope.expenseReport.items[i].value).toFixed(2);
+				$scope.dropdownvalue.name = $scope.expenseReport.items[i].type;
 				var item = {};
 				item.type = $scope.dropdownvalue.name;
 				for (var j = 0; j < $scope.LineItemTypes.length; j++){
-					console.log("test");
 					if($scope.LineItemTypes[j].name === item.type){
+					
 						$scope.dropdownvalue = {name:''};
 						$scope.LineItemTypes.splice(j,1);
 						break;
@@ -106,7 +106,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 			sharedProperties.setExpenseReport({items:[]});
             $state.go("viewReports", {}, {reload: true});   
 
-        ;
+        };
 
         $scope.LineItemTypes = LineItemTypes.data;
 

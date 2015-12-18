@@ -22,11 +22,12 @@ app.factory('expenseReportFactory', ['$http',
                 return $http.get('/app/line-item-types');
             },
             getAllExpenseReports: function() {
-                return $http.get("/expense-report");
-			}
-           /* getAllExpenseReports: function(id) {
                 return $http.get("/app/expense-report");
-            }*/
+			},
+			getById: function(id){
+				return $http.get('/app/expense-report/' + id);
+			}
+    
         };
     }
 ]);

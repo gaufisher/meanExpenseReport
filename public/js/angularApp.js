@@ -3,7 +3,7 @@
 var app = angular.module('QuickrBooks', ['ui.router', 'mgcrea.ngStrap', 'ui.utils.masks'])
 	.service('sharedProperties', function(){
 		var expenseReport = {items:[]};
-		var project = {};
+		//var project = {};
 		var userId = "";
 		return{
 			getExpenseReport: function(){
@@ -12,12 +12,12 @@ var app = angular.module('QuickrBooks', ['ui.router', 'mgcrea.ngStrap', 'ui.util
 			setExpenseReport: function(report){
 				expenseReport = report;
 			},
-			getProject: function(){
+			/*getProject: function(){
 				return project;
 			},
 			setProject: function(proj){
 				project = proj;
-			},
+			},*/
 			getUserId: function(){
 				return userId;
 			},

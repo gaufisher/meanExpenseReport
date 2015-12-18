@@ -68,6 +68,19 @@ router.get('/expense-report', function(req, res, next) {
     });
 });*/
 
+router.get('/expense-report/:id', function(req, res, next){
+	var idString = req.params.id.toString();
+	console.log("in route for /expense-report/:id");
+	console.log(idString);
+	var objId = mongoose.Types.ObjectId(idString);
+	Report.findById(objId, function(err, report){
+		if (err) {
+            return next(err);
+        }
+        res.json(report);
+	});
+});
+
 router.get('/expense-report', function(req, res, next){
 	//var idString = req.params.id.toString();
 	//var objId = mongoose.Types.ObjectId(idString);

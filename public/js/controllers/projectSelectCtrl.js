@@ -7,28 +7,36 @@ app.controller('projectSelectCtrl', ['$scope','getAllProjects', 'sharedPropertie
 
     if($.expenseReport === undefined)
         $.expenseReport = {};
-    $.expenseReport.project = {};
     $.addItem = function(){
       $.expenseReport.project._id = $.dropdownvalue._id;
     };
 	$.project = {};
 	$.selectProject = function(){
-		console.log("wheeee!");
 		if(sharedProperties.getExpenseReport().hasOwnProperty('project')){
 			console.log("expense report has project property!");
 			console.log(sharedProperties.getExpenseReport().project);
-			projectFactory.getById(sharedProperties.getExpenseReport().project._id).then(
+			projectFactory.getById(sharedProperties.getExpenseReport().project).then(
 				function(success){
-					sharedProperties.setProject(success.data);
-					//console.log($scope.project);
+					//sharedProperties.setProject(success.data);
+					console.log("in project select ctrl, here's the project by id");
+					console.log(success.data);
+					var project = success.data;
+					for(var i = 0; i < $.projects.length; i++)
+					{
+						if($.projects[i]._id === project._id)
+						{
+							console.log("got a match!");
+							return i;
+						}
+					}
+					//return success.data;
 				}
 			);
-			$.project = sharedProperties.getProject();
+			//$.project = sharedProperties.getProject();
 		}
-		console.log($.project);
 		console.log("here's sharedProperties expense report:");
 		console.log(sharedProperties.getExpenseReport());
-		return $.project;
+		
 	};
     
   }
