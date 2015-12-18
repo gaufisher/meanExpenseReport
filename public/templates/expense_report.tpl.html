@@ -14,8 +14,8 @@
 
     <div class="form-group" ng-repeat="line in expenseReport.items">
         <label>{{line.type}}</label>
-        <div class="input-group">
-            <input type="text" class="form-control line-item" ng-model="line.value" ng-disabled="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" ui-money-mask placeholder="Value Amount Here">
+        <div data-ng-class="{'input-group': (expenseReport.status === 'saved') || (expenseReport.status === undefined)}">
+            <input type="text" data-ng-class="{'line-item': (expenseReport.status === 'saved') || (expenseReport.status === undefined)}" class="form-control" ng-model="line.value" ng-disabled="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" ui-money-mask placeholder="Value Amount Here">
             <span class="input-group-addon red-x" ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" ng-click="delete($index)">&times;</span>
         </div>
     </div>
