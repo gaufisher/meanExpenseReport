@@ -6,8 +6,12 @@ var ReportSchema = new mongoose.Schema({
     name: String,
     items: [
         {
-            type: {type: String},
-            value: {type: Currency}
+            type: {
+                type: String
+            },
+            value: {
+                type: Currency
+            }
         }
     ],
     project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: false},
