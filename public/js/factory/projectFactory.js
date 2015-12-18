@@ -3,23 +3,20 @@
 angular.module('QuickrBooks').factory('projectFactory', ['$http', function($http) {
     return {
         create: function(project) {
-            $http({
-                method: 'POST',
-                url: "/project",
-                data: project
-            });
+            $http.post("/app/projects", project);
         },
         getAll: function() {
-            return $http({
-            method: 'GET',
-            url: "/project"
-            });
+
+            return $http.get("app/projects");
         },
         deleteById: function(id) {
             $http({
                 method: 'DELETE',
-                url: "/project/" + id
+                url: "app/project/" + id
             });
-        }
+        },
+		getById: function(id){
+			return $http.get("app/project/" + id);
+		}
     };
 }]);

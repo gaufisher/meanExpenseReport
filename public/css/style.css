@@ -33,16 +33,24 @@
 }
 
 input.line-item{
- border-right: none;   
+ border-right: none;
 }
 
 .red-x{
- color: red;   
+ color: red;
 }
 .red-x:hover{
- cursor: pointer;   
+ cursor: pointer;
 }
 
 .input-group-addon{
     background-color: white;
+}
+
+.theme a {
+    visibility: hidden;
+}
+
+.theme:hover a {
+    visibility: visible;
 }

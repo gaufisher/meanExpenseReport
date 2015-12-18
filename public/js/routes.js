@@ -6,7 +6,7 @@
 app.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider){
 
-        $urlRouterProvider.otherwise('home');
+        $urlRouterProvider.otherwise('/');
 
         $stateProvider.state('viewReports', {
             url: '/',
@@ -14,9 +14,10 @@ app.config(['$stateProvider', '$urlRouterProvider',
             controller: 'viewReportsCtrl',
             resolve: {
                 ExpenseReports: function(userFactory, expenseReportFactory) {
+					//return expenseReportFactory.getAllExpenseReports("56707a9e2c29fc36bf61955f");
                     return userFactory.getCurrentUser().then(
                         function(success) {
-                            return expenseReportFactory.getAllExpenseReports(success.data.id);
+                            return expenseReportFactory.getAllExpenseReports(success.data.name);
                         },
                         function(error) {
                             return "Not working";
@@ -24,8 +25,17 @@ app.config(['$stateProvider', '$urlRouterProvider',
                     );
                 }
             }
+        }).state('viewReport', {
+            url: '/report',
+            templateUrl: '../templates/viewReport.tpl.html',
+            controller: 'viewReportCtrl',
+            resolve: {
+                ExpenseReport: function(viewReportFactory) {
+                    //stuff
+                }
+            }
         }).state('project', {
-            url:'/project',
+            url:'/projects',
             templateUrl: '../templates/project.tpl.html',
             controller: 'projectCtrl'
         }).state('expenseReport', {
@@ -47,8 +57,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
               url: '/createProject',
               templateUrl: '../templates/project.tpl.html',
               controller: 'projectCreateCtrl'
-        }).state('home', {
-            url: '/'
+        }).state('hayes', {
+            url:'/hayes',
+            templateUrl: '../templates/theme.tpl.html'
         });
 
-    }]);
+}]);

@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="css/project-style.css" />
 
         <!-- scripts -->
-        <script src="js/angularApp.js"></script>
+        <script src="../js/angularApp.js"></script>
         <script src="js/controllers/expenseReportCtrl.js"></script>
         <script src="js/factory/expenseReportFactory.js"></script>
         <script src="js/routes.js"></script>
@@ -29,7 +29,6 @@
         <script src="js/controllers/projectSelectCtrl.js"></script>
         <script src="js/controllers/viewReportsCtrl.js"></script>
         <script src="js/controllers/userCtrl.js"></script>
-
 
         <meta charset="UTF-8">
     </head>
@@ -53,13 +52,20 @@
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false">Create <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li ui-sref="createProject"><a>Project</a></li>
-                            <li ui-sref="expenseReport"><a>Expense Report</a></li>
+                            <li ng-click="newProject()"><a>Project</a></li>
+                            <li ng-click="newExpenseReport()"><a>Expense Report</a></li>
                         </ul>
                     </li>
-                    <li><a><br></a></li>
                 </ul>
-
+                <ul class="nav navbar-nav theme">
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false">Theme <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li ui-sref="hayes"><a>Subdued Fall</a></li>
+                            <li onclick="alert('Subdued Fall theme added')"><a>Add Theme</a></li>
+                        </ul>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a>{{userName}}</a></li>
                     <li><a href="/logout">Logout</a></li>
