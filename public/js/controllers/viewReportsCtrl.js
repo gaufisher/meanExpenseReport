@@ -1,22 +1,30 @@
-app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "ExpenseReports", 'sharedProperties',
-    function($scope, $state, expenseReportFactory, ExpenseReports, sharedProperties) {
+app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "projectFactory", "ExpenseReports", 'sharedProperties',
+    function($scope, $state, expenseReportFactory, projectFactory, ExpenseReports, sharedProperties) {
         $scope.reports = ExpenseReports.data;
 		$scope.showReport = function(report){
-			console.log("in the view reports controller, here's the selected report");
-			console.log(report);
 			expenseReportFactory.getById(report._id).then(
 				function(success) {
-					console.log("now here's the report");
-					console.log(success.data);
 					var report = success.data;
-				/*	if(report.hasOwnProperty('items'))
+					if(report.hasOwnProperty('items'))
 					{
 						for(var i = 0; i < report.items.length; i++)
 						{
-							report.items[i].value = (report.items[i].value).toFixed(2);
+							report.items[i].value = report.items[i].value/100;
 						}
-					}*/
-					
+					}
+					projectFactory.getAll().then(
+						function(success){
+							var projects = success.data;
+							var projectId = 0;
+							for(var i = 0; i < projects.length; i++)
+							{
+								if(projects[i]._id == report.project)
+								{
+									sharedProperties.setProjectId(i);
+								}
+							}
+						}
+					);
                     sharedProperties.setExpenseReport(report);
 					$state.go("expenseReport", {}, {reload: true});
                 },

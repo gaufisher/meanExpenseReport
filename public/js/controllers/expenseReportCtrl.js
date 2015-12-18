@@ -6,16 +6,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 	
 		$scope.setExpenseReport = function(){
 			$scope.expenseReport = sharedProperties.getExpenseReport();
-			/*if($scope.expenseReport.hasOwnProperty('project')){
-				//console.log($scope.expenseReport.project);
-				projectFactory.getById($scope.expenseReport.project).then(
-					function(success){
-						sharedProperties.setProject(success.data);
-						$scope.project = success.data;
-						//console.log($scope.project);
-					}
-				);
-			}*/
+
 			$scope.dropdownvalue = {};
 			for(var i = 0; i < $scope.expenseReport.items.length; i++)
 			{
@@ -49,8 +40,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 			sharedProperties.setExpenseReport({items:[]});
             $scope.expenseReport.status = status;
 			$scope.expenseReport.user = sharedProperties.getUserId();
-			console.log("I'm in expense rpt ctrl! Here's the expense report user:");
-			console.log($scope.expenseReport.user);
 			for(var i = 0; i < $scope.expenseReport.items.length; i++)
 			{
 				if($scope.expenseReport.items[i].value == null)
@@ -72,7 +61,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
         
         $scope.save = function(){
-            console.log($scope.expenseReport.project);
             if(Object.keys($scope.expenseReport.project).length == 0){
 				delete $scope.expenseReport.project;
             }
