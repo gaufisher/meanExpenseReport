@@ -24,7 +24,7 @@
 
     <div class="form-group">
         <label>Notes:</label>
-        <textarea class="form-control" data-ng-model="expenseReport.notes"></textarea>
+        <textarea ng-disabled="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" class="form-control" data-ng-model="expenseReport.notes"></textarea>
     </div>
     <div ng-hide="expenseReport.hasOwnProperty('status')">
         <button data-ng-show="showButton" type="submit" ng-click="save()" class="btn btn-default">Save</button>
