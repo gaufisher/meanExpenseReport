@@ -74,7 +74,15 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.submit = function () {
             if ($scope.expenseReport.project != null) {
-                persist("submitted");
+				if($scope.expenseReport.hasOwnProperty('status'))
+				{
+					$scope.expenseReport.status = "submitted";
+					updateReport();
+				}
+				else{
+					persist("submitted");
+				}
+                
             }
             $state.go("viewReports", {}, {reload: true})
         };
