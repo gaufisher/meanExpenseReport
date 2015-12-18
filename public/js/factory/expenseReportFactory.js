@@ -3,6 +3,13 @@
  */
 app.factory('expenseReportFactory', ['$http',
     function($http) {
+        var id;
+        function getId() {
+            return id;
+        }
+        function setId(id) {
+            this.id = id;
+        }
         return {
             createExpenseReport: function(data){
                 console.log(data);
@@ -14,9 +21,13 @@ app.factory('expenseReportFactory', ['$http',
             getAllListItems: function(){
                 return $http.get('/app/line-item-types');
             },
-            getAllExpenseReports: function(id) {
+            getAllExpenseReports: function() {
                 return $http.get("/app/expense-report");
-            }
+			},
+			getById: function(id){
+				return $http.get('/app/expense-report/' + id);
+			}
+    
         };
     }
 ]);
