@@ -11,7 +11,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
             $scope.dropdownvalue = {};
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
-                //$scope.expenseReport.items[i].value = ($scope.expenseReport.items[i].value).toFixed(2);
                 $scope.dropdownvalue.name = $scope.expenseReport.items[i].type;
                 var item = {};
                 item.type = $scope.dropdownvalue.name;
