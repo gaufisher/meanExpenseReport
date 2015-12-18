@@ -19,31 +19,32 @@
     border-left: 1px solid #E7E7E7;
 }
 
-#loginPage{
-	text-align: center;
+#loginPage {
+    text-align: center;
 }
 
-#loginPage .error{
-	color: red;
-	height: 50px;
+#loginPage .error {
+    color: red;
+    height: 50px;
 }
 
-#loginPage #loginButton{
-	padding-top: 2em;
+#loginPage #loginButton {
+    padding-top: 2em;
 }
 
-input.line-item{
- border-right: none;
+input.line-item {
+    border-right: none;
 }
 
-.red-x{
- color: red;
-}
-.red-x:hover{
- cursor: pointer;
+.red-x {
+    color: red;
 }
 
-.input-group-addon{
+.red-x:hover {
+    cursor: pointer;
+}
+
+.input-group-addon {
     background-color: white;
 }
 
@@ -53,4 +54,8 @@ input.line-item{
 
 .theme:hover a {
     visibility: visible;
+}
+
+.error {
+    color: red;
 }

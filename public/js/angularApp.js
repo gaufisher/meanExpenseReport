@@ -13,10 +13,10 @@ var app = angular.module('QuickrBooks', ['ui.router', 'mgcrea.ngStrap', 'ui.util
 			setExpenseReport: function(report){
 				expenseReport = report;
 			},
-			getProjectId(){
+			getProjectId: function(){
 				return projectId;
 			},
-			setProjectId(id){
+			setProjectId: function(id){
 				projectId = id;
 			},
 			/*getProject: function(){

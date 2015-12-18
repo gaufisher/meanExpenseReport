@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites errors="4"
-            failures="1"
+<testsuites errors="2"
+            failures="0"
             tests="1">
 
   <testsuite name="expense-report-test"
-    errors="4" failures="1" hostname="" id="" package="expense-report-test" skipped="0"
-    tests="1" time="24.51" timestamp="Fri, 18 Dec 2015 17:38:52 GMT">
+    errors="2" failures="0" hostname="" id="" package="expense-report-test" skipped="0"
+    tests="1" time="11.05" timestamp="Fri, 18 Dec 2015 18:35:15 GMT">
   
-    <testcase name="Expense Report Test" time="24.51" assertions="11">
+    <testcase name="Expense Report Test" time="11.05" assertions="5">
 
     
 
@@ -18,16 +18,10 @@
     
 
     
-
-    
-
-    
-
-    
-
-    
-
-      <failure message="Testing if element &lt;h2&gt; contains text: &quot;Expense Reports&quot;. Element could not be located.">    at Object.exports.command (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\nightwatch\commands\clickCancel.js:7:17)
+    </testcase>
+      <system-err>
+        Error while running waitForElementVisible command: waitForElement expects second parameter to have a global default (waitForConditionTimeout) to be specified if not passed as the second parameter 
+    at Object.exports.command (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\nightwatch\commands\selectLineItem.js:7:10)
     at Object.F.command (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\api.js:274:31)
     at Object.commandFn (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\api.js:287:24)
     at AsyncTree.runCommand (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:157:30)
@@ -36,15 +30,7 @@
     at AsyncTree.walkUp (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:100:8)
     at AsyncTree.walkDown (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:93:12)
     at AsyncTree.walkUp (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:100:8)
-    at AsyncTree.walkDown (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:93:12)</failure>
-
-    
-    </testcase>
-      <system-err>
-         ERROR: Unable to locate element: &quot;h2&quot; using: css selector
- ERROR: Unable to locate element: &quot;/html/body/div/ui-view/div/div[3]/input&quot; using: xpath
- ERROR: Unable to locate element: &quot;/html/body/div/ui-view/div/div[3]/input&quot; using: xpath
- ERROR: Unable to locate element: &quot;h2&quot; using: css selector
+    at AsyncTree.walkDown (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:93:12)
       </system-err>
   
   

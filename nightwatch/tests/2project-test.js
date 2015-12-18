@@ -7,10 +7,8 @@ module.exports = {
         .pause(300)
         .clickCancel()
         .navToProject()
-        .makeNewProject()
-        .clickSave()
-        .navToProject()
-        .makeNewProject()
+        .makeNewProject('New Fake Project')
+        .enterTextForProject('Awesome Project')
         .clickCancel()
         .end();
   }

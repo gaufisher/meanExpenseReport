@@ -1,6 +1,7 @@
 exports.command = function(callback){
     var self = this;
     this
+        .pause(1000)
         .useCss()
         .click('button[id=cancel]')
         .pause(1000)
