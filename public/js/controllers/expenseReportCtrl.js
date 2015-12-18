@@ -69,12 +69,14 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             }
             console.log($scope.expenseReport);
             persist("saved");
+            $state.go("viewReports", {}, {reload: true})
         };
 
         $scope.submit = function () {
             if ($scope.expenseReport.project != null) {
                 persist("submitted");
             }
+            $state.go("viewReports", {}, {reload: true})
         };
 		
 		$scope.unsubmit = function(){
@@ -104,7 +106,9 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             var lineItem = {};
             lineItem.name = $scope.expenseReport.items[index].type;
             $scope.LineItemTypes.push(lineItem);
-            $scope.expenseReport.items.splice(index, 1);
+            //To Do: remove the line item when I press delete
+            $scope.expenseReport.items.splice(index,1);
+            $scope.showButton = $scope.expenseReport.items.length < 1 ? false : true;
         };
 
         $scope.cancel = function () {

@@ -14,7 +14,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
             controller: 'viewReportsCtrl',
             resolve: {
                 ExpenseReports: function(userFactory, expenseReportFactory) {
-					//return expenseReportFactory.getAllExpenseReports("56707a9e2c29fc36bf61955f");
                     return userFactory.getCurrentUser().then(
                         function(success) {
                             return expenseReportFactory.getAllExpenseReports(success.data.name);
@@ -23,15 +22,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
                             return "Not working";
                         }
                     );
-                }
-            }
-        }).state('viewReport', {
-            url: '/report',
-            templateUrl: '../templates/viewReport.tpl.html',
-            controller: 'viewReportCtrl',
-            resolve: {
-                ExpenseReport: function(viewReportFactory) {
-                    //stuff
                 }
             }
         }).state('project', {
