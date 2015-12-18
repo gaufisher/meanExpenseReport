@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "angular": "^1.4.8",
     "activedirectory": "^0.7.1",
     "body-parser": "^1.13.3",
     "connect-ensure-login": "^0.1.1",
@@ -20,6 +21,13 @@
     "mongoose": "^4.3.1",
     "mongoose-currency": "^0.2.0",
     "morgan": "~1.6.1",
+    "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.4.8",
+    "jasmine-core": "^2.4.1",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
     "passport": "^0.3.2",
     "passport-custom": "^1.0.5",
     "serve-favicon": "~2.3.0"
