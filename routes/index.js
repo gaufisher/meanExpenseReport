@@ -109,16 +109,35 @@ router.post('/expense-report', function(req, res, next){
 	var report = new Report(req.body);
 	console.log("the new report:");
 	console.log(req.body);
-	/*console.log(req.user);
-	User.findOne({"name": req.user}, "_id", function(err, id) {
-      report.user = id;
-	  console.log("and here's the id:");
-	  console.log(id);*/
     report.save(function(err, report){
       if(err){ return next(err); }
       res.json(report);
-     // });
-  });
+    });
+});
+
+router.put('/expense-report', function(req, res, next){
+	var rep = req.body;
+	if(rep.hasOwnProperty('items')){
+		for(var i = 0; i < rep.items.length; i++)
+		{
+			rep.items[i].value = rep.items[i].value * 100;
+		}
+	}
+	Report.findById(rep._id, function(err, report){
+		if(err){ return next(err);}
+		for(var field in Report.schema.paths){
+			if((field !== '_id') && (field !== '__v')){
+				if(rep[field] !== undefined)
+				{
+					report[field] = rep[field];
+				}
+			}
+		}
+		report.save(function(error, report){
+			if(error){ return next(error); }
+			res.json(report);
+		});
+	});	
 });
 
 

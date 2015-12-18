@@ -52,13 +52,25 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 			}
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
                 function(success) {
-                    $state.go("viewReports", {}, {reload: true})
+                    $state.go("viewReports", {}, {reload: true});
                 },
                 function(error) {
                    //console.log("working as intended");
                 }
             );
         };
+		
+		var updateReport = function(){
+			sharedProperties.setExpenseReport({items:[]});
+			expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
+				function(success){
+					$state.go("viewReports", {}, {reload: true});
+				},
+				function(error) {
+					//console.log("working as intended");
+				}
+			);
+		};
 
         $scope.save = function(){
             if($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0){
@@ -73,6 +85,11 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 persist("submitted");
             }
         };
+		
+		$scope.unsubmit = function(){
+			$scope.expenseReport.status = "saved";
+			updateReport();
+		};
 
         $scope.addItem = function() {
             var item = {};

@@ -6,7 +6,7 @@
 
 <div class="form-group" >
   <label for="selectDropdown">Select a Project</label>
-  <select class="form-control" id="selectDropdown" ng-change="addItem()" ng-init="dropdownvalue=projects[selectProject()]" ng-model="dropdownvalue" ng-options="p.name for p in projects track by p._id">
+  <select class="form-control" id="selectDropdown" ng-disabled="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" ng-change="addItem()" ng-init="dropdownvalue=projects[selectProject()]" ng-model="dropdownvalue" ng-options="p.name for p in projects track by p._id">
     <option></option>
   </select>
 </div>
