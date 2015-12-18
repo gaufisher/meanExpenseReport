@@ -66,12 +66,14 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             }
             console.log($scope.expenseReport);
             persist("saved");
+            $state.go("viewReports", {}, {reload: true})
         };
 
         $scope.submit = function(){
             if($scope.expenseReport.project != null) {
                 persist("submitted");
             }
+            $state.go("viewReports", {}, {reload: true})
         };
 
         $scope.addItem = function() {

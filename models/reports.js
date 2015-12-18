@@ -2,9 +2,6 @@ var mongoose = require('mongoose');
 require('mongoose-currency').loadType(mongoose);
 var Currency = mongoose.Types.Currency;
 
-// require('./projects');
-// require('./users');
-
 var ReportSchema = new mongoose.Schema({
     name: String,
     items: [

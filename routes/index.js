@@ -101,6 +101,7 @@ router.post('/expense-report', function(req, res, next){
         report.save(function(err, report){
             if(err){ return next(err); }
         });
+    });
 });
 
 // Get all line item types
