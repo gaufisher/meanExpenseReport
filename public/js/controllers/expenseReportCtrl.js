@@ -1,9 +1,9 @@
 app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory', 'sharedProperties',
     function($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, sharedProperties){
         $scope.expenseReport = {};
-		
+
 		$scope.project = {};
-	
+
 		$scope.setExpenseReport = function(){
 			$scope.expenseReport = sharedProperties.getExpenseReport();
 
@@ -16,12 +16,12 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 				item.type = $scope.dropdownvalue.name;
 				for (var j = 0; j < $scope.LineItemTypes.length; j++){
 					if($scope.LineItemTypes[j].name === item.type){
-					
+
 						$scope.dropdownvalue = {name:''};
 						$scope.LineItemTypes.splice(j,1);
 						break;
-					} 
-				}			
+					}
+				}
 			}
 		};
         $scope.showButton = false;
@@ -32,10 +32,10 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         );
 
 		$scope.expenseReport.user = {
-							"_id": "56707a9e2c29fc36bf61955f"	
+							"_id": "56707a9e2c29fc36bf61955f"
 						};*/
         $scope.expenseReport.items = [];
-            
+
         var persist = function(status){
 			sharedProperties.setExpenseReport({items:[]});
             $scope.expenseReport.status = status;
@@ -59,9 +59,9 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 }
             );
         };
-        
+
         $scope.save = function(){
-            if(Object.keys($scope.expenseReport.project).length == 0){
+            if($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0){
 				delete $scope.expenseReport.project;
             }
             console.log($scope.expenseReport);
@@ -91,7 +91,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.cancel = function() {
 			sharedProperties.setExpenseReport({items:[]});
-            $state.go("viewReports", {}, {reload: true});   
+            $state.go("viewReports", {}, {reload: true});
 
         };
 
