@@ -1,4 +1,4 @@
-
+/*
 describe("ProjectFactory", function () {
      beforeEach(module('QuickrBooks'));
 
@@ -19,7 +19,7 @@ describe("ProjectFactory", function () {
         }));
     });
 });*/
-describe('ProjectFactory', function() {
+/*describe('ProjectFactory', function() {
      beforeEach(module('QuickrBooks'));
   var LanguagesServicePromise, 
     $httpBackend, 
@@ -54,7 +54,7 @@ describe('ProjectFactory', function() {
     // flushes pending requests
     $httpBackend.flush();
   });
-});
+});*/
 
 /*
 describe('ProjectFactory', function() {
@@ -85,4 +85,4 @@ describe('ProjectFactory', function() {
 
         });
     });
-});
+});*/
