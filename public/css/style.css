@@ -59,3 +59,7 @@ input.line-item {
 .error {
     color: red;
 }
+
+.clickable{
+	cursor: pointer;
+}
