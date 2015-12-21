@@ -53,10 +53,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false">Create <span class="caret"></span></a>
+                        <a href="" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false" id="createNavbarDropdown">Create <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li ng-click="newProject()"><a>Project</a></li>
-                            <li ng-click="newExpenseReport()"><a>Expense Report</a></li>
+                            <li ng-click="newProject()"><a id="projectNavbarLink">Project</a></li>
+                            <li ng-click="newExpenseReport()"><a id="expenseReportNavbarLink">Expense Report</a></li>
                         </ul>
                     </li>
                 </ul>

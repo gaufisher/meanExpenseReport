@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="1">
+
+  <testsuite name="2expense-report-test"
+    errors="0" failures="0" hostname="" id="" package="2expense-report-test" skipped="0"
+    tests="1" time="32.25" timestamp="Fri, 18 Dec 2015 23:51:23 GMT">
+  
+    <testcase name="Expense Report Test" time="32.25" assertions="20">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+  
+  </testsuite>
+</testsuites>

@@ -1,0 +1,14 @@
+exports.command = function(reportName, lineItem, value, project, notes, callback){
+    var self = this;
+    this
+        .enterReportName(reportName)
+        .selectLineItem(lineItem)
+        .enterValueForLineItem(lineItem, value)
+        .selectProject(project)
+        .enterNotes(notes)
+    
+    if(typeof callback === "function") {
+        callback.call(self);
+    }
+    return this;
+};

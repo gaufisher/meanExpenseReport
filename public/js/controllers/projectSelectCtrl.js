@@ -1,3 +1,8 @@
+
+/**
+ * Created by Jeremy on 12/7/2015.
+ */
+
 app.controller('projectSelectCtrl', ['$scope', 'getAllProjects', 'sharedProperties', 'projectFactory',
   function ($, projects, sharedProperties, projectFactory) {
         $.projects = projects.data;

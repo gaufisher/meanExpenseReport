@@ -74,8 +74,6 @@ router.get('/expense-report/:id', function(req, res, next){
 });
 
 router.get('/expense-report', function(req, res, next){
-	//var idString = req.params.id.toString();
-	//var objId = mongoose.Types.ObjectId(idString);
 
 	User.findOne({'name': req.user}, "_id", function(err, id){
 		if(err){
@@ -115,17 +113,8 @@ router.post('/expense-report', function(req, res, next){
     });
 });
 
-/*    User.findOne({"name" : req.user}, "_id", function(err, id) {
-        if (err) {
-            return next(err);
-        }
-        report.user = id;
-        report.save(function(err, report){
-            if(err){ return next(err); }
-        });
-    });
-});*/
 
+// update an expense report 
 router.put('/expense-report', function(req, res, next){
 	var rep = req.body;
 	if(rep.hasOwnProperty('items')){

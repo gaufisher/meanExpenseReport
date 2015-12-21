@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="2"
+            failures="0"
+            tests="1">
+
+  <testsuite name="expense-report-test"
+    errors="2" failures="0" hostname="" id="" package="expense-report-test" skipped="0"
+    tests="1" time="11.05" timestamp="Fri, 18 Dec 2015 18:35:15 GMT">
+  
+    <testcase name="Expense Report Test" time="11.05" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+      <system-err>
+        Error while running waitForElementVisible command: waitForElement expects second parameter to have a global default (waitForConditionTimeout) to be specified if not passed as the second parameter 
+    at Object.exports.command (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\nightwatch\commands\selectLineItem.js:7:10)
+    at Object.F.command (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\api.js:274:31)
+    at Object.commandFn (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\api.js:287:24)
+    at AsyncTree.runCommand (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:157:30)
+    at AsyncTree.runChildNode (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:117:8)
+    at AsyncTree.walkDown (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:83:10)
+    at AsyncTree.walkUp (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:100:8)
+    at AsyncTree.walkDown (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:93:12)
+    at AsyncTree.walkUp (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:100:8)
+    at AsyncTree.walkDown (C:\TeamProjects\QuickrBooks\outhreeit-quickrbooks\node_modules\nightwatch\lib\core\queue.js:93:12)
+      </system-err>
+  
+  
+  </testsuite>
+</testsuites>
