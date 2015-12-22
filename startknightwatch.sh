@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 java -jar nightwatch/sel-serv.jar &> /dev/null &
 SEL=$!;
