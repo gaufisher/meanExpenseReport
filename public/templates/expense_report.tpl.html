@@ -1,7 +1,7 @@
 
 <div ng-init="setExpenseReport()">
     <div class="form-group">
-        <label for="inputExpenseReportName">Name</label>
+        <label for="inputExpenseReportName">Name</label> <p ng-show='expenseReport.status' style="display:inline;text-align:right"> Status: {{expenseReport.status}} </p>
         <input type="text" class="form-control" ng-model="expenseReport.name" ng-disabled="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" id="inputExpenseReportName" placeholder="Name">
     </div>
 
