@@ -99,7 +99,9 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                     updateReport();
                 } else {
                     persist("submitted");
+					$scope.expenseReport.status = "submitted";
                 }
+				expenseReportFactory.sendEmail($scope.expenseReport);
                 $state.go("viewReports", {}, {
                     reload: true
                 });
