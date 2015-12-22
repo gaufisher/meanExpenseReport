@@ -1,4 +1,4 @@
-angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state', 'projectFactory', 'userFactory', function ($scope, $state, projectFactory, userFactory) {
+angular.module('QuickrBooks').controller('projectCreateCtrl',['$scope', '$state', 'projectFactory', 'userFactory','toaster', function ($scope, $state, projectFactory, userFactory,toaster) {
     $scope.newProject = {};
 
     /* Clears the project save message */
@@ -31,9 +31,11 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state
     }
 
     $scope.cancel = function () {
+      toaster.pop('failure',"Canceled",`Creating project ${$scope.projectName}` )
         $state.go("viewReports", {}, {
             reload: true
         });
+
     }
 
 }]);
