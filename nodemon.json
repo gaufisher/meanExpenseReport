@@ -1,0 +1,15 @@
+{
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    "public",
+    "nightwatch",
+    "tests",
+    "views"
+  ],
+  "watch": [
+    "app.js",
+    "models/",
+    "routes/"
+  ]
+}
