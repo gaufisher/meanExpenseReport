@@ -114,7 +114,7 @@ router.post('/expense-report', function(req, res, next){
 });
 
 
-// update an expense report 
+// update an expense report
 router.put('/expense-report', function(req, res, next){
 	var rep = req.body;
 	if(rep.hasOwnProperty('items')){

@@ -47,9 +47,25 @@ app.config(['$stateProvider', '$urlRouterProvider',
               url: '/createProject',
               templateUrl: '../templates/project.tpl.html',
               controller: 'projectCreateCtrl'
-        }).state('hayes', {
-            url:'/hayes',
-            templateUrl: '../templates/theme.tpl.html'
+        }).state('approveReports', {
+            url: '/approveReports',
+            templateUrl: '../templates/approveReports.tpl.html',
+            controller: 'approveReportsCtrl',
+            resolve: {
+                Reports: function(approveReportsFactory) {
+                    console.log('Work damn you!');
+                    return approveReportsFactory.getReports().then(
+                        function(success) {
+                            console.log('SUCCESS');
+                            console.log(success.data);
+                            return success.data;
+                        },
+                        function(err) {
+                            console.log('ERROR');
+                            return err;
+                        }
+                    );
+                }
+            }
         });
-
 }]);
