@@ -31,7 +31,8 @@ angular.module('QuickrBooks').controller('projectCreateCtrl',['$scope', '$state'
     }
 
     $scope.cancel = function () {
-      toaster.pop('error',"Canceled",`Creating project ${$scope.projectName}` )
+      toaster.pop('error',"Canceled",`Creating project ${$scope.projectName}`)
+      
         $state.go("viewReports", {}, {
             reload: true
         });
