@@ -8,5 +8,6 @@ var ProjectSchema = new mongoose.Schema({
         ref: 'User'
     }
 });
+
 ProjectSchema.plugin(uniqueValidator);
 mongoose.model('Project', ProjectSchema);

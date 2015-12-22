@@ -23,10 +23,16 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state
 
     $scope.saveProject = function () {
         $scope.newProject.name = $scope.projectName;
-        projectFactory.create($scope.newProject);
+        var name = $scope.projectName
+
+        projectFactory.create($scope.newProject).then(function(err){
+          $scope.result = "Project " + $scope.projectName + " saved.";
+          $scope.projectName = "";
+        },function(err){
+            $scope.result = `Project ${name} already Exsists.`;
+        });
 
         $scope.showButton = false;
-        $scope.result = "Project " + $scope.projectName + " saved.";
         $scope.projectName = "";
     }
 
