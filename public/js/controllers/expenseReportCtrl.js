@@ -5,15 +5,14 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         $scope.project = {};
 
         $scope.hasProject = true;
-		$scope.showButton = false;
+		    $scope.showButton = false;
         $scope.setExpenseReport = function () {
             $scope.expenseReport = sharedProperties.getExpenseReport();
 
             $scope.dropdownvalue = {};
-			if($scope.expenseReport.items.length > 0)
-			{
-				$scope.showButton = true;
-			}
+			      if($scope.expenseReport.items.length > 0)
+				        $scope.showButton = true;
+
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
                 $scope.dropdownvalue.name = $scope.expenseReport.items[i].type;
                 var item = {};
