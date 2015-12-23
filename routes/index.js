@@ -151,26 +151,19 @@ router.put('/expense-report', function(req, res, next){
 
 router.post('/expense-report/email', function(req, res, next) {
 	var report = new Report(req.body);
+	//var userId = report.user;
 	
 	var nodemailer = require('nodemailer');
-	//var transporter = nodemailer.createTransport();
-	var transporter = nodemailer.createTransport({
-		service: 'gmail',
-		auth: {
-			user: 'danielsloane@gmail.com',
-			pass: 'Mu$hroom85'
-		}
-	}, {
-		from: 'donotreply@quickrbooks.com',
-		headers: {
-			'My-Awesome-Header': '123'
-		}
-	});
+	//var smtpTransport = require('nodemailer-smtp-transport');
+	var transporter = nodemailer.createTransport("direct", {debug: true});
+	
 	transporter.sendMail({
-		to: 'dsloane@catalystdevworks.com',
+		from: 'donotreply@quickrbooks.com',
+		to: 'dsloane@catalystitservices.com',
 		subject: 'hello',
-		text: 'Congratulations, your report ' + report.name + ' has been ' + report.status + '.'
+		text: "Congratulations, your report " + report.name + " has been " + report.status + "."
 	});
+	transporter.close();
 	res.json(report);
 	
 });

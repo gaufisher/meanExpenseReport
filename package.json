@@ -23,6 +23,7 @@
     "mongoose-currency": "^0.2.0",
     "morgan": "~1.6.1",
     "nightwatch": "^0.8.9",
+    "nodemailer": "^0.7.1",
     "phantomjs": "^1.9.19",
     "serve-favicon": "~2.3.0"
   },
