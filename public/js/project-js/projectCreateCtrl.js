@@ -27,7 +27,7 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state
 
         $scope.showButton = false;
         $scope.result = "Project " + $scope.projectName + " saved.";
-        toaster.pop('success',"Created",`${$scope.projectName}`)
+        toaster.pop('success',"Created",`${$scope.projectName}`);
         $scope.projectName = "";
         $state.go("viewReports", {}, {
             reload: true
