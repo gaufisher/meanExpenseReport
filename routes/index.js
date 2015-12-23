@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var path = require('path')
-require('../models/users');
-var User = mongoose.model('User');
 require('../models/projects');
 var Project = mongoose.model('Project');
 require('../models/reports');
@@ -30,31 +28,21 @@ router.get('/',function(req,res,next){
 /* Post a project to database*/
 router.post('/projects', function(req, res, next) {
   var project = new Project(req.body);
-  User.findOne({"name": req.user}, "_id", function(err, id) {
-      project.approver = id;
-      project.save(function(err, project){
-        if(err){ return next(err); }
 
-        res.json(project);
-      });
+  project.approver = req.user._id;
+  project.save(function(err, project){
+    if(err){ return res.status(500).json(err); }
+
+    res.json(project);
   });
 
-});
 
-// Test routes to get data from db
-router.get('/users',function(req, res, next) {
-    User.find(function(err, users) {
-        if (err) {
-            return next(err);
-        }
-        res.json(users);
-    });
 });
 
 router.get('/projects', checkAuth,function(req, res, next) {
     Project.find(function(err, projects) {
         if (err) {
-            return next(err);
+            return res.status(500).json(err);;
         }
         res.json(projects);
     });
@@ -67,25 +55,20 @@ router.get('/expense-report/:id', function(req, res, next){
 	var objId = mongoose.Types.ObjectId(idString);
 	Report.findById(objId, function(err, report){
 		if (err) {
-            return next(err);
+            return res.status(500).json(err);;
         }
         res.json(report);
 	});
 });
 
 router.get('/expense-report', function(req, res, next){
-
-	User.findOne({'name': req.user}, "_id", function(err, id){
-		if(err){
-			return next(err);
-		}
-		Report.find({'user': id}, function(error, reports){
+		Report.find({'user': req.user._id}, function(error, reports){
 			if(error){
-				return next(error);
+				return res.status(500).json(err);;
 			}
 			res.json(reports);
 		});
-	});
+
 });
 
 router.post('/expense-report', function(req, res, next){
@@ -97,13 +80,13 @@ router.post('/expense-report', function(req, res, next){
     console.log(report);
     Report.findOne({"_id": report._id}, "status", function(err, status) {
         if (err) {
-            return next(err);
+            return res.status(500).json(err);;
         }
         console.log(status);
         if (status === "saved" || status === null) {
             report.save(function(err, report) {
                 if (err) {
-                    return next(err);
+                    return res.status(500).json(err);;
                 }
                 res.json(report);
             });
@@ -114,7 +97,7 @@ router.post('/expense-report', function(req, res, next){
 });
 
 
-// update an expense report 
+// update an expense report
 router.put('/expense-report', function(req, res, next){
 	var rep = req.body;
 	if(rep.hasOwnProperty('items')){
