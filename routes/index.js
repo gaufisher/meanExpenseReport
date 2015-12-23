@@ -13,14 +13,18 @@ var Report = mongoose.model('Report');
 /* GET home page. */
 
 function checkAuth(req,res,next){
-  console.log(req.user)
-   if(!req.user){
-     if(req.xhr)res.send({message:"no can do!"})
-     else res.redirect('/')
- }
- else next()
+    console.log(req.user)
+    if(!req.user){
+        if(req.xhr)res.send({message:"no can do!"})
+        else res.redirect('/')
+    }
+    else {
+        next()
+    }
 }
+
 router.all('/*',checkAuth)
+
 
 router.get('/',function(req,res,next){
    res.render('index');
@@ -30,14 +34,14 @@ router.get('/',function(req,res,next){
 /* Post a project to database*/
 router.post('/projects', function(req, res, next) {
   var project = new Project(req.body);
-  User.findOne({"name": req.user}, "_id", function(err, id) {
-      project.approver = id;
+  //User.findOne({"name": req.user}, "_id", function(err, id) {
+      project.approver = req.user._id;
       project.save(function(err, project){
         if(err){ return next(err); }
 
         res.json(project);
       });
-  });
+  //});
 
 });
 
@@ -64,28 +68,42 @@ router.get('/expense-report/:id', function(req, res, next){
 	var idString = req.params.id.toString();
 	console.log("in route for /expense-report/:id");
 	console.log(idString);
-	var objId = mongoose.Types.ObjectId(idString);
-	Report.findById(objId, function(err, report){
-		if (err) {
+	Report.findById(idString, function(err, report){
+        // User.findOne({"name": req.user}, '_id', function(err, id) {
+        //     if (err) {
+        //         return res.send('Nope');
+        //     }
+        //     if (!report.user.equals(id._id)) {
+        //         res.status(403).send('No can do');
+        //     } else {
+        //         res.json(report);
+        //     }
+        // });
+        if (err) {
             return next(err);
         }
-        res.json(report);
+        console.log(req.user._id);
+        if (!report.user.equals(req.user._id)) {
+            res.status(403).send('No can do');
+        } else {
+            res.json(report);
+        }
 	});
 });
 
 router.get('/expense-report', function(req, res, next){
 
-	User.findOne({'name': req.user}, "_id", function(err, id){
-		if(err){
-			return next(err);
-		}
-		Report.find({'user': id}, function(error, reports){
+	// User.findOne({'name': req.user}, "_id", function(err, id){
+	// 	if(err){
+	// 		return next(err);
+	// 	}
+		Report.find({'user': req.user._id}, function(error, reports){
 			if(error){
 				return next(error);
 			}
 			res.json(reports);
 		});
-	});
+	// });
 });
 
 router.post('/expense-report', function(req, res, next){

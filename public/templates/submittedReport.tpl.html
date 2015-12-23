@@ -1,0 +1,19 @@
+<div>
+    <h2>Report</h2>
+    <div>
+        <h4>User: <span class="report_info">{{report.user.name}}</span></h4>
+    </div>
+    <div>
+        <h4>Name: <span class="report_info">{{report.name}}</span></h4>
+    </div>
+    <div>
+        <h4>Project: <span class="report_info">{{report.project.name}}</span></h4>
+    </div>
+    <div>
+        <h4>Line items:</h4>
+        <div data-ng-repeat="item in report.items">
+            <span class="report_info">{{item.name}}</span>
+        </div>
+
+    </div>
+</div>

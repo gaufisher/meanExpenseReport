@@ -49,23 +49,25 @@ app.config(['$stateProvider', '$urlRouterProvider',
               controller: 'projectCreateCtrl'
         }).state('approveReports', {
             url: '/approveReports',
-            templateUrl: '../templates/approveReports.tpl.html',
+            templateUrl: '../templates/submittedReports.tpl.html',
             controller: 'approveReportsCtrl',
             resolve: {
                 Reports: function(approveReportsFactory) {
-                    console.log('Work damn you!');
                     return approveReportsFactory.getReports().then(
                         function(success) {
-                            console.log('SUCCESS');
-                            console.log(success.data);
                             return success.data;
                         },
                         function(err) {
-                            console.log('ERROR');
                             return err;
                         }
                     );
                 }
+            }
+        }).state('approveReport', {
+            templateUrl: '../templates/submittedReport.tpl.html',
+            controller: 'approveReportCtrl',
+            params: {
+                report: undefined
             }
         });
 }]);

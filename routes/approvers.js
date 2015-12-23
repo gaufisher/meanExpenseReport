@@ -23,18 +23,17 @@ router.get('/submitted-reports',
                 for (var i = 0; i < pids.length; i++) {
                     projectQuery.push({$and: [{"project":pids[i]._id}, {"status":"submitted"}]});
                 }
-                Report.find({$or: projectQuery}, function(errors, reports) {
-                    console.log(reports);
+                Report.find({$or: projectQuery})
+                      .populate('project')
+                      .populate('user', 'name')
+                      .exec(function(errors, reports) {
                     if (errors) {
                         return next(errors);
                     }
                     res.json(reports);
-                    console.log('made it here');
                 });
-                console.log('Also made it here');
             });
         });
-        console.log('done');
     }
 );
 
