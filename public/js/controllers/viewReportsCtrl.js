@@ -1,6 +1,12 @@
 app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "projectFactory", "ExpenseReports", 'sharedProperties',
     function ($scope, $state, expenseReportFactory, projectFactory, ExpenseReports, sharedProperties) {
         $scope.reports = ExpenseReports.data;
+                $scope.statuses = [
+                    {name: 'saved'},
+                    {name: 'submitted'},
+                    {name: 'approved'},
+                    {name: 'rejected'}
+                ];
         $scope.showReport = function (report) {
             expenseReportFactory.getById(report._id).then(
                 function (success) {
