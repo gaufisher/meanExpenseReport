@@ -26,7 +26,7 @@ var ReportSchema = new mongoose.Schema({
                 }
             },
     notes: String,
-    unsubmitReason: String
+    unsubmitReasons: [{date:Date,notes:String}]
 });
 
 mongoose.model('Report', ReportSchema);
