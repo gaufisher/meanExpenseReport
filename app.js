@@ -70,8 +70,8 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.redirect('/');
- // next();
+  //res.redirect('/');
+  next();
   /*res.status(err.status || 500)
   .render('error', {
     message: err.message,

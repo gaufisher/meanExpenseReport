@@ -62,8 +62,6 @@ router.get('/projects', checkAuth,function(req, res, next) {
 
 router.get('/expense-report/:id', function(req, res, next){
 	var idString = req.params.id.toString();
-	console.log("in route for /expense-report/:id");
-	console.log(idString);
 	var objId = mongoose.Types.ObjectId(idString);
 	Report.findById(objId, function(err, report){
 		if (err) {
@@ -99,7 +97,6 @@ router.post('/expense-report', function(req, res, next){
         if (err) {
             return next(err);
         }
-        console.log(status);
         if (status === "saved" || status === null) {
             report.save(function(err, report) {
                 if (err) {
@@ -150,22 +147,37 @@ router.put('/expense-report', function(req, res, next){
 });
 
 router.post('/expense-report/email', function(req, res, next) {
-	var report = new Report(req.body);
-	//var userId = report.user;
-	
 	var nodemailer = require('nodemailer');
-	//var smtpTransport = require('nodemailer-smtp-transport');
 	var transporter = nodemailer.createTransport("direct", {debug: true});
 	
-	transporter.sendMail({
-		from: 'donotreply@quickrbooks.com',
-		to: 'dsloane@catalystitservices.com',
-		subject: 'hello',
-		text: "Congratulations, your report " + report.name + " has been " + report.status + "."
+	var report = req.body;
+	
+	User.findOne({'name': req.user}, "_id", function(err, id){
+		
+		var subjectLine = "expense report status change";
+		
+		if(report.status === "submitted" && report.user == id._id){ //back-end security
+			var userEmail = req.user + "@catalystitservices.com";
+			var emailText = "<style>td, th{margin-right: 2em;}</style><h2>Name: <b>" + report.name + "</b></h2><span><h2>Line Items:</h2><table><thead><tr><th> Type </th><th> Amount </th></tr></thead><tbody>";
+			for(var i = 0; i < report.items.length; i++){
+				emailText += "<tr><td> " + report.items[i].type + " </td><td> $" + report.items[i].value + " </td></tr>";
+			}
+			emailText += "</tbody></table></span><h2>Status: " + report.status.toUpperCase() + "</h2>";
+			
+			var emailUserText = "The following report has been " + report.status + ".<br>" + emailText;
+			var emailApproverText = "The following report has been " + report.status + " for your approval.<br>" + emailText;
+			//to-do: add in rest of email to approver (rest of expense report & button)
+			transporter.sendMail({
+				from: 'donotreply@quickrbooks.com',
+				to: userEmail,
+				subject: subjectLine,
+				html: emailUserText
+			});
+		}
 	});
+	
 	transporter.close();
 	res.json(report);
-	
 });
 
 
@@ -177,8 +189,6 @@ router.get('/line-item-types', function(req, res, next) {
 
 router.get('/project/:id', function(req, res, next){
 	var idString = req.params.id.toString();
-	console.log("in route for /project/:id");
-	console.log(idString);
 	var objId = mongoose.Types.ObjectId(idString);
 	Project.findById(objId, function(err, project){
 		if (err) {
