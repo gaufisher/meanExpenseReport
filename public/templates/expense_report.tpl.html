@@ -11,15 +11,16 @@
             <option></option>
         </select>
     </div>
-
-    <div class="form-group" ng-repeat="line in expenseReport.items">
-        <label id={{line.type}}Label>{{line.type}}</label>
+    <ng-form name="Items">
+      <ng-form novalidation class="form-group" ng-repeat="line in expenseReport.items" name="lineItem">
+        <label id={{line.type}}Label>{{line.type}}</label><p style="display:inline;color:red;" ng-show="lineItem.$invalid"> Must be more than $0.00</p>
         <div data-ng-class="{'input-group': (expenseReport.status === 'saved') || (expenseReport.status === undefined)}">
-            <input type="text" data-ng-class="{'line-item': (expenseReport.status === 'saved') || (expenseReport.status === undefined)}" class="form-control" ng-model="line.value" ng-disabled="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" ui-money-mask placeholder="Value Amount Here" id={{line.type}}InputID>
+            <input  type="text" data-ng-class="{'line-item': (expenseReport.status === 'saved') || (expenseReport.status === undefined)}" class="form-control" ng-model="line.value" ng-disabled="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" ui-money-mask min="0.01" placeholder="Value Amount Here" id={{line.type}}InputID>
             <span class="input-group-addon red-x" ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" ng-click="delete($index)"id={{line.type}}Delete>&times;</span>
         </div>
-    </div>
-
+      </ng-form>
+    <ng-form>
+      
     <div ui-view="projectSelect"></div>
     <div class="form-group">
         <label>Notes:</label>
@@ -27,10 +28,10 @@
     </div>
     <div>
         <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" type="submit" ng-click="save()" class="btn btn-default" id="save">Save</button>
-        <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" type="submit" ng-click="submit()" class="btn btn-default" id="submit">Submit</button>
+        <button ng-disabled="Items.$invalid" ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" type="submit" ng-click="submit()" class="btn btn-default" id="submit">Submit</button>
         <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" type="submit" ng-click="cancel()" class="btn pull-right btn-default" id="cancel">Cancel</button>
     </div>
 	<div ng-show="expenseReport.hasOwnProperty('status') && expenseReport.status === 'submitted'">
-		<button type="submit" ng-click="unsubmit()" class="btn btn-default">Unsubmit</button>
+		<button type="submit" ng-click="unsubmit()"  class="btn btn-default">Unsubmit</button>
 	</div>
 </div>
