@@ -33,7 +33,7 @@ router.post('/projects', function(req, res, next) {
   User.findOne({"name": req.user}, "_id", function(err, id) {
       project.approver = id;
       project.save(function(err, project){
-        if(err){ return next(err); }
+        if(err){ return res.status(409).json(err); }
 
         res.json(project);
       });
@@ -114,7 +114,7 @@ router.post('/expense-report', function(req, res, next){
 });
 
 
-// update an expense report 
+// update an expense report
 router.put('/expense-report', function(req, res, next){
 	var rep = req.body;
 	if(rep.hasOwnProperty('items')){
