@@ -7,6 +7,12 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
                     {name: 'approved'},
                     {name: 'rejected'}
                 ];
+        
+                $scope.approverLinks = [
+                    {name: 'pending my approval'},
+                    {name: 'already approved'}
+                ];
+        
         $scope.showReport = function (report) {
             expenseReportFactory.getById(report._id).then(
                 function (success) {

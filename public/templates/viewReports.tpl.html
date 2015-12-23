@@ -1,7 +1,7 @@
 <div>
     <h2>Expense Reports</h2>
     <h4 ng-hide="reports.length >  0" style="text-align:center;" >No Reports to show</h4>
-
+<!--
 	<div>
 		<table ng-show="reports.length >  0" class="table table-hover" id="savedTable">
 			<thead>
@@ -51,20 +51,67 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
-    <div class="panel-group" data-allow-multiple="true" role="tablist" bs-collapse>
-        <div class="panel panel-default" ng-repeat="status in statuses">
-            <div class="panel-heading" role="tab">
-                <h4 class="panel-title">
-                    <a bs-collapse-toggle>
-                        {{status.name}}
-                    </a>
-                </h4>
+	</div> -->
+    <!-- accordion starts here -->
+    <div class="panel-group" role="tablist" bs-collapse>
+        <div>
+            <div class="panel-group" data-allow-multiple="true" role="tab tablist" aria-multiselectable="true" bs-collapse>
+                <div class="panel panel-default">
+                    <div class="panel-collapse" role="tab">
+                        <h1 class="panel-title">
+                            <a bs-collapse-toggle class="clickable">
+                                Expense Reports
+                            </a>
+                        </h1>
+                    </div>
+                    <div class="panel panel-default"  bs-collapse-target>
+                        <div class="panel panel-default" ng-repeat="status in statuses">
+                            <div class="panel-collapse" role="tab tabpanel">
+                                <h4 class="panel-title">
+                                    <a bs-collapse-toggle class="clickable">
+                                      {{ status.name }}
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-heading" role="tabpanel" bs-collapse-target>
+                                <div class="panel-body" ng-repeat="report in reports  | filter: status.name">
+                                    <div ng-click="showReport(report)" class="clickable">
+                                        {{ report.name }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="panel-collapse" role="tabpanel" bs-collapse-target>
-                <div class="panel-body" ng-repeat="report in reports  | filter: status.name" >
-                    <div>
-                    {{report.name}}
+        </div>
+        <div>
+            <div class="panel-group" data-allow-multiple="true" role="tab tablist" aria-multiselectable="true" bs-collapse>
+                <div class="panel panel-default">
+                    <div class="panel-collapse" role="tab">
+                        <h1 class="panel-title">
+                            <a bs-collapse-toggle class="clickable">
+                                Approver Stuff
+                            </a>
+                        </h1>
+                    </div>
+                    <div class="panel panel-default"  bs-collapse-target>
+                        <div class="panel panel-default" ng-repeat="links in approverLinks">
+                            <div class="panel-collapse" role="tab tabpanel">
+                                <h4 class="panel-title">
+                                    <a bs-collapse-toggle class="clickable">
+                                      {{ links.name }}
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-heading" role="tabpanel" bs-collapse-target>
+                                <div class="panel-body" ng-repeat="report in reports">
+                                    <div ng-click="showReport(report)" class="clickable">
+                                        {{ report.name }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
