@@ -43,6 +43,26 @@ app.config(['$stateProvider', '$urlRouterProvider',
                     return projectFactory.getAll();
                 }
             }
+        }).state('viewReport', {
+            url: '/expense-report/{id}',
+            views: {
+                '': {
+                    templateUrl: '../templates/expense_report.tpl.html',
+                    controller: 'viewReportByIdCtrl'
+                },
+                'projectSelect@viewReport': {
+                    templateUrl: '../templates/projectSelect.tpl.html',
+                    controller: 'projectSelectCtrl'
+                }
+            },
+            resolve: {
+                getReportById: function ($stateParams, expenseReportFactory) {
+                    return expenseReportFactory.getById($stateParams.id);
+                },
+                getAllProjects: function (projectFactory) {
+                    return projectFactory.getAll();
+                }
+            }
         }).state('createProject', {
               url: '/createProject',
               templateUrl: '../templates/project.tpl.html',
