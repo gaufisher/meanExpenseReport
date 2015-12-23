@@ -1,19 +1,34 @@
-<div>
+<div class="container">
     <h2>Report</h2>
-    <div>
-        <h4>User: <span class="report_info">{{report.user.name}}</span></h4>
-    </div>
-    <div>
-        <h4>Name: <span class="report_info">{{report.name}}</span></h4>
-    </div>
-    <div>
-        <h4>Project: <span class="report_info">{{report.project.name}}</span></h4>
-    </div>
-    <div>
-        <h4>Line items:</h4>
-        <div data-ng-repeat="item in report.items">
-            <span class="report_info">{{item.name}}</span>
-        </div>
+    <!-- <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>User</th>
+                <th>Project</th>
+                <th>Line Items</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr >
 
-    </div>
+                <td>
+                    <ul class="list-unstyled">
+                        <li data-ng-repeat="item in report.items">
+                            {{item.type}}: ${{item.value / 100}}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table> -->
+    <ul class="list-unstyled">
+        <li>Name: {{report.name}}</li>
+        <li>User: {{report.user.name}}</li>
+        <li>Project: {{report.project.name}}</li>
+        <li>Line Items:</li>
+        <li data-ng-repeat="item in report.items">
+            {{item.type}}: ${{item.value / 100}}
+        </li>
+    </ul>
 </div>

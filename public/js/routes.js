@@ -64,10 +64,21 @@ app.config(['$stateProvider', '$urlRouterProvider',
                 }
             }
         }).state('approveReport', {
+            url: '/approveReport/{id}',
             templateUrl: '../templates/submittedReport.tpl.html',
             controller: 'approveReportCtrl',
-            params: {
-                report: undefined
+            resolve: {
+                Report: function(approveReportsFactory, $stateParams) {
+                    console.log('Routes id: ' + $stateParams.id);
+                    return approveReportsFactory.getReportById($stateParams.id).then(
+                        function(success) {
+                            return success.data;
+                        },
+                        function(error) {
+                            return error;
+                        }
+                    );
+                }
             }
         });
 }]);
