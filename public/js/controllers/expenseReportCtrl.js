@@ -58,10 +58,9 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                     $state.go("viewReports", {}, {
                         reload: true
                     });
-
                 },
                 function (error) {}
-            );
+              );
 
           else
             delete $scope.expenseReport.status;
