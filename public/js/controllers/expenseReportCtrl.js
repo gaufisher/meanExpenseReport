@@ -111,7 +111,17 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.unsubmit = function () {
             $scope.expenseReport.status = "saved";
-            updateReport();
+           
+            expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
+                function (success) {
+                    $state.go("expenseReport", {}, {
+                        reload: true
+                    });
+                },
+                function (error) {
+                    //console.log("working as intended");
+                }
+            );
         };
 
         $scope.addItem = function () {

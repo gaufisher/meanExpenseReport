@@ -62,4 +62,7 @@ input.line-item {
 
 .report_info {
     font-size: small;
+
+.clickable {
+	cursor: pointer;
 }

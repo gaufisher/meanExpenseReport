@@ -26,13 +26,11 @@
         <script src="js/factory/projectFactory.js"></script>
         <script src="js/factory/userFactory.js"></script>
         <script src="js/factory/approveReportsFactory.js"></script>
-        <!-- <script src="js/project-js/projectEnterKeyDirective.js"></script> -->
         <script src="js/controllers/projectSelectCtrl.js"></script>
         <script src="js/controllers/viewReportsCtrl.js"></script>
         <script src="js/controllers/userCtrl.js"></script>
         <script src="js/controllers/approveReportsCtrl.js"></script>
         <script src="js/controllers/approveReportCtrl.js"></script>
-
 
         <meta charset="UTF-8">
     </head>
@@ -56,11 +54,20 @@
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false">Create <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li ui-sref="createProject"><a>Project</a></li>
-                            <li ui-sref="expenseReport"><a>Expense Report</a></li>
+                            <li ng-click="newProject()"><a class="clickable" id="projectNavbarLink">Project</a></li>
+                            <li ng-click="newExpenseReport()"><a class="clickable" id="expenseReportNavbarLink">Expense Report</a></li>
                         </ul>
                     </li>
-                    <li ui-sref="approveReports"><a>Approve reports</a></li>
+                </ul>
+                <ul class="nav navbar-nav theme">
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false">Theme <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li ui-sref="hayes"><a>Subdued Fall</a></li>
+                            <li onclick="alert('Subdued Fall theme added')"><a>Add Theme</a></li>
+                        </ul>
+                    </li>
+                    <li class="clickable" ui-sref="approveReports"><a>Approve reports</a></li>
                     <li><a><br></a></li>
                 </ul>
 
