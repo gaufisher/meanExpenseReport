@@ -18,14 +18,16 @@ router.post('/', function(req, res, next) {
 			
 	var subjectLine = "expense report status change";
 
+	var emailText = "<html><style>td, th{margin-right: 2em;} button{border: thin solid black; border-radius: 5px;} .rejection{color: red;}</style><h2>Name: <b>" + report.name + "</b></h2><h2>Line Items:</h2><table><thead><tr><th> Type </th><th> Amount </th></tr></thead><tbody>";
+	for(var i = 0; i < report.items.length; i++){
+		emailText += "<tr><td> " + report.items[i].type + " </td><td> $" + report.items[i].value + " </td></tr>";
+	}
+	emailText += "</tbody></table><h2>Status: " + report.status.toUpperCase() + "</h2>";
+	
 	if(report.status === "submitted" && report.user == req.user._id){ //back-end security
 		var userEmail = req.user.name + "@catalystitservices.com";
 		console.log("userEmail = " + userEmail);
-		var emailText = "<html><style>td, th{margin-right: 2em;} button{border: thin solid black; border-radius: 5px;}</style><h2>Name: <b>" + report.name + "</b></h2><h2>Line Items:</h2><table><thead><tr><th> Type </th><th> Amount </th></tr></thead><tbody>";
-		for(var i = 0; i < report.items.length; i++){
-			emailText += "<tr><td> " + report.items[i].type + " </td><td> $" + report.items[i].value + " </td></tr>";
-		}
-		emailText += "</tbody></table><h2>Status: " + report.status.toUpperCase() + "</h2>";
+		
 		
 		var emailUserText = "The following report has been " + report.status + ".<br>" + emailText + "</html>";
 		
@@ -60,12 +62,38 @@ router.post('/', function(req, res, next) {
 					html: emailApproverText
 				});
 			});
+					
+		});		
+	}
+	if(report.status === "approved" || report.status === "denied")
+	{
+		User.findById(report.user, function(err, user){
+			if(err){
+				return next(err);
+			}
+			Project.findById(report.project, function(error, project){
+				if (error) {
+					return next(err);
+				}
+				var userEmail = user.name + "@catalystitservices.com";
+				var emailUserText = "The following report has been " + report.status + ".<br>" + emailText;
+				emailUserText += "<h2>Project: " + project.name + "</h2>";
+				if(report.status === "denied" && report.hasOwnProperty('rejectionReason'){
+					emailUserText += "<h2>Reason for Rejection: <span class='rejection'" + report.rejectionReason + "</span></h2>";
+				}
+				emailUserText += "</html>";
 			
+			
+				transporter.sendMail({
+					from: 'donotreply@quickrbooks.com',
+					to: userEmail,
+					subject: subjectLine,
+					html: emailUserText
+				});
+			});
 			
 			
 		});
-		
-		
 	}
 	
 	
