@@ -28,7 +28,6 @@ router.get('/',function(req,res,next){
 /* Post a project to database*/
 router.post('/projects', function(req, res, next) {
   var project = new Project(req.body);
-
   project.approver = req.user._id;
   project.save(function(err, project){
     if(err){ return res.status(500).json(err); }
