@@ -3,12 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "tests": "mocha-runner 'test/**/*.js'",
+    "coverage": "istanbul cover -x 'test/**/*.js' ./app.js 'test/**/*.js' html text-summary",
+    "coverage-cache": "istanbul cover -x 'test/**/*.js' ./app.js 'tests/mocha/*.js' html text-summary -- --useCache=true",
+    "watch": "npm run coverage && watch-spawn -p 'test/**/*.js' -p 'app.js' -p 'routes/**/*.js' npm run coverage-cache"
   },
   "dependencies": {
     "activedirectory": "^0.7.1",
     "angular": "^1.4.8",
     "body-parser": "^1.13.3",
+    "chai": "^3.4.1",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
@@ -18,6 +23,7 @@
     "jasmine": "^2.4.1",
     "kerberos": "0.0.17",
     "ldapjs": "git://github.com/mcavage/node-ldapjs.git",
+    "mocha-runner": "^1.1.1",
     "mongodb": "^2.0.52",
     "mongoose": "^4.3.1",
     "mongoose-currency": "^0.2.0",
@@ -25,6 +31,7 @@
     "morgan": "~1.6.1",
     "nightwatch": "^0.8.9",
     "nodemailer": "^0.7.1",
+    "passport-stub": "^1.0.1",
     "phantomjs": "^1.9.19",
     "serve-favicon": "~2.3.0"
   },
