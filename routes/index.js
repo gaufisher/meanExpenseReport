@@ -82,7 +82,6 @@ router.post('/expense-report', function(req, res, next){
         if (err) {
             return res.status(500).json(err);;
         }
-        console.log(status);
         if (status === "saved" || status === null) {
             report.save(function(err, report) {
                 if (err) {
@@ -146,6 +145,7 @@ router.put('/expense-report', function(req, res, next){
 });
 
 
+
 // Get all line item types
 router.get('/line-item-types', function(req, res, next) {
     var lineItemTypes = [{name: 'Mileage'}, {name: 'Per Diem'}, {name: 'Lodging'}, {name: 'Travel'}, {name: 'Meals'}, {name: 'Entertainment'}, {name: 'Parking'}, {name: 'Other'}];
@@ -154,8 +154,6 @@ router.get('/line-item-types', function(req, res, next) {
 
 router.get('/project/:id', function(req, res, next){
 	var idString = req.params.id.toString();
-	console.log("in route for /project/:id");
-	console.log(idString);
 	var objId = mongoose.Types.ObjectId(idString);
 	Project.findById(objId, function(err, project){
 		if (err) {
