@@ -21,6 +21,7 @@
     "mongodb": "^2.0.52",
     "mongoose": "^4.3.1",
     "mongoose-currency": "^0.2.0",
+    "mongoose-unique-validator": "^0.6.2",
     "morgan": "~1.6.1",
     "nightwatch": "^0.8.9",
     "nodemailer": "^0.7.1",
