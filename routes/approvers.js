@@ -38,6 +38,7 @@ router.get('/submitted-reports/:id',
         console.log('REPORT ID: ' +idString);
         Report.findById(idString)
               .populate('project')
+              .populate('user', 'name')
               .exec(function(err, report) {
             console.log(report);
             if (err) {

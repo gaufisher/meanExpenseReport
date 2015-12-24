@@ -45,16 +45,6 @@ router.post('/projects', function(req, res, next) {
 
 });
 
-// Test routes to get data from db
-router.get('/users',function(req, res, next) {
-    User.find(function(err, users) {
-        if (err) {
-            return next(err);
-        }
-        res.json(users);
-    });
-});
-
 router.get('/projects', checkAuth,function(req, res, next) {
     Project.find(function(err, projects) {
         if (err) {

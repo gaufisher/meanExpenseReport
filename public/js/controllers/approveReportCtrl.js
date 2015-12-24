@@ -4,5 +4,8 @@ angular.module('QuickrBooks').controller('approveReportCtrl', ['$scope', '$state
     function($scope, $state, Report) {
         $scope.report = Report;
         console.log(Report);
+        $scope.submit = function(status) {
+            //post it
+        }
     }
 ]);

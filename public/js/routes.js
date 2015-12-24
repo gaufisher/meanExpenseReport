@@ -80,5 +80,8 @@ app.config(['$stateProvider', '$urlRouterProvider',
                     );
                 }
             }
+        }).state('theme', {
+            url: '/hayes',
+            templateUrl: '../templates/theme.tpl.html'
         });
 }]);
