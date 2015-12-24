@@ -5,7 +5,7 @@ require('../models/users');
 var User = mongoose.model('User');
 /* GET users listing. */
 router.get('/currentuser', function(req, res, next) {
-	res.json(req.user);
+    res.json(req.user);
 });
 
 module.exports = router;

@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var path = require('path')
-require('../models/users');
-var User = mongoose.model('User');
 require('../models/projects');
 var Project = mongoose.model('Project');
 require('../models/reports');
@@ -33,22 +31,20 @@ router.get('/',function(req,res,next){
 
 /* Post a project to database*/
 router.post('/projects', function(req, res, next) {
-  var project = new Project(req.body);
-  //User.findOne({"name": req.user}, "_id", function(err, id) {
-      project.approver = req.user._id;
-      project.save(function(err, project){
-        if(err){ return next(err); }
+    var project = new Project(req.body);
+    project.uniqueName = project.name.toLowerCase();
+	project.approver = req.user._id;
+    project.save(function(err, project){
+      if(err){ return res.status(500).json(err); }
 
-        res.json(project);
-      });
-  //});
-
+      res.json(project);
+    });
 });
 
 router.get('/projects', checkAuth,function(req, res, next) {
     Project.find(function(err, projects) {
         if (err) {
-            return next(err);
+            return res.status(500).json(err);;
         }
         res.json(projects);
     });
@@ -56,21 +52,10 @@ router.get('/projects', checkAuth,function(req, res, next) {
 
 router.get('/expense-report/:id', function(req, res, next){
 	var idString = req.params.id.toString();
-	console.log("in route for /expense-report/:id");
-	console.log(idString);
-	Report.findById(idString, function(err, report){
-        // User.findOne({"name": req.user}, '_id', function(err, id) {
-        //     if (err) {
-        //         return res.send('Nope');
-        //     }
-        //     if (!report.user.equals(id._id)) {
-        //         res.status(403).send('No can do');
-        //     } else {
-        //         res.json(report);
-        //     }
-        // });
-        if (err) {
-            return next(err);
+	var objId = mongoose.Types.ObjectId(idString);
+	Report.findById(objId, function(err, report){
+		if (err) {
+            return res.status(500).json(err);;
         }
         console.log(req.user._id);
         if (!report.user.equals(req.user._id)) {
@@ -82,36 +67,26 @@ router.get('/expense-report/:id', function(req, res, next){
 });
 
 router.get('/expense-report', function(req, res, next){
-
-	// User.findOne({'name': req.user}, "_id", function(err, id){
-	// 	if(err){
-	// 		return next(err);
-	// 	}
-		Report.find({'user': req.user._id}, function(error, reports){
-			if(error){
-				return next(error);
-			}
-			res.json(reports);
-		});
-	// });
+	Report.find({'user': req.user._id}, function(error, reports){
+		if(error){
+			return res.status(500).json(err);;
+		}
+		res.json(reports);
+	});
 });
 
 router.post('/expense-report', function(req, res, next){
 	var report = new Report(req.body);
-    // report.save(function(err, report){
-    //   if(err){ return next(err); }
-    //   res.json(report);
-    // });
     console.log(report);
     Report.findOne({"_id": report._id}, "status", function(err, status) {
         if (err) {
-            return next(err);
+            return res.status(500).json(err);;
         }
         console.log(status);
         if (status === "saved" || status === null) {
             report.save(function(err, report) {
                 if (err) {
-                    return next(err);
+                    return res.status(500).json(err);;
                 }
                 res.json(report);
             });
