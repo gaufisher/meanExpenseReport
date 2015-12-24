@@ -16,18 +16,21 @@
         <link rel="stylesheet" type="text/css" href="css/getProjectDemo-style.css" />
         <link rel="stylesheet" type="text/css" href="css/project-style.css" />
 
-		<!-- scripts -->
-		<script src="js/angularApp.js"></script>
-		<script src="js/controllers/expenseReportCtrl.js"></script>
-		<script src="js/factory/expenseReportFactory.js"></script>
-		<script src="js/routes.js"></script>
-		<script src="js/project-js/projectCreateCtrl.js"></script>
-		<script src="js/project-js/projectGetCtrl.js"></script>
-		<script src="js/factory/projectFactory.js"></script>
-		<script src="js/factory/userFactory.js"></script>
-		<script src="js/controllers/projectSelectCtrl.js"></script>
-		<script src="js/controllers/viewReportsCtrl.js"></script>
-		<script src="js/controllers/userCtrl.js"></script>
+        <!-- scripts -->
+        <script src="js/angularApp.js"></script>
+        <script src="js/controllers/expenseReportCtrl.js"></script>
+        <script src="js/factory/expenseReportFactory.js"></script>
+        <script src="js/routes.js"></script>
+        <script src="js/project-js/projectCreateCtrl.js"></script>
+        <script src="js/project-js/projectGetCtrl.js"></script>
+        <script src="js/factory/projectFactory.js"></script>
+        <script src="js/factory/userFactory.js"></script>
+        <script src="js/factory/approveReportsFactory.js"></script>
+        <script src="js/controllers/projectSelectCtrl.js"></script>
+        <script src="js/controllers/viewReportsCtrl.js"></script>
+        <script src="js/controllers/userCtrl.js"></script>
+        <script src="js/controllers/approveReportsCtrl.js"></script>
+        <script src="js/controllers/approveReportCtrl.js"></script>
 
         <meta charset="UTF-8">
     </head>
@@ -42,7 +45,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" ui-sref="viewReports"><img class="logo" alt="Brand" src="images/outhreeit-quickrbooks.png"></a>
+                <a class="navbar-brand" ui-sref="viewReports"><img class="logo" alt="Quickrbooks" src="images/outhreeit-quickrbooks.png"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -55,16 +58,17 @@
                             <li ng-click="newExpenseReport()"><a class="clickable" id="expenseReportNavbarLink">Expense Report</a></li>
                         </ul>
                     </li>
+                    <li class="clickable" ui-sref="approveReports"><a>Approve reports</a></li>
                 </ul>
                 <ul class="nav navbar-nav theme">
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" bs-dropdown role="button" aria-haspopup="true" aria-expanded="false">Theme <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li ui-sref="hayes"><a>Subdued Fall</a></li>
+                            <li ui-sref="theme"><a>Subdued Fall</a></li>
                             <li onclick="alert('Subdued Fall theme added')"><a>Add Theme</a></li>
                         </ul>
                     </li>
-                    <li><a><br></a></li>
+                    <!-- <li><a><br></a></li> -->
                 </ul>
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
