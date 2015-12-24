@@ -125,7 +125,7 @@ router.put('/expense-report', function(req, res, next){
 			}
 		}
 		report.save(function(error, report){
-			if(error){ return next(error); }
+			if(error){ return res.status(500).json(error); }
 			res.json(report);
 		});
 	});
@@ -145,7 +145,7 @@ router.get('/project/:id', function(req, res, next){
 	var objId = mongoose.Types.ObjectId(idString);
 	Project.findById(objId, function(err, project){
 		if (err) {
-            return next(err);
+            return res.status(500).json(err);
         }
         res.json(project);
 	});
