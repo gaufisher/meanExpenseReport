@@ -27,17 +27,14 @@ router.get('/',function(req,res,next){
 
 /* Post a project to database*/
 router.post('/projects', function(req, res, next) {
-  var project = new Project(req.body);
-
-  User.findOne({"name": req.user}, "_id", function(err, id) {
-
+    var project = new Project(req.body);
+    project.uniqueName = project.name.toLowerCase();
 	project.approver = req.user._id;
-	project.save(function(err, project){
-    if(err){ return res.status(500).json(err); }
+    project.save(function(err, project){
+      if(err){ return res.status(500).json(err); }
 
-    res.json(project);
-  });
-
+      res.json(project);
+    });
 
 });
 
