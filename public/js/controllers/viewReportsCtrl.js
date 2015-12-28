@@ -15,7 +15,6 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
         ];
   
         $scope.showReport = function (id) {
-            console.log(id);
             $state.go("viewReport", {id: id}, {
                 reload: true
             });
@@ -36,9 +35,6 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
                 console.log("state attempted to change");
             }
         };
-  
-
-
 
     }
 ]);
