@@ -46,16 +46,17 @@
     <div class="notes">
         <h3>Notes: </h3>
         <p>{{report.notes}}</p>
-        <!-- <h3>Reasons for unsubmitting are going here.</h3>
-        <p>{{report.getDemReason}}</p> -->
+        <h3>Reasons for unsubmitting are going here.</h3>
+        <p ></p>
     </div>
     <div>
 		<button type="submit" ng-click="submit('approved')" class="btn btn-default">Approve</button>
-		<button type="submit" ng-click="submit('denied')" class="btn btn-default">Reject</button>
+		<button type="submit" ng-click="showRejection = true" class="btn btn-default">Reject</button>
 	</div>
-    <div class="form-group">
+    <div class="form-group" ng-show="showRejection">
         <br />
         <label>Reason for rejection:</label>
         <textarea data-ng-model="rejectionReason" class="form-control"></textarea>
+        <button type="submit" ng-click="submit('denied')" class="btn btn-default">Send</button>
     </div>
 </div>
