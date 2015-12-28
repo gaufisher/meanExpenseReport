@@ -54,5 +54,26 @@ router.get('/submitted-reports/:id',
     }
 );
 
+router.get('/approved-reports/:id',
+    function(req, res, next) {
+        var idString = req.params.id.toString();
+        console.log('REPORT ID: ' + idString);
+        Report.findById(idString)
+            .populate('project')
+            .populate('user', 'name')
+            .exec(function(err, report) {
+                console.log(report);
+            if (err) {
+                res.status(500).json(err);
+            } else{
+                if (!report.project.approver.equals(req.user._id) || report.status !== 'approved') {
+                    res.status(403).send('You are unauthorized to view this approved report');
+                } else{
+                    res.json(report);
+                }
+            }
+        });
+    }
+);
 
 module.exports = router;

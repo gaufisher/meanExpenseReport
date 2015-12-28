@@ -116,6 +116,23 @@ app.config(['$stateProvider', '$urlRouterProvider',
                     );
                 }
             }
+        }).state('reportIApproved', {
+            url: '/reportIApproved/{id}',
+            templateUrl: '../templates/myApprovedReport.tpl.html',
+            controller: 'reportIApprovedCtrl',
+            resolve: {
+                ApprovedReport: function(reportsIApprovedFactory, $stateParams) {
+                    console.log('Routes id: ' + $stateParams.id);
+                    return reportsIApprovedFactory.getReportById($stateParams.id).then(
+                        function(success) {
+                            return success.data;
+                        },
+                        function(error) {
+                            return error;
+                        }
+                    );
+                }
+            }
         }).state('theme', {
             url: '/hayes',
             templateUrl: '../templates/theme.tpl.html'

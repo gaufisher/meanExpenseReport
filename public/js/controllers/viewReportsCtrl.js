@@ -10,8 +10,8 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
         ];
 
         $scope.approverLinks = [
-            {name: 'pending my approval', status: 'submitted', redirectfunction: function('submitted'){}},
-            {name: 'already approved', status: 'approved', redirectFunction: function('approved'){}}
+            {name: 'pending my approval', status: 'submitted'},
+            {name: 'already approved', status: 'approved'}
         ];
   
         $scope.showReport = function (id) {
@@ -20,6 +20,23 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
                 reload: true
             });
         };
+        
+        $scope.showApproverReport = function (report) {
+            if(report.status === 'submitted'){
+                $state.go("approveReport", {id: report._id}, {
+                    reload: true
+                });
+            } else {
+                console.log("Attempting to go to the report I approved");
+                console.log("The report contains: "+report);
+                console.log("The report id is: "+report._id);
+                $state.go("reportIApproved", {id: report._id}, {
+                    reload: true
+                });
+                console.log("state attempted to change");
+            }
+        };
+  
 
 
 
