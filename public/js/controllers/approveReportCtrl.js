@@ -7,6 +7,7 @@ angular.module('QuickrBooks').controller('approveReportCtrl', ['$scope', '$state
         $scope.submit = function(status) {
             console.log('Clicked');
             $scope.report.status = status;
+			expenseReportFactory.sendEmail($scope.report);
             expenseReportFactory.updateExpenseReport($scope.report).then(
                 function(success) {
                     $state.go('approveReports', {}, {reload: true});
