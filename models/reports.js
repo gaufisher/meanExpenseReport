@@ -27,6 +27,20 @@ var ReportSchema = new mongoose.Schema({
             },
     notes: String,
     unsubmitReasons: [{date:{type: Date, default: Date.now},notes:String}]
+    rejections: [
+        {
+            reason: {
+                type: String,
+                validator: function(v) {
+                    return (v !== null && v !== undefined && v !== "");
+                }
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ]
 });
 
 mongoose.model('Report', ReportSchema);

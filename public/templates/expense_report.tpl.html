@@ -36,6 +36,6 @@
     </div>
 	<div ng-show="expenseReport.hasOwnProperty('status') && expenseReport.status === 'submitted'">
 		<button type="submit" ng-disabled="!expenseReport.unsubmitReason" ng-click="unsubmit()" class="btn btn-default">Unsubmit</button>
-    <input type="text" ng-model="expenseReport.unsubmitReason" name="unsubmitReason">
+        <input type="text" ng-model="expenseReport.unsubmitReason" name="unsubmitReason">
 	</div>
 </div>

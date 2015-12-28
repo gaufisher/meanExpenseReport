@@ -1,14 +1,17 @@
-app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory', 'sharedProperties',
-    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, sharedProperties) {
-        $scope.expenseReport = {};
+'use strict';
 
-        $scope.project = {};
-
-        $scope.hasProject = true;
-		$scope.showButton = false;
+angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Report', 'LineItemTypes', 'expenseReportFactory', '$state',
+    function($scope, Report, LineItemTypes, expenseReportFactory, $state) {
+        $scope.expenseReport = Report;
+        $scope.LineItemTypes = LineItemTypes.data;
         $scope.setExpenseReport = function () {
-            $scope.expenseReport = sharedProperties.getExpenseReport();
-
+            for (var i = 0; i < $scope.expenseReport.items.length; i++)
+            console.log($scope.expenseReport.items[i].value);
+            if ($scope.expenseReport.hasOwnProperty('items')) {
+                for (var i = 0; i < $scope.expenseReport.items.length; i++) {
+                    $scope.expenseReport.items[i].value = $scope.expenseReport.items[i].value / 100;
+                }
+            }
             $scope.dropdownvalue = {};
 			if($scope.expenseReport.items.length > 0)
 			{
@@ -30,13 +33,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 }
             }
         };
-
-        $scope.expenseReport.items = [];
-
         var persist = function (status) {
-            sharedProperties.setExpenseReport({
-                items: []
-            });
             $scope.expenseReport.status = status;
             $scope.expenseReport.user = sharedProperties.getUserId();
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
@@ -59,9 +56,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         var updateReport = function () {
-            sharedProperties.setExpenseReport({
-                items: []
-            });
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
                     $state.go("viewReports", {}, {
@@ -89,9 +83,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             })
         };
 
-
         $scope.submit = function () {
-
 			if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
                 delete $scope.expenseReport.project;
             }
@@ -101,9 +93,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                     updateReport();
                 } else {
                     persist("submitted");
-					$scope.expenseReport.status = "submitted";
                 }
-				expenseReportFactory.sendEmail($scope.expenseReport);
                 $state.go("viewReports", {}, {
                     reload: true
                 });
@@ -115,15 +105,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.unsubmit = function (reportId) {
             $scope.expenseReport.status = "saved";
-
-           if(Array.isArray($scope.expenseReport.unsubmitReasons)){
-             $scope.expenseReport.unsubmitReasons.push({date:new Date(), notes:$scope.expenseReport.unsubmitReason})
-           }
-           else{
-             $scope.expenseReport.unsubmitReasons = [];
-             $scope.expenseReport.unsubmitReasons.push({date:new Date(), notes:$scope.expenseReport.unsubmitReason});
-           }
-           console.log($scope.expenseReport)
 
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
@@ -172,8 +153,5 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 reload: true
             });
         };
-
-        $scope.LineItemTypes = LineItemTypes.data;
-
     }
 ]);
