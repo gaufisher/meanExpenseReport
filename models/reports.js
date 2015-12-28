@@ -20,7 +20,6 @@ var ReportSchema = new mongoose.Schema({
         {
             name: String,
             imgPath: String
-            //img: { data: Buffer, contentType: String }
         }
     ],
     status: {

@@ -28,14 +28,17 @@
         <label ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton">Receipts</label>
         <div name="uploadForm" ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" class="btn btn-default fileinput-button form-control">
             <span>Attach Receipt</span>
-            <input type="file" ngf-select ng-model="picFile" onchange="angular.element(this).scope().onFileSelect(this)" accept=".jpg, .jpeg, .gif, .png, .pdf">
+            <!-- <input type="file" ngf-select ng-model="picFile" onchange="angular.element(this).scope().onFileSelect(this)" accept=".jpg, .jpeg, .gif, .png, .pdf"> -->
+            <input type="file" ngf-select ng-model="picFile" accept=".jpg, .jpeg, .gif, .png, .pdf">
         </div>
         <div class="receiptView">
             <div>
-                <span class="" ng-show="picFile">{{fileNamePreview}}</span>
+                <span class="" ng-show="picFile">{{picFile.name}}</span>
+                <!-- <span class="" ng-show="picFile">{{fileNamePreview}}</span> -->
             </div>
             <div>
-                <img ng-show="myForm.file.$valid" ngf-thumbnail="fileThumb" class="thumb">
+                <!-- <img ng-show="myForm.file.$valid" ngf-thumbnail="fileThumb" class="thumb"> -->
+                <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
                 <span class="err" ng-show="invalidFile">{{fileError}}</span>
             </div>
             <br>

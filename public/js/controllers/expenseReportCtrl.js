@@ -209,28 +209,55 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
       }
 
       $scope.uploadReceipt = function(file) {
-          file.upload = Upload.upload({
-                url: '/app/receipt/upload',
-                data: {receipt: file},
-          });
+          // var isFileAlreadyUploaded = isFileExist(elem.files[0].name);
+          // var fileType= getFileType(elem.files[0].name);
 
-          file.upload.then(function (response) {
-              $timeout(function () {
-                  file.result = response.data;
-                  if (file.result) {
-                      addFileToExpenseReport(file);
-                      addFileToScopeReceipts(file);
-                      $scope.removeUploadPreview();
-                  }
-              });
-          }, function (response) {
-              if (response.status > 0)
-                  $scope.errorMsg = response.status + ': ' + response.data;
-          }, function (evt) {
-              // Math.min is to fix IE which reports 200% sometimes
-              file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-          });
-      }
+            file.upload = Upload.upload({
+                  url: '/app/receipt/upload',
+                  data: {receipt: file},
+            });
+
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                    if (file.result) {
+                        addFileToExpenseReport(file);
+                        addFileToScopeReceipts(file);
+                        $scope.removeUploadPreview();
+                    }
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                // Math.min is to fix IE which reports 200% sometimes
+                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
+        }
+
+      // $scope.uploadReceipt = function(file) {
+      //     file.upload = Upload.upload({
+      //           url: '/app/receipt/upload',
+      //           data: {receipt: file},
+      //     });
+      //
+      //     file.upload.then(function (response) {
+      //         $timeout(function () {
+      //             file.result = response.data;
+      //             if (file.result) {
+      //                 addFileToExpenseReport(file);
+      //                 addFileToScopeReceipts(file);
+      //                 $scope.removeUploadPreview();
+      //             }
+      //         });
+      //     }, function (response) {
+      //         if (response.status > 0)
+      //             $scope.errorMsg = response.status + ': ' + response.data;
+      //     }, function (evt) {
+      //         // Math.min is to fix IE which reports 200% sometimes
+      //         file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      //     });
+      // }
 
       var addReportReceiptsToScopeReceipts = function() {
           var receipts = $scope.expenseReport.receipts;
