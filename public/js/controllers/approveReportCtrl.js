@@ -8,7 +8,7 @@ angular.module('QuickrBooks').controller('approveReportCtrl', ['$scope', '$state
             $scope.report.rejections = [];
         }
         $scope.submit = function(status) {
-            $scope.report.status = 'saved';
+            $scope.report.status = status;
 			expenseReportFactory.sendEmail($scope.report);
             if (status === 'denied' && ($scope.rejectionReason === undefined ||
                                         $scope.rejectionReason === null ||
