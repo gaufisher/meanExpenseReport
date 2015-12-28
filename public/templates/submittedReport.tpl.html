@@ -24,8 +24,8 @@
         <div class="notes">
             <h3>Notes: </h3>
             <p>{{report.notes}}</p>
-            <h3>Reasons for unsubmitting are going here.</h3>
-            <p></p>
+            <h3>Reasons for unsubmitting</h3>
+            <p ng-repeat="reason in report.unsubmitReasons">{{reason.notes}}</p>
         </div>
 
         <div>
