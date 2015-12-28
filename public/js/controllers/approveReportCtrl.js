@@ -3,7 +3,6 @@
 angular.module('QuickrBooks').controller('approveReportCtrl', ['$scope', '$state', 'Report', 'expenseReportFactory', 'toastr',
     function($scope, $state, Report, expenseReportFactory, toastr) {
         $scope.report = Report;
-        console.log(Report);
         if (Object.keys($scope.report.rejections).length === 0) {
             $scope.report.rejections = [];
         }
@@ -16,7 +15,6 @@ angular.module('QuickrBooks').controller('approveReportCtrl', ['$scope', '$state
                                         $scope.rejectionReason === null ||
                                         $scope.rejectionReason.trim() === "")) {
                 toastr.error('Must have a reason for rejecting a report', 'Error');
-                console.log('You need a reason');
                 return;
             }
             if ($scope.report.status === 'saved') {
@@ -24,6 +22,7 @@ angular.module('QuickrBooks').controller('approveReportCtrl', ['$scope', '$state
             }
             expenseReportFactory.updateExpenseReport($scope.report).then(
                 function(success) {
+                    expenseReportFactory.sendEmail($scope.report);
                     $state.go('approveReports', {}, {reload: true});
                 },
                 function(error) {
