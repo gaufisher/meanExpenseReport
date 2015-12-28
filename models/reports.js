@@ -25,7 +25,8 @@ var ReportSchema = new mongoose.Schema({
                     message: "{VALUE} is incorrect, needs to be: 'saved, submitted, approved, denied'"
                 }
             },
-    notes: String
+    notes: String,
+    unsubmitReasons: [{date:{type: Date, default: Date.now},notes:String}]
 });
 
 mongoose.model('Report', ReportSchema);
