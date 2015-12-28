@@ -7,14 +7,6 @@ app.controller('userCtrl', ['$scope', '$state', 'userFactory',
             userFactory.getCurrentUser().then(function (success) {
                 $scope.userName = success.data.name;
                 $scope.userId = success.data._id;
-                sharedProperties.setUserId($scope.userId);
-            });
-        };
-
-
-        $scope.clearData = function () {
-            sharedProperties.setExpenseReport({
-                items: []
             });
         };
 

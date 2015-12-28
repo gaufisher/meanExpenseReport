@@ -1,5 +1,5 @@
 app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory',
-    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory,) {
+    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory) {
         $scope.expenseReport = {};
 
         $scope.project = {};
@@ -7,7 +7,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         $scope.hasProject = true;
 		$scope.showButton = false;
         $scope.setExpenseReport = function () {
-            $scope.expenseReport = sharedProperties.getExpenseReport();
 
             $scope.dropdownvalue = {};
 			if($scope.expenseReport.items.length > 0)
@@ -34,9 +33,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         $scope.expenseReport.items = [];
 
         var persist = function (status) {
-            sharedProperties.setExpenseReport({
-                items: []
-            });
             $scope.expenseReport.status = status;
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
                 if ($scope.expenseReport.items[i].value == null) {
@@ -58,9 +54,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         var updateReport = function () {
-            sharedProperties.setExpenseReport({
-                items: []
-            });
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
                     $state.go("viewReports", {}, {
