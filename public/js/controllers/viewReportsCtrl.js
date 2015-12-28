@@ -2,9 +2,9 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
     function ($scope, $state, expenseReportFactory, projectFactory, ExpenseReports, sharedProperties) {
         $scope.reports = ExpenseReports.data;
         $scope.showReport = function (id) {
-                    $state.go("viewReport", {id: id}, {
-                        reload: true
-                    });
-                };
+            $state.go("viewReport", {id: id}, {
+                reload: true
+            });
+        };
     }
 ]);
