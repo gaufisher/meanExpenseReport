@@ -78,6 +78,7 @@ router.get('/expense-report', function(req, res, next){
 router.post('/expense-report', function(req, res, next){
 	var report = new Report(req.body);
     console.log(report);
+    report.user = req.user._id;
     Report.findOne({"_id": report._id}, "status", function(err, status) {
         if (err) {
             return res.status(500).json(err);;

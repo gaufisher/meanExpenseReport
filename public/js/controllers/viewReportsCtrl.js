@@ -1,5 +1,6 @@
-app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "projectFactory", "ExpenseReports", 'ExpenseReportsByApprover', 'sharedProperties',
-    function ($scope, $state, expenseReportFactory, projectFactory, ExpenseReports, ExpenseReportsByApprover, sharedProperties) {
+
+app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "projectFactory", "ExpenseReports", 'ExpenseReportsByApprover', 
+    function ($scope, $state, expenseReportFactory, projectFactory, ExpenseReports, ExpenseReportsByApprover) {
         $scope.reports = ExpenseReports.data;
         $scope.reportsByApprover = ExpenseReportsByApprover;
         $scope.statuses = [
