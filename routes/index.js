@@ -44,7 +44,7 @@ router.post('/projects', function(req, res, next) {
 router.get('/projects', checkAuth,function(req, res, next) {
     Project.find(function(err, projects) {
         if (err) {
-            return res.status(500).json(err);;
+            return res.status(500).json(err);
         }
         res.json(projects);
     });
