@@ -26,7 +26,7 @@ var ReportSchema = new mongoose.Schema({
                 }
             },
     notes: String,
-    unsubmitReasons: [{date:{type: Date, default: Date.now},notes:String}]
+    unsubmitReasons: [{date:{type: Date, default: Date.now},notes:String}],
     rejections: [
         {
             reason: {
