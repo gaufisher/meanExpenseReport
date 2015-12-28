@@ -30,7 +30,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 }
             }
         };
-        
+
         $scope.expenseReport.items = [];
 
         var persist = function (status) {
@@ -89,9 +89,9 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             })
         };
 
-		
+
         $scope.submit = function () {
-			
+
 			if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
                 delete $scope.expenseReport.project;
             }
@@ -113,12 +113,12 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         };
 
-        $scope.unsubmit = function () {
+        $scope.unsubmit = function (reportId) {
             $scope.expenseReport.status = "saved";
-           
+
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
-                    $state.go("expenseReport", {}, {
+                    $state.go("viewReport", {id: reportId}, {
                         reload: true
                     });
                 },

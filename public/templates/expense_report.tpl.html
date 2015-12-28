@@ -31,7 +31,6 @@
         <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" type="submit" ng-click="cancel()" class="btn pull-right btn-default" id="cancel">Cancel</button>
     </div>
 	<div ng-show="expenseReport.hasOwnProperty('status') && expenseReport.status === 'submitted'">
-		<button type="submit" ng-click="unsubmit()" class="btn btn-default">Unsubmit</button>
-        <button type="submit" ng-click="reject()" class="btn btn-default">Reject</button>
+		<button type="submit" ng-click="unsubmit(expenseReport._id)" class="btn btn-default">Unsubmit</button>
 	</div>
 </div>

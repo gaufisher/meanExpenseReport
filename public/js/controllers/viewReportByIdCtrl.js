@@ -103,12 +103,12 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
 
         };
 
-        $scope.unsubmit = function () {
+        $scope.unsubmit = function (reportId) {
             $scope.expenseReport.status = "saved";
 
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
-                    $state.go("expenseReport", {}, {
+                    $state.go("viewReport", {id: reportId}, {
                         reload: true
                     });
                 },
