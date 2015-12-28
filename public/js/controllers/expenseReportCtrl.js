@@ -303,10 +303,18 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
           return type;
       }
 
-      $scope.viewReceiptFile = function() {
+      $scope.viewReceiptFile = function(elem) {
+          var receipt = {};
+          receipt.path = elem.receipt.img;
+          receipt.name = elem.receipt.name;
           $uibModal.open({
               templateUrl: 'templates/view-receipt.tpl.html',
-              controller: 'ModalInstanceCtrl'
+              controller: 'ModalInstanceCtrl',
+              resolve: {
+                  veiwReport: function() {
+                      return receipt;
+                  }
+              }
           });
       }
 

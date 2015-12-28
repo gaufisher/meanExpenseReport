@@ -91,3 +91,11 @@ form .progress {
     background: orange;
     width: 0;
 }
+
+.receiptView {
+  text-align: center;
+}
+
+.receiptButton {
+  margin: 10px;
+}

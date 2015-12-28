@@ -41,6 +41,7 @@ router.get('/receipts',function(req,res){
     var receipts = [];
 
     for (var i = 0; i < reportReceipts.length; i++) {
+      path = './uploads/' + req.user.name + fileName
          var imgFile = fs.readfilesync(reportReceipts[i].imgPath);
          receipt.name = reportReceipts[i].name;
          receipt.id = reportReceipts[i]._id;

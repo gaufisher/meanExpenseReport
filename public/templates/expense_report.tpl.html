@@ -30,41 +30,43 @@
             <span>Attach Receipt</span>
             <input type="file" ngf-select ng-model="picFile" onchange="angular.element(this).scope().onFileSelect(this)" accept=".jpg, .jpeg, .gif, .png, .pdf">
         </div>
-        <div>
-            <span class="" ng-show="picFile">{{fileNamePreview}}</span>
-        </div>
-        <div>
-            <img ng-show="myForm.file.$valid" ngf-thumbnail="fileThumb" class="thumb">
-            <span class="err" ng-show="invalidFile">{{fileError}}</span>
-        </div>
-        <br>
-        <div>
-            <button class="btn btn-default" ng-click="removeUploadPreview()" ng-show="picFile">Remove</button>
-            <button class="btn btn-default" ng-disabled="invalidUploadFile" ng-show="picFile" ng-click="uploadReceipt(picFile)">Upload</button>
-        </div>
-        <div>
-            <span class="progress" ng-show="picFile.progress >= 0">
-                  <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'"></div>
-            </span>
-        </div>
-        <div>
-            <span ng-show="picFile.result">Upload Successful</span>
+        <div class="receiptView">
+            <div>
+                <span class="" ng-show="picFile">{{fileNamePreview}}</span>
+            </div>
+            <div>
+                <img ng-show="myForm.file.$valid" ngf-thumbnail="fileThumb" class="thumb">
+                <span class="err" ng-show="invalidFile">{{fileError}}</span>
+            </div>
+            <br>
+            <div>
+                <button class="btn btn-default" ng-click="removeUploadPreview()" ng-show="picFile">Remove</button>
+                <button class="btn btn-default" ng-disabled="invalidUploadFile" ng-show="picFile" ng-click="uploadReceipt(picFile)">Upload</button>
+            </div>
+            <div>
+                <span class="progress" ng-show="picFile.progress >= 0">
+                      <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'"></div>
+                </span>
+            </div>
+            <div>
+                <span ng-show="picFile.result">Upload Successful</span>
+            </div>
         </div>
         <br>
     </form>
 
     <div class="col-md-2 col-sm-3 col-xs-6" ng-repeat="receipt in receipts">
-
-    <div>
-        <button ng-click="viewReceiptFile()" class="btn btn-default">View</button>
-    </div>
-        <div>
-            <a class="" href={{receipt.img}}><img ng-src="{{receipt.imgThumb}}" class="thumb"></a>
+        <div class="receiptView">
+            <div ng-click="viewReceiptFile(this)">
+                <div>
+                    <label>{{receipt.name}}</label>
+                </div>
+                <div>
+                    <img ng-src="{{receipt.imgThumb}}" class="thumb">
+                </div>
+            </div>
+            <button class="btn btn-default receiptButton" ng-click="removeFileFromScopeAndReport($index)">Remove</button>
         </div>
-        <div>
-            <a class="" href={{receipt.img}}><label>{{receipt.name}}</label></a>
-        </div>
-        <button class="btn btn-default" ng-click="removeFileFromScopeAndReport($index)">Remove</button>
     </div>
     <br>
     <legend ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton"></legend>
