@@ -43,7 +43,9 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-      done(null, user);
+  User.findOne({'name':user},"_id name",function (err,usr) {
+    done(null, usr);
+  })
 });
 
 
