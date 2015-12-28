@@ -21,7 +21,7 @@ angular.module('QuickrBooks').controller('approveReportCtrl', ['$scope', '$state
 
             expenseReportFactory.updateExpenseReport($scope.report).then(
                 function(success) {
-                    $state.go('approveReports', {}, {reload: true});
+                    $state.go('viewReports', {}, {reload: true});
                 },
                 function(error) {
                     alert('NO!');
