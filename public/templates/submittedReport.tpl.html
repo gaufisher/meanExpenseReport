@@ -7,7 +7,7 @@
         <h4>{{report.project.name}}</h4>
         <h3>Line Items:</h3>
         <ul class="list-group">
-            <li class="list-group-item" data-ng-repeat="item in report.items"><h4>{{item.type}}: ${{item.value / 100}}</h4></li>
+            <li class="list-group-item" data-ng-repeat="item in report.items"><h4>{{item.type}}: ${{item.value}}</h4></li>
         </ul>
         <!-- <div class="media"> data-ng-repeat="receipt in report.receipts">-->
             <!-- <div class="media-left media-middle">
@@ -38,7 +38,7 @@
             <label>Reason for rejection:</label>
             <textarea data-ng-model="rejectionReason" class="form-control"></textarea>
             <br>
-            <button type="submit" ng-click="submit('denied')" class="btn btn-default pull-right">Send</button>
+            <button type="submit" ng-click="submit('saved')" class="btn btn-default pull-right">Send</button>
         </div>
     </div>
 </div>

@@ -11,14 +11,12 @@ app.controller('userCtrl', ['$scope', '$state', 'userFactory',
         };
 
         $scope.newProject = function () {
-            $scope.clearData();
             $state.go("createProject", {}, {
                 reload: true
             });
         };
 
         $scope.newExpenseReport = function () {
-            $scope.clearData();
             $state.go("expenseReport", {}, {
                 reload: true
             });
