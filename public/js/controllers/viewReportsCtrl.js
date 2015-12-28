@@ -27,13 +27,9 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
                     reload: true
                 });
             } else {
-                console.log("Attempting to go to the report I approved");
-                console.log("The report contains: "+report);
-                console.log("The report id is: "+report._id);
                 $state.go("reportIApproved", {id: report._id}, {
                     reload: true
                 });
-                console.log("state attempted to change");
             }
         };
 

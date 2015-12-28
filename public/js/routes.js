@@ -113,7 +113,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
             controller: 'approveReportCtrl',
             resolve: {
                 Report: function(approveReportsFactory, $stateParams) {
-                    console.log('Routes id: ' + $stateParams.id);
                     return approveReportsFactory.getReportById($stateParams.id).then(
                         function(success) {
                             return success.data;
@@ -130,7 +129,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
             controller: 'reportIApprovedCtrl',
             resolve: {
                 ApprovedReport: function(reportsIApprovedFactory, $stateParams) {
-                    console.log('Routes id: ' + $stateParams.id);
                     return reportsIApprovedFactory.getReportById($stateParams.id).then(
                         function(success) {
                             return success.data;

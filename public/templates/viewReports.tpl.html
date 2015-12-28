@@ -1,5 +1,5 @@
 <div>
-    <h2>Expense Reports</h2>
+    <h2>View Reports</h2>
     <h4 ng-hide="reports.length >  0" style="text-align:center;" >No Reports to show</h4>
 <!--
 	<div>
@@ -105,7 +105,7 @@
                                 </h4>
                             </div>
                             <div class="panel-heading" role="tabpanel" bs-collapse-target>
-                                <div class="panel-body" ng-repeat="report in reportsByApprover | filter: links.status">
+                                <div class="panel-body" ng-repeat="report in reportsByApprover | filter: links.status | orderBy:'-timeSubmitted'">
                                     <div ng-click="showApproverReport(report)" class="clickable">
                                         {{ report.name }}
                                     </div>
