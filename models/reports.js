@@ -26,7 +26,8 @@ var ReportSchema = new mongoose.Schema({
                 }
             },
     notes: String,
-    timeSubmitted: Date
+    timeSubmitted: Date,
+    unsubmitReasons: [{date:{type: Date, default: Date.now},notes:String}]
 });
 
 mongoose.model('Report', ReportSchema);

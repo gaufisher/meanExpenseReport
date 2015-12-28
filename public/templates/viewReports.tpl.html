@@ -106,7 +106,7 @@
                             </div>
                             <div class="panel-heading" role="tabpanel" bs-collapse-target>
                                 <div class="panel-body" ng-repeat="report in reportsByApprover | filter: links.status">
-                                    <div ng-click="showReport(report)" class="clickable">
+                                    <div ng-click="goToReport(report._id)" class="clickable">
                                         {{ report.name }}
                                     </div>
                                 </div>

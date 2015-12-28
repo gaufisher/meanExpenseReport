@@ -6,12 +6,12 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
                     {name: 'saved'},
                     {name: 'submitted'},
                     {name: 'approved'},
-                    {name: 'rejected'}
+                    {name: 'denied'}
                 ];
         
                 $scope.approverLinks = [
-                    {name: 'pending my approval', status: 'submitted'},
-                    {name: 'already approved', status: 'approved'}
+                    {name: 'pending my approval', status: 'submitted', redirectfunction: function('submitted')},
+                    {name: 'already approved', status: 'approved', redirectFunction: function('approved')}
                 ];
         
         $scope.showReport = function (report) {
@@ -43,6 +43,8 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
             );
 
         };
+        
+        $scope.goToReport = function (report._id)
 
 
     }
