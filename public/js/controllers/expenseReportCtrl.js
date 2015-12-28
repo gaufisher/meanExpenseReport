@@ -1,5 +1,5 @@
-app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory', 'sharedProperties',
-    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, sharedProperties) {
+app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory',
+    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory,) {
         $scope.expenseReport = {};
 
         $scope.project = {};
@@ -38,7 +38,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 items: []
             });
             $scope.expenseReport.status = status;
-            $scope.expenseReport.user = sharedProperties.getUserId();
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
                 if ($scope.expenseReport.items[i].value == null) {
                     $scope.expenseReport.items[i].value = 0.00;
@@ -165,9 +164,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.cancel = function () {
-            sharedProperties.setExpenseReport({
-                items: []
-            });
             $state.go("viewReports", {}, {
                 reload: true
             });

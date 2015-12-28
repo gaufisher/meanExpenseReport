@@ -1,5 +1,5 @@
-app.controller('userCtrl', ['$scope', '$state', 'userFactory', 'sharedProperties',
-   function ($scope, $state, userFactory, sharedProperties) {
+app.controller('userCtrl', ['$scope', '$state', 'userFactory',
+   function ($scope, $state, userFactory) {
         $scope.user = {};
 		$scope.userName = "";
 
@@ -10,7 +10,7 @@ app.controller('userCtrl', ['$scope', '$state', 'userFactory', 'sharedProperties
                 sharedProperties.setUserId($scope.userId);
             });
         };
-	 
+
 
         $scope.clearData = function () {
             sharedProperties.setExpenseReport({
