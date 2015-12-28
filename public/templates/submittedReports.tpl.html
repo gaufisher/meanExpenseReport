@@ -1,0 +1,18 @@
+<div>
+    <h2>Reports to approve</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <span>Report Name:</span>
+                    <span class="pull-right">Project Name:</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="report in reports">
+                <td class="clickable" data-ng-click="goToReport(report._id)"><span>{{report.name}}</span><span class="pull-right">{{report.project.name}}</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
