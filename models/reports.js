@@ -31,7 +31,22 @@ var ReportSchema = new mongoose.Schema({
                     message: "{VALUE} is incorrect, needs to be: 'saved, submitted, approved, denied'"
                 }
             },
-    notes: String
+    notes: String,
+    unsubmitReasons: [{date:{type: Date, default: Date.now},notes:String}],
+    rejections: [
+        {
+            reason: {
+                type: String,
+                validator: function(v) {
+                    return (v !== null && v !== undefined && v !== "");
+                }
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ]
 });
 
 mongoose.model('Report', ReportSchema);

@@ -4,11 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+<<<<<<< HEAD
 var mongoose = require('mongoose');
 var receipt = require('./routes/receipt');
+=======
+
+>>>>>>> 80a63813e0bac6993c335e36e116c965be9c67f2
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
+var approvers = require('./routes/approvers');
+
 var expensereports = require('./routes/expense-report');
 var passport = require('passport');
 var app = module.exports = express();
@@ -47,6 +53,7 @@ app.use(passport.session());
 app.use('/app',routes);
 app.use('/user', users);
 app.use('/', login);
+app.use('/app/approver', approvers);
 app.use('/app/expense-report/email', expensereports);
 app.use('/app/receipt', receipt);
 // catch 404 and forward to error handler

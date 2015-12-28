@@ -3,7 +3,7 @@
 java -jar nightwatch/sel-serv.jar &> /dev/null &
 SEL=$!;
 echo $SEL
-sleep 3
+sleep 5
 node nightwatch.js
 
 kill $SEL

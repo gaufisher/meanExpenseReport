@@ -1,22 +1,30 @@
+<<<<<<< HEAD
 app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory', 'sharedProperties','Upload', '$timeout', '$uibModal',
     function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, sharedProperties, Upload, $timeout, $uibModal) {
+=======
+app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory',
+    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory) {
+>>>>>>> 80a63813e0bac6993c335e36e116c965be9c67f2
         $scope.expenseReport = {};
 
         $scope.project = {};
 
         $scope.hasProject = true;
+<<<<<<< HEAD
         $scope.showButton = false;
 
         $scope.receipts = [];
 
+=======
+		$scope.showButton = false;
+		$scope.valid = true;
+>>>>>>> 80a63813e0bac6993c335e36e116c965be9c67f2
         $scope.setExpenseReport = function () {
-            $scope.expenseReport = sharedProperties.getExpenseReport();
 
             $scope.dropdownvalue = {};
-			if($scope.expenseReport.items.length > 0)
-			{
-				$scope.showButton = true;
-			}
+			      if($scope.expenseReport.items.length > 0)
+				        $scope.showButton = true;
+
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
                 $scope.dropdownvalue.name = $scope.expenseReport.items[i].type;
                 var item = {};
@@ -39,36 +47,36 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         //$scope.expenseReport.receipts = [];
 
         var persist = function (status) {
+<<<<<<< HEAD
             sharedProperties.setExpenseReport({
                 items: [],
                 receipts: []
             });
+=======
+>>>>>>> 80a63813e0bac6993c335e36e116c965be9c67f2
             $scope.expenseReport.status = status;
-            $scope.expenseReport.user = sharedProperties.getUserId();
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
-                if ($scope.expenseReport.items[i].value == null) {
-                    $scope.expenseReport.items[i].value = 0.00;
-                }
+
                 var datMoney = $scope.expenseReport.items[i].value.toString();
                 $scope.expenseReport.items[i].value = datMoney;
 
             }
-            expenseReportFactory.createExpenseReport($scope.expenseReport).then(
-                function (success) {
-                    $state.go("viewReports", {}, {
-                        reload: true
-                    });
 
-                },
-                function (error) {}
+            expenseReportFactory.createExpenseReport($scope.expenseReport).then(
+              function (success) {
+                  $state.go("viewReports", {}, {
+                      reload: true
+                  });
+              },
+              function (error) {}
             );
+
+
+
         };
 
         var updateReport = function () {
-            sharedProperties.setExpenseReport({
-                items: [],
-                receipts: []
-            });
+
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
                     $state.go("viewReports", {}, {
@@ -82,18 +90,26 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.save = function () {
-            console.log($scope.expenseReport);
-			if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
-				delete $scope.expenseReport.project;
+
+			for(var i = 0; i < $scope.expenseReport.items.length; i++){
+				if($scope.expenseReport.items[i].value === undefined || $scope.expenseReport.items[i].value < 0.01){
+					$scope.valid = false;
+				}
 			}
-            if ($scope.expenseReport.hasOwnProperty('status')) {
-                updateReport();
-            } else {
-                persist("saved");
-            }
-            $state.go("viewReports", {}, {
-                reload: true
-            })
+			if($scope.valid){
+				if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
+					delete $scope.expenseReport.project;
+				}
+				if ($scope.expenseReport.hasOwnProperty('status')) {
+					updateReport();
+				} else {
+					persist("saved");
+				}
+				$state.go("viewReports", {}, {
+					reload: true
+				})
+			}
+
         };
 
 
@@ -117,15 +133,46 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             } else {
                 $scope.hasProject = false
             }
+			for(var i = 0; i < $scope.expenseReport.items.length; i++){
+				if($scope.expenseReport.items[i].value === undefined || $scope.expenseReport.items[i].value < 0.01){
+					$scope.valid = false;
+				}
+			}
+			if($scope.valid){
+				if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
+					delete $scope.expenseReport.project;
+				}
+				if ($scope.expenseReport.project != null) {
+						  if ($scope.expenseReport.status != null) {
+						$scope.expenseReport.status = "submitted";
+						updateReport();
+					} else {
+						console.log("reached else")
+						persist("submitted");
+					}
+
+				} else {
+					$scope.hasProject = false
+				}
+			}
 
         };
 
-        $scope.unsubmit = function () {
+        $scope.unsubmit = function (reportId) {
             $scope.expenseReport.status = "saved";
+
+           if(Array.isArray($scope.expenseReport.unsubmitReasons)){
+             $scope.expenseReport.unsubmitReasons.push({date:new Date(), notes:$scope.expenseReport.unsubmitReason})
+           }
+           else{
+             $scope.expenseReport.unsubmitReasons = [];
+             $scope.expenseReport.unsubmitReasons.push({date:new Date(), notes:$scope.expenseReport.unsubmitReason});
+           }
+           console.log($scope.expenseReport)
 
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
-                    $state.go("expenseReport", {}, {
+                    $state.go("viewReport", {id: reportId}, {
                         reload: true
                     });
                 },
@@ -163,9 +210,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.cancel = function () {
-            sharedProperties.setExpenseReport({
-                items: []
-            });
             $state.go("viewReports", {}, {
                 reload: true
             });
