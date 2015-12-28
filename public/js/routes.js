@@ -22,6 +22,16 @@ app.config(['$stateProvider', '$urlRouterProvider',
                             return "Not working";
                         }
                     );
+                },
+                ExpenseReportsByApprover: function(approveReportsFactory) {
+                    return approveReportsFactory.getReports().then(
+                        function(success) {
+                            return success.data;
+                        },
+                        function(err) {
+                            return err;
+                        }
+                    );
                 }
             }
         }).state('project', {

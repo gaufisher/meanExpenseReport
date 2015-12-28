@@ -1,6 +1,7 @@
-app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "projectFactory", "ExpenseReports", 'sharedProperties',
-    function ($scope, $state, expenseReportFactory, projectFactory, ExpenseReports, sharedProperties) {
+app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "projectFactory", "ExpenseReports", 'ExpenseReportsByApprover', 'sharedProperties',
+    function ($scope, $state, expenseReportFactory, projectFactory, ExpenseReports, ExpenseReportsByApprover, sharedProperties) {
         $scope.reports = ExpenseReports.data;
+        $scope.reportsByApprover = ExpenseReportsByApprover;
                 $scope.statuses = [
                     {name: 'saved'},
                     {name: 'submitted'},
@@ -9,8 +10,8 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
                 ];
         
                 $scope.approverLinks = [
-                    {name: 'pending my approval'},
-                    {name: 'already approved'}
+                    {name: 'pending my approval', status: 'submitted'},
+                    {name: 'already approved', status: 'approved'}
                 ];
         
         $scope.showReport = function (report) {

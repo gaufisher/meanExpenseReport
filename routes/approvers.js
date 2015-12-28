@@ -17,7 +17,7 @@ router.get('/submitted-reports',
             }
             var projectQuery = [];
             for (var i = 0; i < pids.length; i++) {
-                projectQuery.push({$and: [{"project":pids[i]._id}, {"status":"submitted"}]});
+                projectQuery.push({$and: [{"project":pids[i]._id}, {$or: [{"status":"submitted"}, {"status":"approved"}]}]});
             }
             Report.find({$or: projectQuery})
                   .populate('project')
@@ -53,5 +53,6 @@ router.get('/submitted-reports/:id',
         });
     }
 );
+
 
 module.exports = router;

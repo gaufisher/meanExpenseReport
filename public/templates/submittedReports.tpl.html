@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr data-ng-repeat="report in reports">
+            <tr data-ng-repeat="report in reportsByApprover | filter: {status: 'submitted'}">
                 <td class="clickable" data-ng-click="goToReport(report._id)"><span>{{report.name}}</span><span class="pull-right">{{report.project.name}}</span></td>
             </tr>
         </tbody>

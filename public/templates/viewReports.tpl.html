@@ -55,7 +55,7 @@
     <!-- accordion starts here -->
     <div class="panel-group" role="tablist" bs-collapse>
         <div>
-            <div class="panel-group" data-allow-multiple="true" role="tab tablist" aria-multiselectable="true" bs-collapse>
+            <div class="panel-group" data-start-collapsed="true" data-allow-multiple="true" role="tab tablist" aria-multiselectable="true" bs-collapse>
                 <div class="panel panel-default">
                     <div class="panel-collapse" role="tab">
                         <h1 class="panel-title">
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div>
-            <div class="panel-group" data-allow-multiple="true" role="tab tablist" aria-multiselectable="true" bs-collapse>
+            <div class="panel-group" data-start-collapsed="true" data-allow-multiple="true" role="tab tablist" aria-multiselectable="true" bs-collapse>
                 <div class="panel panel-default">
                     <div class="panel-collapse" role="tab">
                         <h1 class="panel-title">
@@ -100,12 +100,12 @@
                             <div class="panel-collapse" role="tab tabpanel">
                                 <h4 class="panel-title">
                                     <a bs-collapse-toggle class="clickable">
-                                      {{ links.name }}
+                                      {{ links.name}}
                                     </a>
                                 </h4>
                             </div>
                             <div class="panel-heading" role="tabpanel" bs-collapse-target>
-                                <div class="panel-body" ng-repeat="report in reports">
+                                <div class="panel-body" ng-repeat="report in reportsByApprover | filter: links.status">
                                     <div ng-click="showReport(report)" class="clickable">
                                         {{ report.name }}
                                     </div>
