@@ -70,3 +70,11 @@ input.line-item {
 img.media-object{
     width: 100px;
 }
+
+body {
+    margin-bottom: 20px;
+}
+
+.container {
+    padding-bottom: 10px;
+}

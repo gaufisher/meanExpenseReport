@@ -11,7 +11,7 @@
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="report in reports | filter:{ status: 'saved'}">
-					<td ng-click="showReport(report)" class="clickable">{{report.name}}</td>
+					<td ng-click="showReport(report._id)" class="clickable">{{report.name}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -23,7 +23,7 @@
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="report in reports | filter:{ status: 'submitted'}">
-					<td ng-click="showReport(report)" class="clickable">{{report.name}}</td>
+					<td ng-click="showReport(report._id)" class="clickable">{{report.name}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -35,7 +35,7 @@
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="report in reports | filter:{ status: 'approved'}">
-					<td ng-click="showReport(report)" class="clickable">{{report.name}}</td>
+					<td ng-click="showReport(report._id)" class="clickable">{{report.name}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -47,7 +47,7 @@
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="report in reports | filter:{ status: 'denied'}">
-					<td ng-click="showReport(report)" class="clickable">{{report.name}}</td>
+					<td ng-click="showReport(report._id)" class="clickable">{{report.name}}</td>
 				</tr>
 			</tbody>
 		</table>

@@ -43,14 +43,40 @@ app.config(['$stateProvider', '$urlRouterProvider',
             views:{
                 '':{templateUrl: '../templates/expense_report.tpl.html',
                     controller: 'expenseReportCtrl'},
-                'projectSelect@expenseReport':{templateUrl: '../templates/projectSelect.tpl.html',
-                                                controller: 'projectSelectCtrl'}},
+                'projectSelect@expenseReport':{
+                    templateUrl: '../templates/projectSelect.tpl.html',
+                    controller: 'projectSelectCtrl'}},
             resolve: {
+                getReportById: function ($stateParams, expenseReportFactory) {
+                    return expenseReportFactory.getById($stateParams.id);
+                },
+                getAllProjects: function (projectFactory) {
+                    return projectFactory.getAll();
+                },
                 LineItemTypes: function(expenseReportFactory) {
                     return expenseReportFactory.getAllListItems();
+                }
+            }
+        }).state('viewReport', {
+            url: '/expense-report/:id',
+            templateUrl: '../templates/expense_report.tpl.html',
+            controller: 'viewReportByIdCtrl',
+            resolve: {
+                Report: function(expenseReportFactory, $stateParams) {
+                    console.log($stateParams.id);
+                    return expenseReportFactory.getById($stateParams.id).then(
+                        function(success) {
+                            console.log(success.data);
+                            return success.data;
+                        },
+                        function(error) {
+                            return error;
+                        }
+                    );
                 },
-                getAllProjects: function(projectFactory) {
-                    return projectFactory.getAll();
+                LineItemTypes: function(expenseReportFactory) {
+                    //console.log('LineItemTypes');
+                    return expenseReportFactory.getAllListItems();
                 }
             }
         }).state('createProject', {

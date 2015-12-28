@@ -1,6 +1,6 @@
 <div>
     <h2>Reports to approve</h2>
-    <table class="table table-hover">
+    <table data-ng-hide="reports.length < 1" class="table table-hover">
         <thead>
             <tr>
                 <th>
@@ -15,4 +15,7 @@
             </tr>
         </tbody>
     </table>
+    <div data-ng-show="reports.length < 1" class="container">
+        <p>No expense reports to approve.</p>
+    </div>
 </div>
