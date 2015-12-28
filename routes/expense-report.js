@@ -46,18 +46,34 @@ router.post('/', function(req, res, next) {
 				}
 				var approverEmail = approver.name + "@catalystitservices.com";
 				var emailApproverText = "The following report has been " + report.status + " for your approval.<br>" + emailText;
-			
+				var receipts = function(){
+					var attachments = [];
+					for(var i = 0; i < report.receipts.length; i++){
+						attachments.push({});
+						attachments[i].filename = report.receipts[i].name;
+						attachments[i].contents = new Buffer(report.receipts[i].dataString, 'base64');
+						attachments[i].cid = report.receipts[i]._id;
+					}
+					console.log("attachments = ");
+					console.log(attachments);
+					
+					return attachments;
+				};
 				emailApproverText += "<h2>Project: " + project.name + "</h2><h2>Submitted By: " + req.user.name + "</h2>";
 				if(report.hasOwnProperty('notes')){
-					emailApproverText += "<h2>Notes: " + report.notes + "</h2></html>";
+					emailApproverText += "<h2>Notes: " + report.notes + "</h2>";
 				}
-				emailApproverText += "<a href='http://localhost:8080/app#/expense-report/" + report._id + "'><button>View Report</button></a></html>";
+				if(report.hasOwnProperty('receipts') && report.receipts.length > 0){
+					emailApproverText += "<h2>Receipts: See attached files</h2>"
+				}
+				emailApproverText += "<a href='http://localhost:8080/app#/approveReport/" + report._id + "'><button>View Report</button></a></html>";
 				
 				transporter.sendMail({
 					from: 'donotreply@quickrbooks.com',
 					to: approverEmail,
 					subject: subjectLine,
-					html: emailApproverText
+					html: emailApproverText,
+					attachments: receipts()
 				});
 			});
 			
