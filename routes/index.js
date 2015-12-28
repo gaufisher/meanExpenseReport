@@ -11,10 +11,9 @@ var Report = mongoose.model('Report');
 /* GET home page. */
 
 function checkAuth(req,res,next){
-  console.log(req.user)
    if(!req.user){
      if(req.xhr)res.send({message:"no can do!"})
-     else res.redirect('/')
+     else res.redirect(401,'/')
  }
  else next()
 }
