@@ -78,7 +78,7 @@ router.post('/', function(req, res, next) {
 				var userEmail = user.name + "@catalystitservices.com";
 				var emailUserText = "The following report has been " + report.status + ".<br>" + emailText;
 				emailUserText += "<h2>Project: " + project.name + "</h2>";
-				if(report.status === "denied" && report.hasOwnProperty('rejectionReason'){
+				if(report.status === "denied" && report.hasOwnProperty('rejectionReason')){
 					emailUserText += "<h2>Reason for Rejection: <span class='rejection'" + report.rejectionReason + "</span></h2>";
 				}
 				emailUserText += "</html>";
