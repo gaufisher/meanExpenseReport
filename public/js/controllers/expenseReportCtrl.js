@@ -1,24 +1,15 @@
-<<<<<<< HEAD
-app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory', 'sharedProperties','Upload', '$timeout', '$uibModal',
-    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, sharedProperties, Upload, $timeout, $uibModal) {
-=======
-app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory',
-    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory) {
->>>>>>> 80a63813e0bac6993c335e36e116c965be9c67f2
+app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory','Upload', '$timeout', '$uibModal',
+    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, Upload, $timeout, $uibModal) {
         $scope.expenseReport = {};
 
         $scope.project = {};
 
         $scope.hasProject = true;
-<<<<<<< HEAD
-        $scope.showButton = false;
 
         $scope.receipts = [];
-
-=======
 		$scope.showButton = false;
 		$scope.valid = true;
->>>>>>> 80a63813e0bac6993c335e36e116c965be9c67f2
+
         $scope.setExpenseReport = function () {
 
             $scope.dropdownvalue = {};
@@ -47,13 +38,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         //$scope.expenseReport.receipts = [];
 
         var persist = function (status) {
-<<<<<<< HEAD
-            sharedProperties.setExpenseReport({
-                items: [],
-                receipts: []
-            });
-=======
->>>>>>> 80a63813e0bac6993c335e36e116c965be9c67f2
             $scope.expenseReport.status = status;
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
 
