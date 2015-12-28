@@ -1,11 +1,14 @@
-app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory', 'sharedProperties',
-    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, sharedProperties) {
+app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory', 'sharedProperties','Upload', '$timeout', '$uibModal',
+    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, sharedProperties, Upload, $timeout, $uibModal) {
         $scope.expenseReport = {};
 
         $scope.project = {};
 
         $scope.hasProject = true;
-		$scope.showButton = false;
+        $scope.showButton = false;
+
+        $scope.receipts = [];
+
         $scope.setExpenseReport = function () {
             $scope.expenseReport = sharedProperties.getExpenseReport();
 
@@ -29,13 +32,16 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                     }
                 }
             }
+            addReportReceiptsToScopeReceipts();
         };
-        
+
         $scope.expenseReport.items = [];
+        $scope.expenseReport.receipts = [];
 
         var persist = function (status) {
             sharedProperties.setExpenseReport({
-                items: []
+                items: [],
+                receipts: []
             });
             $scope.expenseReport.status = status;
             $scope.expenseReport.user = sharedProperties.getUserId();
@@ -60,7 +66,8 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         var updateReport = function () {
             sharedProperties.setExpenseReport({
-                items: []
+                items: [],
+                receipts: []
             });
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
@@ -89,9 +96,9 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             })
         };
 
-		
+
         $scope.submit = function () {
-			
+
 			if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
                 delete $scope.expenseReport.project;
             }
@@ -115,7 +122,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.unsubmit = function () {
             $scope.expenseReport.status = "saved";
-           
+
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
                     $state.go("expenseReport", {}, {
@@ -165,6 +172,137 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.LineItemTypes = LineItemTypes.data;
+
+        /************************* Receipt functions required *****************************/
+
+      $scope.onFileSelect = function(elem) {
+          var isFileAlreadyUploaded = isFileExist(elem.files[0].name);
+          var fileType= getFileType(elem.files[0].name);
+          $scope.fileNamePreview = elem.files[0].name;
+
+          if (fileType === "pdf") {
+              $scope.fileThumb = "images/pdf_icon.png";
+          } else if (fileType === "") {
+              $scope.fileThumb = "images/sad.jpg";
+          } else {
+              $scope.fileThumb = elem.files[0];
+          }
+
+          if (!isFileAlreadyUploaded && fileType !== "") {
+              $scope.invalidUploadFile = false;
+              $scope.fileError = "";
+              $scope.invalidFile = false;
+          } else if (isFileAlreadyUploaded) {
+              $scope.invalidUploadFile = true;
+              $scope.invalidFile = true;
+              $scope.fileError = "File already exist.";
+          } else {
+              $scope.invalidUploadFile = true;
+              $scope.invalidFile = true;
+              $scope.fileError = "Invalid file type, only jpg, jpeg, gif, png, and pdf accepted.";
+          }
+      }
+
+      $scope.removeUploadPreview = function() {
+          $scope.picFile = null;
+          $scope.fileThumb = null;
+      }
+
+      $scope.uploadReceipt = function(file) {
+          file.upload = Upload.upload({
+                url: '/app/receipt/upload',
+                data: {receipt: file},
+          });
+
+          file.upload.then(function (response) {
+              $timeout(function () {
+                  file.result = response.data;
+                  if (file.result) {
+                      addFileToExpenseReport(file);
+                      addFileToScopeReceipts(file);
+                      $scope.removeUploadPreview();
+                  }
+              });
+          }, function (response) {
+              if (response.status > 0)
+                  $scope.errorMsg = response.status + ': ' + response.data;
+          }, function (evt) {
+              // Math.min is to fix IE which reports 200% sometimes
+              file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+          });
+      }
+
+      var addReportReceiptsToScopeReceipts = function() {
+          var receipts = $scope.expenseReport.receipts;
+          $scope.receipts = [];
+
+          for (var i = 0; i < receipts.length; i++) {
+              addFileToScopeReceipts(receipts[i].img.data);
+          }
+      }
+
+      $scope.removeFileFromScopeAndReport = function(index) {
+          $scope.expenseReport.receipts.splice(index, 1);
+          $scope.receipts.splice(index, 1);
+      }
+
+      var addFileToExpenseReport = function(file) {
+          var receipt = {};
+          var img = {};
+
+          img.data = null;
+          img.contentType = getFileType(file.name);
+
+          receipt.imgPath = "./uploads/" + file.name;
+          receipt.img = img;
+
+          var arr = $scope.expenseReport.receipts;
+          arr.push(receipt);
+      }
+
+      var isFileExist = function(fileName) {
+          var fileAlreadyExist = false;
+          for (var i = 0; i < $scope.receipts.length; i++) {
+              if (fileName === $scope.receipts[i].name) {
+                  fileAlreadyExist = true;
+              }
+          }
+          return fileAlreadyExist;
+      }
+
+      var addFileToScopeReceipts = function(file) {
+          var receipt = {};
+          var fileType = getFileType(file.name);
+
+          receipt.name = file.name;
+          if (fileType ==="pdf") {
+              receipt.img = "images/pdf_icon.png";
+          } else {
+              receipt.img = file.$ngfDataUrl;
+          }
+
+          $scope.receipts.push(receipt);
+      }
+
+      var getFileType = function(fileName) {
+          var fileNameSections = fileName.split(".");
+          var fileType = fileNameSections[fileNameSections.length-1];
+          var type = "";
+
+          if (fileType === "jpg" || fileType === "jpeg" || fileType === "gif" || fileType === "png") {
+              type = "image/" + fileType;
+          } else if (fileType === "pdf") {
+              type = fileType;
+          }
+          return type;
+      }
+
+      $scope.viewReceiptFile = function() {
+          $uibModal.open({
+              templateUrl: 'templates/view-receipt.tpl.html',
+              controller: 'ModalInstanceCtrl'
+          });
+      }
 
     }
 ]);

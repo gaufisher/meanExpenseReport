@@ -16,6 +16,12 @@ var ReportSchema = new mongoose.Schema({
     ],
     project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: false},
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    receipts: [
+        {
+            imgPath: String,
+            img: { data: Buffer, contentType: String }
+        }
+    ],
     status: {
                 type: String,
                 validate: {

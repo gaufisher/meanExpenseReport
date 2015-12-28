@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 var mongoose = require('mongoose');
 var path = require('path')
 require('../models/projects');
@@ -80,6 +81,24 @@ router.post('/expense-report', function(req, res, next){
             return res.status(500).json(err);;
         }
         if (status === "saved" || status === null) {
+            // Get binary data from file
+            var indexArr = [];
+            if (report.receipts.length > 0) {
+                for (var i = 0; i < report.receipts.length; i++) {
+                    if (report.receipts[i].img.contentType !== "") {
+                        report.receipts[i].img.data = fs.readFileSync(report.receipts[i].imgPath);
+                    } else {
+                        indexArr.push(i);
+                    }
+                }
+            }
+
+            //Remove invalid file type
+            if (indexArr.length > 0) {
+                for (var i = 0; i < indexArr.length; i++) {
+                    report.receipts.splice(indexArr[i], 1);
+                }
+            }
             report.save(function(err, report) {
                 if (err) {
                     return res.status(500).json(err);;

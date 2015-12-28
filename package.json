@@ -26,7 +26,8 @@
     "nightwatch": "^0.8.9",
     "nodemailer": "^0.7.1",
     "phantomjs": "^1.9.19",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "multer": "^1.1.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.8",

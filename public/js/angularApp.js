@@ -1,9 +1,10 @@
 'use strict';
 
-var app = angular.module('QuickrBooks', ['ui.router', 'mgcrea.ngStrap', 'ui.utils.masks'])
+var app = angular.module('QuickrBooks', ['ui.router', 'mgcrea.ngStrap', 'ui.utils.masks', 'ngFileUpload', 'ui.bootstrap'])
     .service('sharedProperties', function () {
         var expenseReport = {
-            items: []
+            items: [],
+            receipts: []
         };
         var projectId = 0;
         var userId = "";

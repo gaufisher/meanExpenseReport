@@ -1,0 +1,93 @@
+
+.fileinput-button input {
+  position: static;
+  opacity: 1;
+  filter: none;
+  font-size: inherit;
+  direction: inherit;
+}
+
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+.upload-btn {
+  margin: 10px;
+}
+/*     others                   */
+.fileupload-process {
+  float: right;
+  display: none;
+}
+
+.fileupload-processing .fileupload-process,
+.files .processing .preview {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: url("../img/loading.gif") center no-repeat;
+  background-size: contain;
+}
+
+table {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.fileupload-progress {
+	margin: 10px 0;
+}
+
+.fileupload-progress .progress-extended {
+	margin-top: 5px;
+}
+
+.error {
+  color: red;
+}
+
+img {
+  border: 0;
+  vertical-align: middle;
+}
+
+
+/* Temp */
+
+.thumb {
+    width: 75px;
+    height: 75px;
+    float: none;
+    position: relative;
+    margin: 10px;
+}
+
+form .progress {
+    line-height: 15px;
+}
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+
+.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
+}
