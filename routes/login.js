@@ -52,7 +52,7 @@ router.get('/',function(req,res,next){
 		if (req.user) {
         res.redirect('/app');
     }
-    res.send(path.normalize(__dirname + '/../public/login.html'));
+    res.sendFile(path.normalize(__dirname + '/../public/login.html'));
 });
 
 router.post('/', function(req, res, next) {
@@ -60,7 +60,7 @@ router.post('/', function(req, res, next) {
      if (err) { return res.redirect('/?error'); }
     if (!user) { return res.redirect('/?error'); }
     req.logIn(user, function(err) {
-      if (err) { return next(err); }
+      if (err) { return res.status(503).json(err); }
       return res.redirect('/app');
     });
    })

@@ -11,10 +11,8 @@ var Report = mongoose.model('Report');
 /* GET home page. */
 
 function checkAuth(req,res,next){
-   if(!req.user){
-     if(req.xhr)res.send({message:"no can do!"})
-     else res.redirect(401,'/')
- }
+   if(!req.user)
+      res.redirect(401,'/')
  else next()
 }
 router.all('/*',checkAuth)
@@ -28,7 +26,7 @@ router.get('/',function(req,res,next){
 router.post('/projects', function(req, res, next) {
     var project = new Project(req.body);
     project.uniqueName = project.name.toLowerCase();
-	project.approver = req.user._id;
+	  project.approver = req.user._id;
     project.save(function(err, project){
       if(err){ return res.status(500).json(err); }
 
@@ -37,10 +35,10 @@ router.post('/projects', function(req, res, next) {
 
 });
 
-router.get('/projects', checkAuth,function(req, res, next) {
+router.get('/projects',function(req, res, next) {
     Project.find(function(err, projects) {
         if (err) {
-            return res.status(500).json(err);;
+            return res.status(409).json(err);
         }
         res.json(projects);
     });
