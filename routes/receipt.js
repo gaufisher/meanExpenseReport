@@ -15,7 +15,7 @@ router.get('/',function(req,res,next){
 var storage	=	multer.diskStorage({
       destination: function (req, file, callback) {
          // callback(null, './public/uploads');
-         callback(null, './uploads');
+         callback(null, './public/uploads');
       },
       filename: function (req, file, callback) {
           callback(null, file.originalname);

@@ -36,7 +36,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.expenseReport.items = [];
-        $scope.expenseReport.receipts = [];
+        //$scope.expenseReport.receipts = [];
 
         var persist = function (status) {
             sharedProperties.setExpenseReport({
@@ -234,10 +234,13 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
       var addReportReceiptsToScopeReceipts = function() {
           var receipts = $scope.expenseReport.receipts;
+
           $scope.receipts = [];
 
           for (var i = 0; i < receipts.length; i++) {
-              addFileToScopeReceipts(receipts[i].img.data);
+              console.log("receipts[i] ");
+              console.dir(receipts[i]);
+              addFileToScopeReceipts(receipts[i]);
           }
       }
 
@@ -248,13 +251,14 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
       var addFileToExpenseReport = function(file) {
           var receipt = {};
-          var img = {};
+          // var img = {};
 
-          img.data = null;
-          img.contentType = getFileType(file.name);
+          // img.data = null;
+          // img.contentType = getFileType(file.name);
 
-          receipt.imgPath = "./uploads/" + file.name;
-          receipt.img = img;
+          receipt.name = file.name;
+          receipt.imgPath = "uploads/" + file.name;
+          // receipt.img = img;
 
           var arr = $scope.expenseReport.receipts;
           arr.push(receipt);
@@ -272,14 +276,16 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
       var addFileToScopeReceipts = function(file) {
           var receipt = {};
+          receipt.name = file.name;
           var fileType = getFileType(file.name);
 
-          receipt.name = file.name;
           if (fileType ==="pdf") {
-              receipt.img = "images/pdf_icon.png";
+              receipt.imgThumb = "images/pdf_icon.png";
           } else {
-              receipt.img = file.$ngfDataUrl;
+              receipt.imgThumb = "uploads/" + file.name;
           }
+
+          receipt.img = "uploads/" + file.name;
 
           $scope.receipts.push(receipt);
       }
@@ -303,6 +309,20 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
               controller: 'ModalInstanceCtrl'
           });
       }
+
+      var getFileDataURL = function(file) {
+            var reader  = new FileReader();
+
+            reader.onloadend = function () {
+                return reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                return "";
+            }
+        }
 
     }
 ]);
