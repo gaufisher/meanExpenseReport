@@ -1,6 +1,6 @@
-angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state', 'projectFactory', 'userFactory', function ($scope, $state, projectFactory, userFactory) {
+angular.module('QuickrBooks').controller('projectCreateCtrl',['$scope', '$state', 'projectFactory', 'userFactory', 'toastr', function ($scope, $state, projectFactory, userFactory, toastr) {
     $scope.newProject = {};
-
+	$scope.projectName = "";
     /* Clears the project save message */
     $scope.clearResult = function () {
         if ($scope.result !== undefined || $scope.result !== "") {
@@ -23,17 +23,26 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state
 
     $scope.saveProject = function () {
         $scope.newProject.name = $scope.projectName;
-        projectFactory.create($scope.newProject);
+        var name = $scope.projectName
+
+        projectFactory.create($scope.newProject).then(function(err){
+          $scope.result = "Project " + $scope.projectName + " saved.";
+          $scope.projectName = "";
+        },function(err){
+            $scope.result = `Project ${name} already Exsists.`;
+        });
 
         $scope.showButton = false;
-        $scope.result = "Project " + $scope.projectName + " saved.";
         $scope.projectName = "";
     }
 
     $scope.cancel = function () {
+      toastr.pop('error',"Cancelled",`Creating project ${$scope.projectName}`)
+      
         $state.go("viewReports", {}, {
             reload: true
         });
+
     }
 
 }]);

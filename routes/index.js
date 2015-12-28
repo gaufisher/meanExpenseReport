@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var path = require('path')
-require('../models/users');
-var User = mongoose.model('User');
 require('../models/projects');
 var Project = mongoose.model('Project');
 require('../models/reports');
@@ -13,14 +11,18 @@ var Report = mongoose.model('Report');
 /* GET home page. */
 
 function checkAuth(req,res,next){
-  console.log(req.user)
-   if(!req.user){
-     if(req.xhr)res.send({message:"no can do!"})
-     else res.redirect('/')
- }
- else next()
+    console.log(req.user)
+    if(!req.user){
+        if(req.xhr)res.send({message:"no can do!"})
+        else res.redirect('/')
+    }
+    else {
+        next()
+    }
 }
+
 router.all('/*',checkAuth)
+
 
 router.get('/',function(req,res,next){
    res.render('index');
@@ -29,32 +31,20 @@ router.get('/',function(req,res,next){
 
 /* Post a project to database*/
 router.post('/projects', function(req, res, next) {
-  var project = new Project(req.body);
-  User.findOne({"name": req.user}, "_id", function(err, id) {
-      project.approver = id;
-      project.save(function(err, project){
-        if(err){ return next(err); }
+    var project = new Project(req.body);
+    project.uniqueName = project.name.toLowerCase();
+	project.approver = req.user._id;
+    project.save(function(err, project){
+      if(err){ return res.status(500).json(err); }
 
-        res.json(project);
-      });
-  });
-
-});
-
-// Test routes to get data from db
-router.get('/users',function(req, res, next) {
-    User.find(function(err, users) {
-        if (err) {
-            return next(err);
-        }
-        res.json(users);
+      res.json(project);
     });
 });
 
 router.get('/projects', checkAuth,function(req, res, next) {
     Project.find(function(err, projects) {
         if (err) {
-            return next(err);
+            return res.status(500).json(err);
         }
         res.json(projects);
     });
@@ -62,48 +52,40 @@ router.get('/projects', checkAuth,function(req, res, next) {
 
 router.get('/expense-report/:id', function(req, res, next){
 	var idString = req.params.id.toString();
-	console.log("in route for /expense-report/:id");
-	console.log(idString);
 	var objId = mongoose.Types.ObjectId(idString);
 	Report.findById(objId, function(err, report){
 		if (err) {
-            return next(err);
+            return res.status(500).json(err);;
         }
-        res.json(report);
+        console.log(req.user._id);
+        if (!report.user.equals(req.user._id)) {
+            res.status(403).send('No can do');
+        } else {
+            res.json(report);
+        }
 	});
 });
 
 router.get('/expense-report', function(req, res, next){
-
-	User.findOne({'name': req.user}, "_id", function(err, id){
-		if(err){
-			return next(err);
+	Report.find({'user': req.user._id}, function(error, reports){
+		if(error){
+			return res.status(500).json(err);;
 		}
-		Report.find({'user': id}, function(error, reports){
-			if(error){
-				return next(error);
-			}
-			res.json(reports);
-		});
+		res.json(reports);
 	});
 });
 
 router.post('/expense-report', function(req, res, next){
 	var report = new Report(req.body);
-    // report.save(function(err, report){
-    //   if(err){ return next(err); }
-    //   res.json(report);
-    // });
     console.log(report);
     Report.findOne({"_id": report._id}, "status", function(err, status) {
         if (err) {
-            return next(err);
+            return res.status(500).json(err);;
         }
-        console.log(status);
         if (status === "saved" || status === null) {
             report.save(function(err, report) {
                 if (err) {
-                    return next(err);
+                    return res.status(500).json(err);;
                 }
                 res.json(report);
             });
@@ -114,20 +96,33 @@ router.post('/expense-report', function(req, res, next){
 });
 
 
-// update an expense report 
+// update an expense report
 router.put('/expense-report', function(req, res, next){
 	var rep = req.body;
 	if(rep.hasOwnProperty('items')){
 		for(var i = 0; i < rep.items.length; i++)
 		{
-			rep.items[i].value = rep.items[i].value * 100;
+			rep.items[i].value = rep.items[i].value.toString();
 		}
 	}
 	Report.findById(rep._id, function(err, report){
 		if(err){ return next(err);}
-        if ((report.status === "approved" || report.status === "denied") || (report.status !== "saved" && rep.status !== "saved")) {
-            //Will need to validate if approver is approving/denying
+        console.log(report);
+        console.log(rep);
+        if (rep.status === "approved" || rep.status === "denied") {
+            var anErr = false;
+            Project.findById(report.project, function(err, project) {
+                if (!project.approver.equals(req.user._id)) {
+                    req.status(500).json({error: 'You are not the approver for this report.'});
+                    anErr = true;
+                }
+                if (anErr) {
+                    return;
+                }
+            });
+        } else if ((report.status !== "saved" && rep.status !== "saved")) {
             console.log("I can't do that");
+            res.status(500).json({error: 'Cannot edit a report that doesn\'t have a saved status.'})
             return;
         }
 		for(var field in Report.schema.paths){
@@ -143,11 +138,12 @@ router.put('/expense-report', function(req, res, next){
 			}
 		}
 		report.save(function(error, report){
-			if(error){ return next(error); }
+			if(error){ return res.status(500).json(error); }
 			res.json(report);
 		});
 	});
 });
+
 
 
 // Get all line item types
@@ -158,12 +154,10 @@ router.get('/line-item-types', function(req, res, next) {
 
 router.get('/project/:id', function(req, res, next){
 	var idString = req.params.id.toString();
-	console.log("in route for /project/:id");
-	console.log(idString);
 	var objId = mongoose.Types.ObjectId(idString);
 	Project.findById(objId, function(err, project){
 		if (err) {
-            return next(err);
+            return res.status(500).json(err);
         }
         res.json(project);
 	});
