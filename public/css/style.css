@@ -59,3 +59,22 @@ input.line-item {
 .error {
     color: red;
 }
+
+.report_info {
+    font-size: small;
+}
+.clickable {
+	cursor: pointer;
+}
+
+img.media-object{
+    width: 100px;
+}
+
+body {
+    margin-bottom: 20px;
+}
+
+.container {
+    padding-bottom: 10px;
+}

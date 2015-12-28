@@ -1,6 +1,7 @@
 'use strict';
 
-var app = angular.module('QuickrBooks', ['ui.router', 'mgcrea.ngStrap', 'ui.utils.masks','toaster'])
+
+var app = angular.module('QuickrBooks', ['ui.router', 'mgcrea.ngStrap', 'ui.utils.masks', 'ngAnimate', 'toastr'])
     .service('sharedProperties', function () {
         var expenseReport = {
             items: []
