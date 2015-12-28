@@ -5,7 +5,8 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         $scope.project = {};
 
         $scope.hasProject = true;
-		    $scope.showButton = false;
+		$scope.showButton = false;
+		$scope.valid = true;
         $scope.setExpenseReport = function () {
             $scope.expenseReport = sharedProperties.getExpenseReport();
 
@@ -38,31 +39,24 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             });
             $scope.expenseReport.status = status;
             $scope.expenseReport.user = sharedProperties.getUserId();
-            var valid = true;
+           
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
-                if ($scope.expenseReport.items[i].value == null) {
-                    $scope.expenseReport.items[i].value = 0.00;
-                }
-                if ($scope.expenseReport.items[i].value == 0.00)
-                    valid = false;
-
-
+           
                 var datMoney = $scope.expenseReport.items[i].value.toString();
                 $scope.expenseReport.items[i].value = datMoney;
 
             }
-            if(valid)
-              expenseReportFactory.createExpenseReport($scope.expenseReport).then(
-                function (success) {
-                    $state.go("viewReports", {}, {
-                        reload: true
-                    });
-                },
-                function (error) {}
-              );
+          
+            expenseReportFactory.createExpenseReport($scope.expenseReport).then(
+              function (success) {
+                  $state.go("viewReports", {}, {
+                      reload: true
+                  });
+              },
+              function (error) {}
+            );
 
-          else
-            delete $scope.expenseReport.status;
+          
 
         };
 
@@ -83,36 +77,51 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.save = function () {
-            console.log($scope.expenseReport);
-			if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
-				delete $scope.expenseReport.project;
+			
+			for(var i = 0; i < $scope.expenseReport.items.length; i++){
+				if($scope.expenseReport.items[i].value === undefined || $scope.expenseReport.items[i].value < 0.01){
+					$scope.valid = false;	
+				}
 			}
-            if ($scope.expenseReport.hasOwnProperty('status')) {
-                updateReport();
-            } else {
-                persist("saved");
-            }
-            $state.go("viewReports", {}, {
-                reload: true
-            })
+			if($scope.valid){
+				if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
+					delete $scope.expenseReport.project;
+				}
+				if ($scope.expenseReport.hasOwnProperty('status')) {
+					updateReport();
+				} else {
+					persist("saved");
+				}
+				$state.go("viewReports", {}, {
+					reload: true
+				})
+			}
+			
         };
 
         $scope.submit = function () {
-			       if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
-                delete $scope.expenseReport.project;
-            }
-            if ($scope.expenseReport.project != null) {
- 			          if ($scope.expenseReport.status != null) {
-                    $scope.expenseReport.status = "submitted";
-                    updateReport();
-                } else {
-                    console.log("reached else")
-                    persist("submitted");
-                }
+			for(var i = 0; i < $scope.expenseReport.items.length; i++){
+				if($scope.expenseReport.items[i].value === undefined || $scope.expenseReport.items[i].value < 0.01){
+					$scope.valid = false;	
+				}
+			}
+			if($scope.valid){
+				if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
+					delete $scope.expenseReport.project;
+				}
+				if ($scope.expenseReport.project != null) {
+						  if ($scope.expenseReport.status != null) {
+						$scope.expenseReport.status = "submitted";
+						updateReport();
+					} else {
+						console.log("reached else")
+						persist("submitted");
+					}
 
-            } else {
-                $scope.hasProject = false
-            }
+				} else {
+					$scope.hasProject = false
+				}
+			}	
 
         };
 
