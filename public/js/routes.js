@@ -91,22 +91,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
               url: '/createProject',
               templateUrl: '../templates/project.tpl.html',
               controller: 'projectCreateCtrl'
-        }).state('approveReports', {
-            url: '/approveReports',
-            templateUrl: '../templates/submittedReports.tpl.html',
-            controller: 'approveReportsCtrl',
-            resolve: {
-                Reports: function(approveReportsFactory) {
-                    return approveReportsFactory.getReports().then(
-                        function(success) {
-                            return success.data;
-                        },
-                        function(err) {
-                            return err;
-                        }
-                    );
-                }
-            }
         }).state('approveReport', {
             url: '/approveReport/{id}',
             templateUrl: '../templates/submittedReport.tpl.html',
