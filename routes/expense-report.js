@@ -37,8 +37,9 @@ router.post('/', function(req, res, next) {
 			html: emailUserText
 		});
 	}
-	if(report.status === "approved" || report.status === "denied")
+	if(report.status === "approved" || (report.status === "saved" && report.hasOwnProperty('rejections') && report.rejections.length > 0))
 	{
+		console.log("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYYYYYYYYYYYYY");
 		User.findById(report.user, function(err, user){
 			if(err){
 				return next(err);
@@ -47,19 +48,34 @@ router.post('/', function(req, res, next) {
 				if (error) {
 					return next(err);
 				}
-				var subjectLine = "expense report " + report.status;
+				
+				function getStatus(){
+					if(report.status === "approved"){
+						return report.status;
+					}else{
+						return "rejected";
+					}
+				};
+				var subjectLine = "expense report " + getStatus();
+				
+			
 				for(var i = 0; i < report.items.length; i++){
-					emailText += "<tr><td> " + report.items[i].type + " </td><td> $" + (report.items[i].value)/100 + " </td></tr>";
+					emailText += "<tr><td> " + report.items[i].type + " </td><td> $" + (report.items[i].value) + " </td></tr>";
 				}
-				emailText += "</tbody></table><h2>Status: " + report.status.toUpperCase() + "</h2>";
+				emailText += "</tbody></table><h2>Status: " + getStatus().toUpperCase() + "</h2>";
+				
 				
 				var userEmail = user.name + "@catalystitservices.com";
-				var emailUserText = "The following report has been " + report.status + ".<br>" + emailText;
+				var emailUserText = "The following report has been " + getStatus() + ".<br>" + emailText;
 				emailUserText += "<h2>Project: " + project.name + "</h2>";
-				if(report.status === "denied" && report.hasOwnProperty('rejections')){
-					for(var i = 0; i < report.rejections.length; i++){
-						emailUserText += "<h2>Reason for Rejection: <span class='rejection'" + report.rejection[i].reason + "</span></h2>";
+				if(report.status === "saved" && report.hasOwnProperty('rejections')){
+					emailUserText += "<h2>Reason(s) for Rejection: <br>";
+					
+					for(var j = 0; j < report.rejections.length; j++){
+			
+						emailUserText += "<span class='rejection'>" + report.rejections[j].reason + "</span><br>";
 					}
+					emailUserText += "</h2>";
 				}
 				emailUserText += "</html>";
 			
