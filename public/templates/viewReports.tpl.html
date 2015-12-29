@@ -56,22 +56,23 @@
     <div class="panel-group" data-start-collapsed="true" data-allow-multiple="true" bs-collapse>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h1 class="panel-title">
-                    <a bs-collapse-toggle class="clickable">
-                        Expense Reports
+                <h1 class="panel-title clickable"  bs-collapse-toggle>
+                    <a class="accordion-title">
+                        As a User
                     </a>
+                    <span class="pull-right">&#9660;</span>
                 </h1>
             </div>
             <div class="panel-collapse collapse in"  bs-collapse-target>
                 <div class="panel panel-body" ng-repeat="status in statuses">
-                    <h4>
-                        <a bs-collapse-toggle class="clickable">
-                          {{ status.name }}
+                    <h4 bs-collapse-toggle class="clickable report-status-accordion">
+                        <a>
+                          {{ status.name }} Reports
                         </a>
                     </h4>
                     <div class="list-group" bs-collapse-target>
                         <div class="list-group-item" ng-repeat="report in reports  | filter: status.name">
-                            <div ng-click="showReport(report._id)" class="clickable">
+                            <div ng-click="showReport(report._id)" class="clickable report-accordion">
                                 {{ report.name }}
                             </div>
                         </div>
@@ -83,22 +84,23 @@
     <div class="panel-group" data-start-collapsed="true" data-allow-multiple="true" bs-collapse>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h1 class="panel-title">
-                    <a bs-collapse-toggle class="clickable">
-                        Approver Stuff
+                <h1 class="panel-title clickable" bs-collapse-toggle>
+                    <a class="accordion-title">
+                        As an Approver
                     </a>
+                    <span class="pull-right">&#9660;</span>
                 </h1>
             </div>
             <div class="panel-collapse collapse in"  bs-collapse-target>
                 <div class="panel panel-body" ng-repeat="links in approverLinks">
-                    <h4>
-                        <a bs-collapse-toggle class="clickable">
+                    <h4 bs-collapse-toggle class="clickable">
+                        <a>
                           {{ links.name}}
                         </a>
                     </h4>
                     <div class="list-group" bs-collapse-target>
                         <div class="list-group-item" ng-repeat="report in reportsByApprover | filter: links.status | orderBy:'-timeSubmitted'">
-                            <div ng-click="showApproverReport(report)" class="clickable">
+                            <div ng-click="showApproverReport(report)" class="clickable report-accordion">
                                 {{ report.name }}
                             </div>
                         </div>
