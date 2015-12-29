@@ -53,63 +53,53 @@
 		</table>
 	</div> -->
     <!-- accordion starts here -->
-    <div class="panel-group" role="tablist" bs-collapse>
-        <div>
-            <div class="panel-group" data-start-collapsed="true" data-allow-multiple="true" role="tab tablist" aria-multiselectable="true" bs-collapse>
-                <div class="panel panel-default">
-                    <div class="panel-collapse" role="tab">
-                        <h1 class="panel-title">
-                            <a bs-collapse-toggle class="clickable">
-                                Expense Reports
-                            </a>
-                        </h1>
-                    </div>
-                    <div class="panel panel-default"  bs-collapse-target>
-                        <div class="panel panel-default" ng-repeat="status in statuses">
-                            <div class="panel-collapse" role="tab tabpanel">
-                                <h4 class="panel-title">
-                                    <a bs-collapse-toggle class="clickable">
-                                      {{ status.name }}
-                                    </a>
-                                </h4>
-                            </div>
-                            <div class="panel-heading" role="tabpanel" bs-collapse-target>
-                                <div class="panel-body" ng-repeat="report in reports  | filter: status.name">
-                                    <div ng-click="showReport(report._id)" class="clickable">
-                                        {{ report.name }}
-                                    </div>
-                                </div>
+    <div class="panel-group" data-start-collapsed="true" data-allow-multiple="true" bs-collapse>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">
+                    <a bs-collapse-toggle class="clickable">
+                        Expense Reports
+                    </a>
+                </h1>
+            </div>
+            <div class="panel-collapse collapse in"  bs-collapse-target>
+                <div class="panel-body" ng-repeat="status in statuses">
+                    <h4>
+                        <a bs-collapse-toggle class="clickable">
+                          {{ status.name }}
+                        </a>
+                    </h4>
+                    <div class="list-group" bs-collapse-target>
+                        <div class="list-group-item" ng-repeat="report in reports  | filter: status.name">
+                            <div ng-click="showReport(report._id)" class="clickable">
+                                {{ report.name }}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div>
-            <div class="panel-group" data-start-collapsed="true" data-allow-multiple="true" role="tab tablist" aria-multiselectable="true" bs-collapse>
-                <div class="panel panel-default">
-                    <div class="panel-collapse" role="tab">
-                        <h1 class="panel-title">
-                            <a bs-collapse-toggle class="clickable">
-                                Approver Stuff
-                            </a>
-                        </h1>
-                    </div>
-                    <div class="panel panel-default"  bs-collapse-target>
-                        <div class="panel panel-default" ng-repeat="links in approverLinks">
-                            <div class="panel-collapse" role="tab tabpanel">
-                                <h4 class="panel-title">
-                                    <a bs-collapse-toggle class="clickable">
-                                      {{ links.name}}
-                                    </a>
-                                </h4>
-                            </div>
-                            <div class="panel-heading" role="tabpanel" bs-collapse-target>
-                                <div class="panel-body" ng-repeat="report in reportsByApprover | filter: links.status | orderBy:'-timeSubmitted'">
-                                    <div ng-click="showApproverReport(report)" class="clickable">
-                                        {{ report.name }}
-                                    </div>
-                                </div>
+    </div>
+    <div class="panel-group" data-start-collapsed="true" data-allow-multiple="true" bs-collapse>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">
+                    <a bs-collapse-toggle class="clickable">
+                        Approver Stuff
+                    </a>
+                </h1>
+            </div>
+            <div class="panel-collapse collapse in"  bs-collapse-target>
+                <div class="panel-body" ng-repeat="links in approverLinks">
+                    <h4>
+                        <a bs-collapse-toggle class="clickable">
+                          {{ links.name}}
+                        </a>
+                    </h4>
+                    <div class="list-group" bs-collapse-target>
+                        <div class="list-group-itme" ng-repeat="report in reportsByApprover | filter: links.status | orderBy:'-timeSubmitted'">
+                            <div ng-click="showApproverReport(report)" class="clickable">
+                                {{ report.name }}
                             </div>
                         </div>
                     </div>
