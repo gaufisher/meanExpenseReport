@@ -1,7 +1,7 @@
 app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory','Upload', '$timeout', '$uibModal', '$window',
     function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, Upload, $timeout, $uibModal, $window) {
         $scope.expenseReport = {};
-
+        $scope.editReceipt = {};
         $scope.project = {};
 
         $scope.hasProject = true;
@@ -223,7 +223,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         }
 
         $scope.uploadReceipt = function(file) {
-            var name = getFileName(file);
+            var name = getFileName($scope.newFileName, file.name);
             var isFileAlreadyUploaded = isFileExist(name);
             var type = getFileType(file.name);
             var isValid = isValidType(type);
@@ -293,7 +293,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             var fileDataString = file.$ngfDataUrl.split("base64,");
             var receipt = {};
 
-            receipt.name = getFileName(file);
+            receipt.name = getFileName($scope.newFileName, file.name);
             receipt.imgPath = "uploads/" + file.name;
             receipt.fileType = type;
             //receipt.dataString = fileDataString[1];
@@ -301,14 +301,14 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             $scope.expenseReport.receipts.push(receipt);
         }
 
-        var getFileName = function(file) {
-            if ($scope.newFileName !== undefined) {
-                if ($scope.newFileName.trim() !== "") {
-                   return $scope.newFileName;
+        var getFileName = function(newName, fileName) {
+            if (newName !== undefined) {
+                if (newName !== "") {
+                   return newName.trim();
                 }
-                return file.name;
+                return fileName;
             } else {
-                return file.name;
+                return fileName;
             }
         }
 
@@ -340,20 +340,32 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             // }
         }
 
-        $scope.editFileFromScopeAndReport = function(index) {
-            var report = {};
-            report.name = $scope.expenseReport.receipts[index].name;
-            report.index = index;
+        $scope.saveChangeName = function() {
+            var name = getFileName($scope.changeName, $scope.editReceipt.name);
+            var isFileAlreadyUploaded = isFileExist(name);
 
-            $uibModal.open({
-               templateUrl: 'templates/edit-receipt.tpl.html',
-               controller: 'ModalInstanceCtrl',
-               resolve: {
-                   editReceipt: function() {
-                       return $scope;
-                   }
-               }
-           });
+            if (isFileAlreadyUploaded) {
+                $scope.invalidFile = true;
+                $scope.fileError = "Receipt with name already exist.";
+            } else {
+                $scope.editReceipt.name = name;
+                $scope.expenseReport.receipts.push($scope.editReceipt);
+                $scope.editReceipt = null;
+                $scope.editFile = false;
+            }
+        }
+
+        $scope.cancelChangeName = function() {
+            $scope.expenseReport.receipts.push($scope.editReceipt);
+            $scope.editReceipt = null;
+            $scope.editFile = false;
+        }
+
+        $scope.editFileFromScopeAndReport = function(index) {
+            $scope.removeUploadPreview();
+            $scope.editReceipt = $scope.expenseReport.receipts[index];
+            $scope.editFile = true;
+            $scope.removeFileFromScopeAndReport(index);
         }
 
     }
