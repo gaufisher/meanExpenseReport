@@ -1,57 +1,7 @@
 <div>
     <h2>View Reports</h2>
     <h4 ng-hide="reports.length >  0" style="text-align:center;" >No Reports to show</h4>
-<!--
-	<div>
-		<table ng-show="reports.length >  0" class="table table-hover" id="savedTable">
-			<thead>
-				<tr>
-					<th>Saved</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat="report in reports | filter:{ status: 'saved'}">
-					<td ng-click="showReport(report._id)" class="clickable">{{report.name}}</td>
-				</tr>
-			</tbody>
-		</table>
-		<table ng-show="reports.length >  0" class="table table-hover" id="submittedTable">
-			<thead>
-				<tr>
-					<th>Submitted</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat="report in reports | filter:{ status: 'submitted'}">
-					<td ng-click="showReport(report._id)" class="clickable">{{report.name}}</td>
-				</tr>
-			</tbody>
-		</table>
-		<table ng-show="reports.length >  0" class="table table-hover" id="approvedTable">
-			<thead>
-				<tr>
-					<th>Approved</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat="report in reports | filter:{ status: 'approved'}">
-					<td ng-click="showReport(report._id)" class="clickable">{{report.name}}</td>
-				</tr>
-			</tbody>
-		</table>
-		<table ng-show="reports.length >  0" class="table table-hover" id="rejectedTable">
-			<thead>
-				<tr>
-					<th>Rejected</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat="report in reports | filter:{ status: 'denied'}">
-					<td ng-click="showReport(report._id)" class="clickable">{{report.name}}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div> -->
+
     <!-- accordion starts here -->
     <div class="panel-group" data-start-collapsed="true" data-allow-multiple="true" bs-collapse>
         <div class="panel panel-default">
@@ -67,14 +17,15 @@
                 <div class="panel panel-body" ng-repeat="status in statuses">
                     <h4 bs-collapse-toggle class="clickable report-status-accordion">
                         <a>
-                          {{ status.name }} Reports
+                          {{(reports | filter: status.name).length}} {{ status.name }} Reports
                         </a>
                     </h4>
                     <div class="list-group" bs-collapse-target>
-                        <div class="list-group-item" ng-repeat="report in reports  | filter: status.name">
+                        <div class="list-group-item" ng-repeat="report in filteredReports = (reports | filter: status.name)">
                             <div ng-click="showReport(report._id)" class="clickable report-accordion">
                                 {{ report.name }}
                             </div>
+                            <span data-ng-hide="filteredReports.length > 0">No reports were found!</span>
                         </div>
                     </div>
                 </div>
@@ -95,7 +46,7 @@
                 <div class="panel panel-body" ng-repeat="links in approverLinks">
                     <h4 bs-collapse-toggle class="clickable">
                         <a>
-                          {{ links.name}}
+                         {{(reportsByApprover | filter: links.status).length}} Reports {{ links.name}}
                         </a>
                     </h4>
                     <div class="list-group" bs-collapse-target>
