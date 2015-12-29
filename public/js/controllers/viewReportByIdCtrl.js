@@ -158,7 +158,7 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
 
         $scope.onFileSelect = function(elem) {
             var isFileAlreadyUploaded = isFileExist(elem.files[0].name);
-            var type = getFileType(elem.files[0].name);
+            var fileType = getFileType(elem.files[0].name);
             var isValid = isValidType(type);
 
             if (fileType === "pdf") {
@@ -180,11 +180,12 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
             } else {
                 $scope.invalidUploadFile = true;
                 $scope.invalidFile = true;
-                $scope.fileError = "Invalid file type, only jpg, jpeg, gif, png, and pdf accepted.";
+                $scope.fileError = "Invalid file type, only jpg, jpeg, gif, and png accepted.";
             }
         }
 
-        $scope.inputFileClick = function() {
+        $scope.inputFileClick = function(elem) {
+          console.dir(elem);
             $scope.fileError = "";
         }
 
@@ -195,8 +196,7 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
         }
 
         $scope.uploadReceipt = function(file) {
-            var name = getFileName(file);
-
+            var name = getFileName($scope.newFileName, file.name);
             var isFileAlreadyUploaded = isFileExist(name);
             var type = getFileType(file.name);
             var isValid = isValidType(type);
@@ -230,7 +230,7 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
                     $scope.fileError = "Receipt with name already exist.";
                 } else {
                     $scope.invalidFile = true;
-                    $scope.fileError = "Invalid file type, only jpg, jpeg, gif, png, and pdf accepted.";
+                    $scope.fileError = "Invalid file type, only jpg, jpeg, gif, and png accepted.";
                 }
             }
         }
@@ -255,7 +255,7 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
         }
 
         var isValidType = function(fileType) {
-            if (fileType === "jpg" || fileType === "jpeg" || fileType === "gif" || fileType === "png" || fileType === "pdf") {
+            if (fileType === "jpg" || fileType === "jpeg" || fileType === "gif" || fileType === "png") {
                 return true;
             }
             return false;
@@ -263,28 +263,25 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
 
         var addFileToExpenseReport = function(file) {
             var type = getFileType(file.name);
-            var fileDataString = "";
+            var fileDataString = file.$ngfDataUrl.split("base64,");
             var receipt = {};
 
-            receipt.name = getFileName(file);
+            receipt.name = getFileName($scope.newFileName, file.name);
             receipt.imgPath = "uploads/" + file.name;
             receipt.fileType = type;
-
-            // if (type === "pdf") {
-            //     receipt.dataString = "";
-            // } else {
-            //     fileDataString = file.$ngfDataUrl.split("base64,");
-            //     receipt.dataString = fileDataString[1];
-            // }
+            //receipt.dataString = fileDataString[1];
 
             $scope.expenseReport.receipts.push(receipt);
         }
 
-        var getFileName = function(file) {
-            if ($scope.newFileName !== undefined || $scope.newFileName !== "") {
-                return $scope.newFileName;
+        var getFileName = function(newName, fileName) {
+            if (newName !== undefined) {
+                if (newName !== "") {
+                   return newName.trim();
+                }
+                return fileName;
             } else {
-                return file.name;
+                return fileName;
             }
         }
 
@@ -316,20 +313,32 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
             // }
         }
 
-        $scope.editFileFromScopeAndReport = function(index) {
-            var report = {};
-            report.receipts = $scope.expenseReport.receipts;
-            report.index = index;
+        $scope.saveChangeName = function() {
+            var name = getFileName($scope.changeName, $scope.editReceipt.name);
+            var isFileAlreadyUploaded = isFileExist(name);
 
-            $uibModal.open({
-               templateUrl: 'templates/edit-receipt.tpl.html',
-               controller: 'ModalInstanceCtrl',
-               resolve: {
-                   editReceipt: function() {
-                       return report;
-                   }
-               }
-           });
+            if (isFileAlreadyUploaded) {
+                $scope.invalidFile = true;
+                $scope.fileError = "Receipt with name already exist.";
+            } else {
+                $scope.editReceipt.name = name;
+                $scope.expenseReport.receipts.push($scope.editReceipt);
+                $scope.editReceipt = null;
+                $scope.editFile = false;
+            }
+        }
+
+        $scope.cancelChangeName = function() {
+            $scope.expenseReport.receipts.push($scope.editReceipt);
+            $scope.editReceipt = null;
+            $scope.editFile = false;
+        }
+
+        $scope.editFileFromScopeAndReport = function(index) {
+            $scope.removeUploadPreview();
+            $scope.editReceipt = $scope.expenseReport.receipts[index];
+            $scope.editFile = true;
+            $scope.removeFileFromScopeAndReport(index);
         }
     }
 ]);
