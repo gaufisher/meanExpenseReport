@@ -1,12 +1,7 @@
-angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state', 'projectFactory', 'userFactory', function ($scope, $state, projectFactory, userFactory) {
-    $scope.newProject = {};
 
-    /* Clears the project save message */
-    $scope.clearResult = function () {
-        if ($scope.result !== undefined || $scope.result !== "") {
-            $scope.result = "";
-        }
-    }
+angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state', 'projectFactory', 'userFactory','toaster', function ($scope, $state, projectFactory, userFactory,toaster) {
+    $scope.newProject = {};
+	$scope.projectName = "";
 
     /* Shows the save button only if project name is valid. */
     $scope.textInput = function () {
@@ -23,17 +18,30 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state
 
     $scope.saveProject = function () {
         $scope.newProject.name = $scope.projectName;
-        projectFactory.create($scope.newProject);
+        var name = $scope.projectName
 
-        $scope.showButton = false;
-        $scope.result = "Project " + $scope.projectName + " saved.";
-        $scope.projectName = "";
+        projectFactory.create($scope.newProject).then(function(err){
+            $scope.showButton = false;
+            toaster.pop('success',"Created",`${$scope.projectName}`);
+
+            $scope.projectName = "";
+            $state.go("viewReports", {}, {
+                reload: true
+            });
+        },function(err){
+            toaster.pop('error',"Error",`Creating project ${$scope.projectName}`)
+        });
+
+
     }
 
     $scope.cancel = function () {
+      toaster.pop('error',"Cancelled",`Creating project ${$scope.projectName}`)
+
         $state.go("viewReports", {}, {
             reload: true
         });
+
     }
 
 }]);

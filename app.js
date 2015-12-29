@@ -4,11 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
+var approvers = require('./routes/approvers');
+
+var expensereports = require('./routes/expense-report');
 var passport = require('passport');
 var app = module.exports = express();
 var session = require("express-session")
@@ -45,6 +47,8 @@ app.use(passport.session());
 app.use('/app',routes);
 app.use('/user', users);
 app.use('/', login);
+app.use('/app/approver', approvers);
+app.use('/app/expense-report/email', expensereports);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -70,7 +74,8 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.redirect('/');
+  //res.redirect('/');
+  next();
   /*res.status(err.status || 500)
   .render('error', {
     message: err.message,

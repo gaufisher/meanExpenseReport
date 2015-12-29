@@ -30,7 +30,10 @@ app.factory('expenseReportFactory', ['$http',
             },
             updateExpenseReport: function (data) {
                 return $http.put('/app/expense-report', data);
-            }
+            },
+			sendEmail: function (data) {
+				return $http.post('/app/expense-report/email', data);
+			}
 
         };
     }
