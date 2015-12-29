@@ -63,7 +63,7 @@
                 </h1>
             </div>
             <div class="panel-collapse collapse in"  bs-collapse-target>
-                <div class="panel-body" ng-repeat="status in statuses">
+                <div class="panel panel-body" ng-repeat="status in statuses">
                     <h4>
                         <a bs-collapse-toggle class="clickable">
                           {{ status.name }}
@@ -90,14 +90,14 @@
                 </h1>
             </div>
             <div class="panel-collapse collapse in"  bs-collapse-target>
-                <div class="panel-body" ng-repeat="links in approverLinks">
+                <div class="panel panel-body" ng-repeat="links in approverLinks">
                     <h4>
                         <a bs-collapse-toggle class="clickable">
                           {{ links.name}}
                         </a>
                     </h4>
                     <div class="list-group" bs-collapse-target>
-                        <div class="list-group-itme" ng-repeat="report in reportsByApprover | filter: links.status | orderBy:'-timeSubmitted'">
+                        <div class="list-group-item" ng-repeat="report in reportsByApprover | filter: links.status | orderBy:'-timeSubmitted'">
                             <div ng-click="showApproverReport(report)" class="clickable">
                                 {{ report.name }}
                             </div>
