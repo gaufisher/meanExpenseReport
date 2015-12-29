@@ -3,11 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "tests": "mocha-runner 'test/**/*.js'",
-    "coverage": "istanbul cover -x 'test/**/*.js' ./app.js 'test/**/*.js' html text-summary",
-    "coverage-cache": "istanbul cover -x 'test/**/*.js' ./app.js 'tests/mocha/*.js' html text-summary -- --useCache=true",
-    "watch": "npm run coverage && watch-spawn -p 'test/**/*.js' -p 'app.js' -p 'routes/**/*.js' npm run coverage-cache"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "activedirectory": "^0.7.1",
@@ -32,7 +28,6 @@
     "morgan": "~1.6.1",
     "nightwatch": "^0.8.9",
     "nodemailer": "^0.7.1",
-    "passport-stub": "^1.0.1",
     "phantomjs": "^1.9.19",
     "serve-favicon": "~2.3.0",
     "should": "^8.0.2",
