@@ -45,11 +45,8 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             }
             //console.dir($scope.expenseReport.receipts);
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
-              function (success) {
-				  console.log("hey hey!");
-				  console.log("status = " + status);
+              function (success) {				
 				  if(status === "submitted"){
-					  console.log("here I am");
 					  expenseReportFactory.sendEmail($scope.expenseReport);
 				  }
                   $state.go("viewReports", {}, {
