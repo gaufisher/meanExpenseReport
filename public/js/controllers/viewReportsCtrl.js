@@ -10,8 +10,8 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
         ];
 
         $scope.approverLinks = [
-            {name: 'Pending my Approval', status: 'submitted'},
-            {name: 'Already Approved', status: 'approved'}
+            {name: 'Pending my Approval', status: 'submitted', order: 'timeSubmitted'},
+            {name: 'Already Approved', status: 'approved', order: '-timeSubmitted'}
         ];
   
         $scope.showReport = function (id) {

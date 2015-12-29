@@ -99,7 +99,7 @@
                         </a>
                     </h4>
                     <div class="list-group" bs-collapse-target>
-                        <div class="list-group-item" ng-repeat="report in reportsByApprover | filter: links.status | orderBy:'-timeSubmitted'">
+                        <div class="list-group-item" ng-repeat="report in reportsByApprover | filter: links.status | orderBy: links.order">
                             <div ng-click="showApproverReport(report)" class="clickable report-accordion">
                                 {{ report.name }}
                             </div>
