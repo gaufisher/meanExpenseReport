@@ -1,5 +1,5 @@
 
-angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state', 'projectFactory', 'userFactory','toaster', function ($scope, $state, projectFactory, userFactory,toaster) {
+angular.module('QuickrBooks').controller('projectCreateCtrl',['$scope', '$state', 'projectFactory', 'userFactory', 'toaster', function ($scope, $state, projectFactory, userFactory, toaster) {
     $scope.newProject = {};
 	$scope.projectName = "";
 
@@ -37,7 +37,6 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state
 
     $scope.cancel = function () {
       toaster.pop('error',"Cancelled",`Creating project ${$scope.projectName}`)
-
         $state.go("viewReports", {}, {
             reload: true
         });
