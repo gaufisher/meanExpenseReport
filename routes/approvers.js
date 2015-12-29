@@ -13,7 +13,7 @@ router.get('/submitted-reports',
     function(req, res, next) {
         Project.find({"approver": req.user._id}, '_id', function(error, pids) {
             if (error) {
-                return next(error);
+                return res.status(500).json(err);
             }
             var projectQuery = [];
             for (var i = 0; i < pids.length; i++) {
@@ -24,7 +24,7 @@ router.get('/submitted-reports',
                   .populate('user', 'name')
                   .exec(function(errors, reports) {
                 if (errors) {
-                    return next(errors);
+                    return res.status(500).json(errors);
                 }
                 res.json(reports);
             });

@@ -1,5 +1,5 @@
-app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "projectFactory", "ExpenseReports", 'ExpenseReportsByApprover', 'sharedProperties',
-    function ($scope, $state, expenseReportFactory, projectFactory, ExpenseReports, ExpenseReportsByApprover, sharedProperties) {
+app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "projectFactory", "ExpenseReports", 'ExpenseReportsByApprover',
+    function ($scope, $state, expenseReportFactory, projectFactory, ExpenseReports, ExpenseReportsByApprover) {
         $scope.reports = ExpenseReports.data;
         $scope.reportsByApprover = ExpenseReportsByApprover;
         $scope.statuses = [
@@ -13,14 +13,13 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
             {name: 'pending my approval', status: 'submitted'},
             {name: 'already approved', status: 'approved'}
         ];
-  
+
         $scope.showReport = function (id) {
-            console.log(id);
             $state.go("viewReport", {id: id}, {
                 reload: true
             });
         };
-        
+
         $scope.showApproverReport = function (report) {
             if(report.status === 'submitted'){
                 $state.go("approveReport", {id: report._id}, {
@@ -36,9 +35,5 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
                 console.log("state attempted to change");
             }
         };
-  
-
-
-
     }
 ]);

@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Report', 'LineItemTypes', 'expenseReportFactory', '$state',
-    function($scope, Report, LineItemTypes, expenseReportFactory, $state) {
+angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Report', 'LineItemTypes', 'expenseReportFactory', '$state', 'projectFactory', 'getAllProjects',
+    function($scope, Report, LineItemTypes, expenseReportFactory, $state, projectFactory, getAllProjects) {
         $scope.expenseReport = Report;
         $scope.LineItemTypes = LineItemTypes.data;
+        $scope.hasProject = true;
         $scope.setExpenseReport = function () {
             for (var i = 0; i < $scope.expenseReport.items.length; i++)
             console.log($scope.expenseReport.items[i].value);
@@ -35,7 +36,6 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
         };
         var persist = function (status) {
             $scope.expenseReport.status = status;
-            $scope.expenseReport.user = sharedProperties.getUserId();
             for (var i = 0; i < $scope.expenseReport.items.length; i++) {
                 if ($scope.expenseReport.items[i].value == null) {
                     $scope.expenseReport.items[i].value = 0.00;
@@ -98,14 +98,15 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
                     reload: true
                 });
             } else {
-                $scope.hasProject = false
+                $scope.hasProject = false;
             }
 
         };
 
         $scope.unsubmit = function (reportId) {
             $scope.expenseReport.status = "saved";
-
+            console.log($scope.unsubmitReason);
+            $scope.expenseReport.unsubmitReasons.push({date: new Date(), notes: $scope.unsubmitReason});
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
                     $state.go("viewReport", {id: reportId}, {
@@ -146,9 +147,6 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
         };
 
         $scope.cancel = function () {
-            sharedProperties.setExpenseReport({
-                items: []
-            });
             $state.go("viewReports", {}, {
                 reload: true
             });

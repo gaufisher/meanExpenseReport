@@ -60,7 +60,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
         }).state('viewReport', {
             url: '/expense-report/:id',
             templateUrl: '../templates/expense_report.tpl.html',
-            controller: 'viewReportByIdCtrl',
+            views:{
+                '':{templateUrl: '../templates/expense_report.tpl.html',
+                    controller: 'viewReportByIdCtrl'},
+                'projectSelect@viewReport':{
+                    templateUrl: '../templates/projectSelect.tpl.html',
+                    controller: 'projectSelectCtrl'}},
             resolve: {
                 Report: function(expenseReportFactory, $stateParams) {
                     console.log($stateParams.id);
@@ -77,6 +82,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
                 LineItemTypes: function(expenseReportFactory) {
                     //console.log('LineItemTypes');
                     return expenseReportFactory.getAllListItems();
+                },
+                getAllProjects: function (projectFactory) {
+                    return projectFactory.getAll();
                 }
             }
         }).state('createProject', {
