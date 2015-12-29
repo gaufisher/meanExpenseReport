@@ -43,7 +43,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 $scope.expenseReport.items[i].value = datMoney;
 
             }
-
+            console.dir($scope.expenseReport.receipts);
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
               function (success) {
                   $state.go("viewReports", {}, {
@@ -239,7 +239,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                         file.result = response.data;
                         if (file.result) {
                             addFileToExpenseReport(file);
-                            $scope.removeUploadPreview();
+                          //  $scope.removeUploadPreview();
                         }
                     });
                 }, function (response) {
@@ -290,21 +290,22 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         var addFileToExpenseReport = function(file) {
             var type = getFileType(file.name);
-            var arr = $scope.expenseReport.receipts;
+            var fileDataString = "";
             var receipt = {};
 
             receipt.name = getFileName(file);
             receipt.imgPath = "uploads/" + file.name;
-            receipt.type = type;
+            receipt.fileType = type;
 
             if (type === "pdf") {
                 receipt.dataString = "";
             } else {
-            var fileDataString = file.$ngfDataUrl.split("base64,");
+                fileDataString = file.$ngfDataUrl.split("base64,");
                 receipt.dataString = fileDataString[1];
             }
 
-            arr.push(receipt);
+            //arr.push(receipt);
+            $scope.expenseReport.receipts.push(receipt);
         }
 
         var getFileName = function(file) {
@@ -320,7 +321,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             // var receipt = {};
             // receipt.imgPath = elem.receipt.imgPath;
             // receipt.name = elem.receipt.name;
-            // if (elem.receipt.type !== "pdf") {
+            // if (elem.receipt.fileType !== "pdf") {
             //     $uibModal.open({
             //         templateUrl: 'templates/view-image.tpl.html',
             //         controller: 'ModalInstanceCtrl',

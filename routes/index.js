@@ -77,32 +77,15 @@ router.get('/expense-report', function(req, res, next){
 });
 
 router.post('/expense-report', function(req, res, next){
+  console.log("Hello Seng");
 	var report = new Report(req.body);
     console.log(report);
     report.user = req.user._id;
     Report.findOne({"_id": report._id}, "status", function(err, status) {
         if (err) {
-            return res.status(500).json(err);;
+            return res.status(500).json(err);
         }
         if (status === "saved" || status === null) {
-            // // Get binary data from file
-            // var indexArr = [];
-            // if (report.receipts.length > 0) {
-            //     for (var i = 0; i < report.receipts.length; i++) {
-            //         if (report.receipts[i].img.contentType !== "") {
-            //             report.receipts[i].img.data = fs.readFileSync(report.receipts[i].imgPath);
-            //         } else {
-            //             indexArr.push(i);
-            //         }
-            //     }
-            // }
-            //
-            // //Remove invalid file type
-            // if (indexArr.length > 0) {
-            //     for (var i = 0; i < indexArr.length; i++) {
-            //         report.receipts.splice(indexArr[i], 1);
-            //     }
-            // }
             report.save(function(err, report) {
                 if (err) {
                     return res.status(500).json(err);;
