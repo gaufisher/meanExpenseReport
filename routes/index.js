@@ -12,14 +12,9 @@ var Report = mongoose.model('Report');
 /* GET home page. */
 
 function checkAuth(req,res,next){
-    console.log(req.user)
-    if(!req.user){
-        if(req.xhr)res.send({message:"no can do!"})
-        else res.redirect('/')
-    }
-    else {
-        next()
-    }
+   if(!req.user)
+      res.redirect(401,'/')
+   else next()
 }
 
 router.all('/*',checkAuth)
@@ -34,7 +29,7 @@ router.get('/',function(req,res,next){
 router.post('/projects', function(req, res, next) {
     var project = new Project(req.body);
     project.uniqueName = project.name.toLowerCase();
-	project.approver = req.user._id;
+	  project.approver = req.user._id;
     project.save(function(err, project){
       if(err){ return res.status(500).json(err); }
 
@@ -42,11 +37,10 @@ router.post('/projects', function(req, res, next) {
     });
 });
 
-router.get('/projects', checkAuth,function(req, res, next) {
+router.get('/projects',function(req, res, next) {
     Project.find(function(err, projects) {
-        if (err) {
-            return res.status(500).json(err);
-        }
+        if (err)
+            return res.status(409).json(err);
         res.json(projects);
     });
 });
@@ -56,9 +50,8 @@ router.get('/expense-report/:id', function(req, res, next){
 	var objId = mongoose.Types.ObjectId(idString);
 	Report.findById(objId, function(err, report){
 		if (err) {
-            return res.status(500).json(err);;
+            return res.status(500).json(err);
         }
-        console.log(req.user._id);
         if (!report.user.equals(req.user._id)) {
             res.status(403).send('No can do');
         } else {
@@ -79,7 +72,6 @@ router.get('/expense-report', function(req, res, next){
 router.post('/expense-report', function(req, res, next){
   console.log("Hello Seng");
 	var report = new Report(req.body);
-    console.log(report);
     report.user = req.user._id;
     Report.findOne({"_id": report._id}, "status", function(err, status) {
         if (err) {

@@ -13,7 +13,6 @@ passport.use('activeDirectory', new CustomStrategy(
                 	baseDN: 'dc=catalystsolves,dc=com'
                     }
        var ad = new ActiveDirectory(config);
-
        ad.authenticate(req.body.username+"@catalystsolves.com", req.body.password, function(err, auth) {
 	if (err) {
         	console.log('ERROR: '+JSON.stringify(err));
@@ -28,7 +27,7 @@ passport.use('activeDirectory', new CustomStrategy(
                         console.log("Created new entry")
                 }
                 else
-                        console.log("AlreadyThere")
+                        ;//console.log("AlreadyThere")
                 })
 
                 callback(null,req.body.username);}
@@ -61,7 +60,7 @@ router.post('/', function(req, res, next) {
      if (err) { return res.redirect('/?error'); }
     if (!user) { return res.redirect('/?error'); }
     req.logIn(user, function(err) {
-      if (err) { return next(err); }
+      if (err) { return res.status(503).json(err); }
       return res.redirect('/app');
     });
    })

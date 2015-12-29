@@ -3,7 +3,7 @@ var uniqueValidator = require('mongoose-unique-validator');
 
 var ProjectSchema = new mongoose.Schema({
     name: {type: String, unique:true},
-	uniqueName: {type: String, unique: true},
+	  uniqueName: {type: String, unique: true},
     approver: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
