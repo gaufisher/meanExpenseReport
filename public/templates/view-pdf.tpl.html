@@ -1,0 +1,18 @@
+<div >
+    <div class="modal-header">
+        <h3 class="modal-title">{{receiptModalName}}</h3>
+    </div>
+    <div class="modal-body receiptView">
+        <div class="container">
+            <button ng-click="prevPage()">&lt;</button>
+            <button ng-click="nextPage()">&gt;</button>
+            <br>
+            <span class="modalPdf">{{currentPage}}/{{totalPages}}</span>
+            <br>
+            <pdfviewer src="uploads/Nutrition-Services-Approval-Letter.pdf" on-page-load='pageLoaded(page,total)' id="viewer"></pdfviewer>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Close</button>
+    </div>
+</div>

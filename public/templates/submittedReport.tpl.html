@@ -9,6 +9,23 @@
         <ul class="list-group">
             <li class="list-group-item" data-ng-repeat="item in report.items"><h4>{{item.type}}: ${{item.value}}</h4></li>
         </ul>
+
+        <h3>Receipts:</h3>
+        <div class="container">
+            <div class="col-md-2 col-sm-3 col-xs-6" ng-repeat="receipt in report.receipts">
+                <div class="receiptView">
+                    <div ng-click="viewReceiptFile(this)">
+                        <div>
+                            <label>{{receipt.name}}</label>
+                        </div>
+                        <div>
+                            <img ng-src="{{receipt.imgPath}}" class="thumb">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <legend></legend>
         <!-- <div class="media"> data-ng-repeat="receipt in report.receipts">-->
             <!-- <div class="media-left media-middle">
                 <a href="https://upload.wikimedia.org/wikipedia/commons/0/0b/ReceiptSwiss.jpg"> -->
@@ -25,7 +42,7 @@
             <h3>Notes: </h3>
             <p>{{report.notes}}</p>
             <h3>Reasons for unsubmitting</h3>
-            <p ng-repeat="reason in report.unsubmitReasons">{{reason.notes}}</p>
+            <div ng-repeat="reason in report.unsubmitReasons">Date: <span ng-bind="reason.date | date:'MM/dd/yyyy h:mm'">{{reason.date}}</span> Reason: {{reason.notes}}</div>
         </div>
 
         <div ng-hide="report.status === 'approved'">
