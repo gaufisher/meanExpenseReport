@@ -185,7 +185,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.onFileSelect = function(elem) {
             var isFileAlreadyUploaded = isFileExist(elem.files[0].name);
-            var type = getFileType(elem.files[0].name);
+            var fileType = getFileType(elem.files[0].name);
             var isValid = isValidType(type);
 
             if (fileType === "pdf") {
@@ -207,11 +207,12 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             } else {
                 $scope.invalidUploadFile = true;
                 $scope.invalidFile = true;
-                $scope.fileError = "Invalid file type, only jpg, jpeg, gif, png, and pdf accepted.";
+                $scope.fileError = "Invalid file type, only jpg, jpeg, gif, and png accepted.";
             }
         }
 
-        $scope.inputFileClick = function() {
+        $scope.inputFileClick = function(elem) {
+          console.dir(elem);
             $scope.fileError = "";
         }
 
@@ -223,7 +224,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.uploadReceipt = function(file) {
             var name = getFileName(file);
-
             var isFileAlreadyUploaded = isFileExist(name);
             var type = getFileType(file.name);
             var isValid = isValidType(type);
@@ -239,7 +239,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                         file.result = response.data;
                         if (file.result) {
                             addFileToExpenseReport(file);
-                          //  $scope.removeUploadPreview();
+                            $scope.removeUploadPreview();
                         }
                     });
                 }, function (response) {
@@ -257,7 +257,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                     $scope.fileError = "Receipt with name already exist.";
                 } else {
                     $scope.invalidFile = true;
-                    $scope.fileError = "Invalid file type, only jpg, jpeg, gif, png, and pdf accepted.";
+                    $scope.fileError = "Invalid file type, only jpg, jpeg, gif, and png accepted.";
                 }
             }
         }
@@ -282,7 +282,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         }
 
         var isValidType = function(fileType) {
-            if (fileType === "jpg" || fileType === "jpeg" || fileType === "gif" || fileType === "png" || fileType === "pdf") {
+            if (fileType === "jpg" || fileType === "jpeg" || fileType === "gif" || fileType === "png") {
                 return true;
             }
             return false;
@@ -290,27 +290,23 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         var addFileToExpenseReport = function(file) {
             var type = getFileType(file.name);
-            var fileDataString = "";
+            var fileDataString = file.$ngfDataUrl.split("base64,");
             var receipt = {};
 
             receipt.name = getFileName(file);
             receipt.imgPath = "uploads/" + file.name;
             receipt.fileType = type;
+            //receipt.dataString = fileDataString[1];
 
-            if (type === "pdf") {
-                receipt.dataString = "";
-            } else {
-                fileDataString = file.$ngfDataUrl.split("base64,");
-                receipt.dataString = fileDataString[1];
-            }
-
-            //arr.push(receipt);
             $scope.expenseReport.receipts.push(receipt);
         }
 
         var getFileName = function(file) {
-            if ($scope.newFileName !== undefined || $scope.newFileName !== "") {
-                return $scope.newFileName;
+            if ($scope.newFileName !== undefined) {
+                if ($scope.newFileName.trim() !== "") {
+                   return $scope.newFileName;
+                }
+                return file.name;
             } else {
                 return file.name;
             }
@@ -346,7 +342,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
         $scope.editFileFromScopeAndReport = function(index) {
             var report = {};
-            report.receipts = $scope.expenseReport.receipts;
+            report.name = $scope.expenseReport.receipts[index].name;
             report.index = index;
 
             $uibModal.open({
@@ -354,7 +350,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                controller: 'ModalInstanceCtrl',
                resolve: {
                    editReceipt: function() {
-                       return report;
+                       return $scope;
                    }
                }
            });
