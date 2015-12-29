@@ -88,6 +88,7 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
                 delete $scope.expenseReport.project;
             }
             if ($scope.expenseReport.project != null) {
+                $scope.expenseReport.timeSubmitted = new Date();
  			    if ($scope.expenseReport.hasOwnProperty('status')) {
                     $scope.expenseReport.status = "submitted";
                     updateReport();

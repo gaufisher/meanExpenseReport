@@ -17,7 +17,7 @@ router.get('/submitted-reports',
             }
             var projectQuery = [];
             for (var i = 0; i < pids.length; i++) {
-                projectQuery.push({$and: [{"project":pids[i]._id}, {"status":"submitted"}]});
+                projectQuery.push({$and: [{"project":pids[i]._id}, {$or: [{"status":"submitted"}, {"status":"approved"}]}]});
             }
             Report.find({$or: projectQuery})
                   .populate('project')
@@ -47,6 +47,28 @@ router.get('/submitted-reports/:id',
                 if (!report.project.approver.equals(req.user._id) || report.status !== 'submitted') {
                     res.status(403).send('You cannot approve this report');
                 } else {
+                    res.json(report);
+                }
+            }
+        });
+    }
+);
+
+router.get('/approved-reports/:id',
+    function(req, res, next) {
+        var idString = req.params.id.toString();
+        console.log('REPORT ID: ' + idString);
+        Report.findById(idString)
+            .populate('project')
+            .populate('user', 'name')
+            .exec(function(err, report) {
+                console.log(report);
+            if (err) {
+                res.status(500).json(err);
+            } else{
+                if (!report.project.approver.equals(req.user._id) || report.status !== 'approved') {
+                    res.status(403).send('You are unauthorized to view this approved report');
+                } else{
                     res.json(report);
                 }
             }

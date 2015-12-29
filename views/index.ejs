@@ -20,9 +20,9 @@
         <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
         <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="lib/css/angular-toastr.css" />
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/getProjectDemo-style.css" />
         <link rel="stylesheet" type="text/css" href="css/project-style.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
 
         <!-- scripts -->
         <script src="js/angularApp.js"></script>
@@ -34,12 +34,15 @@
         <script src="js/factory/projectFactory.js"></script>
         <script src="js/factory/userFactory.js"></script>
         <script src="js/factory/approveReportsFactory.js"></script>
-        <script src="js/controllers/viewReportByIdCtrl.js"></script>
+        <script src="js/factory/reportsIApprovedFactory.js"></script>
+
         <script src="js/controllers/projectSelectCtrl.js"></script>
         <script src="js/controllers/viewReportsCtrl.js"></script>
         <script src="js/controllers/userCtrl.js"></script>
         <script src="js/controllers/approveReportsCtrl.js"></script>
         <script src="js/controllers/approveReportCtrl.js"></script>
+        <script src="js/controllers/viewReportByIdCtrl.js"></script>
+        <script src="js/controllers/reportIApprovedCtrl.js"></script>
 
         <meta charset="UTF-8">
     </head>
@@ -67,7 +70,6 @@
                             <li ng-click="newExpenseReport()"><a class="clickable" id="expenseReportNavbarLink">Expense Report</a></li>
                         </ul>
                     </li>
-                    <li class="clickable" ui-sref="approveReports"><a>Approve reports</a></li>
                 </ul>
                 <ul class="nav navbar-nav theme">
                     <li class="dropdown">

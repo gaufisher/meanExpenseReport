@@ -22,6 +22,16 @@ app.config(['$stateProvider', '$urlRouterProvider',
                             return "Not working";
                         }
                     );
+                },
+                ExpenseReportsByApprover: function(approveReportsFactory) {
+                    return approveReportsFactory.getReports().then(
+                        function(success) {
+                            return success.data;
+                        },
+                        function(err) {
+                            return err;
+                        }
+                    );
                 }
             }
         }).state('project', {
@@ -81,30 +91,29 @@ app.config(['$stateProvider', '$urlRouterProvider',
               url: '/createProject',
               templateUrl: '../templates/project.tpl.html',
               controller: 'projectCreateCtrl'
-        }).state('approveReports', {
-            url: '/approveReports',
-            templateUrl: '../templates/submittedReports.tpl.html',
-            controller: 'approveReportsCtrl',
-            resolve: {
-                Reports: function(approveReportsFactory) {
-                    return approveReportsFactory.getReports().then(
-                        function(success) {
-                            return success.data;
-                        },
-                        function(err) {
-                            return err;
-                        }
-                    );
-                }
-            }
         }).state('approveReport', {
             url: '/approveReport/{id}',
             templateUrl: '../templates/submittedReport.tpl.html',
             controller: 'approveReportCtrl',
             resolve: {
                 Report: function(approveReportsFactory, $stateParams) {
-                    console.log('Routes id: ' + $stateParams.id);
                     return approveReportsFactory.getReportById($stateParams.id).then(
+                        function(success) {
+                            return success.data;
+                        },
+                        function(error) {
+                            return error;
+                        }
+                    );
+                }
+            }
+        }).state('reportIApproved', {
+            url: '/reportIApproved/{id}',
+            templateUrl: '../templates/myApprovedReport.tpl.html',
+            controller: 'reportIApprovedCtrl',
+            resolve: {
+                ApprovedReport: function(reportsIApprovedFactory, $stateParams) {
+                    return reportsIApprovedFactory.getReportById($stateParams.id).then(
                         function(success) {
                             return success.data;
                         },
