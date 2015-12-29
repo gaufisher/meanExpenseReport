@@ -15,7 +15,7 @@
                 <div class="panel panel-body" ng-repeat="status in statuses">
                     <h4 bs-collapse-toggle class="clickable report-status-accordion">
                         <a>
-                          {{(reports | filter: status.name).length}} {{ status.name }} Report<span ng-hide="(reports | filter: status.name).length == 1">s</span>
+                          {{(reports | filter: status.name).length}} {{ status.name }} Report<span ng-hide="(reports | filter: status.name).length === 1">s</span>
                         </a>
                     </h4>
                     <div class="list-group" bs-collapse-target>
@@ -48,7 +48,7 @@
                 <div class="panel panel-body" ng-repeat="links in approverLinks">
                     <h4 bs-collapse-toggle class="clickable">
                         <a>
-                         {{(reportsByApprover | filter: links.status).length}} Report<span ng-hide="(reports | filter: status.name).length == 1">s</span> {{ links.name}}
+                            {{(reportsByApprover | filter: links.status).length}} Report<span data-ng-hide="(reportsByApprover | filter: links.status).length === 1">s</span> {{ links.name}}
                         </a>
                     </h4>
                     <div class="list-group" bs-collapse-target>
