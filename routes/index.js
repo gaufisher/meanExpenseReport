@@ -71,7 +71,6 @@ router.get('/expense-report', function(req, res, next){
 
 router.post('/expense-report', function(req, res, next){
 	var report = new Report(req.body);
-    console.log(report);
     report.user = req.user._id;
     Report.findOne({"_id": report._id}, "status", function(err, status) {
         if (err) {
@@ -150,6 +149,7 @@ router.get('/line-item-types', function(req, res, next) {
 router.get('/project/:id', function(req, res, next){
 	var idString = req.params.id.toString();
 	var objId = mongoose.Types.ObjectId(idString);
+  console.log(objId)
 	Project.findById(objId, function(err, project){
 		if (err) {
             return res.status(500).json(err);
