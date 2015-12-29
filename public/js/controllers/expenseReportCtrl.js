@@ -68,7 +68,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.save = function () {
-
+			$scope.valid = true;
 			for(var i = 0; i < $scope.expenseReport.items.length; i++){
 				if($scope.expenseReport.items[i].value === undefined || $scope.expenseReport.items[i].value < 0.01){
 					$scope.valid = false;
@@ -92,6 +92,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
 
         $scope.submit = function () {
+			$scope.valid = true;
 			for(var i = 0; i < $scope.expenseReport.items.length; i++){
 				if($scope.expenseReport.items[i].value === undefined || $scope.expenseReport.items[i].value < 0.01){
 					$scope.valid = false;
