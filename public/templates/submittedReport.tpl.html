@@ -10,6 +10,7 @@
             <li class="list-group-item" data-ng-repeat="item in report.items"><h4>{{item.type}}: ${{item.value}}</h4></li>
         </ul>
 
+        <h3>Receipts:</h3>
         <div class="col-md-2 col-sm-3 col-xs-6" ng-repeat="receipt in report.receipts">
             <div class="receiptView">
                 <div ng-click="viewReceiptFile(this)">
@@ -22,6 +23,7 @@
                 </div>
             </div>
         </div>
+        <legend></legend>
         <!-- <div class="media"> data-ng-repeat="receipt in report.receipts">-->
             <!-- <div class="media-left media-middle">
                 <a href="https://upload.wikimedia.org/wikipedia/commons/0/0b/ReceiptSwiss.jpg"> -->

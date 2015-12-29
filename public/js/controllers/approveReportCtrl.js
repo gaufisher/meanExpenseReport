@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('QuickrBooks').controller('approveReportCtrl', ['$scope', '$state', 'Report', 'expenseReportFactory', 'toastr',
-    function($scope, $state, Report, expenseReportFactory, toastr) {
+angular.module('QuickrBooks').controller('approveReportCtrl', ['$scope', '$state', 'Report', 'expenseReportFactory', 'toastr', '$uibModal', '$window',
+    function($scope, $state, Report, expenseReportFactory, toastr, $uibModal, $window) {
         $scope.report = Report;
         if (Object.keys($scope.report.rejections).length === 0) {
             $scope.report.rejections = [];
@@ -29,6 +29,9 @@ angular.module('QuickrBooks').controller('approveReportCtrl', ['$scope', '$state
                     alert('NO!');
                 }
             )
+        }
+        $scope.viewReceiptFile = function(elem) {
+            $window.open(elem.receipt.imgPath);
         }
     }
 ]);

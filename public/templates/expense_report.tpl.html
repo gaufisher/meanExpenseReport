@@ -27,11 +27,11 @@
     <!--  Receipts  starts  -->
 
        <form name="myForm">
-           <label ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton">Receipts</label>
+           <label ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton">Receipts</label>
            <div name="uploadForm" ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" class="btn btn-default fileinput-button form-control">
                <span>Attach Receipt</span>
                <!-- <input type="file" ngf-select ng-model="picFile" onchange="angular.element(this).scope().onFileSelect(this)" accept=".jpg, .jpeg, .gif, .png, .pdf"> -->
-               <input type="file" ng-click="inputFileClick()" ngf-select ng-model="picFile" accept=".jpg, .jpeg, .gif, .png, .pdf">
+               <input type="file" ng-click="inputFileClick(this)" ngf-select ng-model="picFile" accept=".jpg, .jpeg, .gif, .png, .pdf">
            </div>
            <div>
                <input type="text" class="form-control fileInputName" ng-model="newFileName" placeholder="Receipt name" ng-show="picFile">
@@ -77,12 +77,13 @@
                     <img ng-src="{{receipt.imgPath}}" class="thumb">
                 </div>
             </div>
-            <button class="btn btn-default receiptButton" ng-click="removeFileFromScopeAndReport($index)">Remove</button>
-            <button class="btn btn-default receiptButton" ng-click="editFileFromScopeAndReport($index)">Edit Name</button>
+
+            <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" class="btn btn-default receiptButton" ng-click="removeFileFromScopeAndReport($index)">Remove</button>
+            <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" class="btn btn-default receiptButton" ng-click="editFileFromScopeAndReport($index)">Edit Name</button>
         </div>
     </div>
     <br>
-    <legend ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton"></legend>
+    <legend ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton"></legend>
 
     <!--  Receipts  ends  -->
 
