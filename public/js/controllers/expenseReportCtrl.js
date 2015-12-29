@@ -74,7 +74,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.save = function () {
-
+			$scope.valid = true;
 			for(var i = 0; i < $scope.expenseReport.items.length; i++){
 				if($scope.expenseReport.items[i].value === undefined || $scope.expenseReport.items[i].value < 0.01){
 					$scope.valid = false;
@@ -98,25 +98,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 
 
         $scope.submit = function () {
-
-			if ($scope.expenseReport.project === undefined || Object.keys($scope.expenseReport.project).length === 0) {
-                delete $scope.expenseReport.project;
-            }
-            if ($scope.expenseReport.project != null) {
- 			    if ($scope.expenseReport.hasOwnProperty('status')) {
-                    $scope.expenseReport.status = "submitted";
-                    updateReport();
-                } else {
-                    persist("submitted");
-					$scope.expenseReport.status = "submitted";
-                }
-				expenseReportFactory.sendEmail($scope.expenseReport);
-                $state.go("viewReports", {}, {
-                    reload: true
-                });
-            } else {
-                $scope.hasProject = false
-            }
+			$scope.valid = true;
 			for(var i = 0; i < $scope.expenseReport.items.length; i++){
 				if($scope.expenseReport.items[i].value === undefined || $scope.expenseReport.items[i].value < 0.01){
 					$scope.valid = false;
