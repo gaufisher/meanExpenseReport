@@ -13,11 +13,11 @@ var Report = mongoose.model('Report');
 
 function checkAuth(req,res,next){
    if(!req.user)
-      res.redirect(401,'/')
+      res.redirect('/')
    else next()
 }
 
-router.all('/*',checkAuth)
+router.all('/',checkAuth)
 
 
 router.get('/',function(req,res,next){
