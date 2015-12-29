@@ -41,7 +41,7 @@
             <p ng-repeat="reason in report.unsubmitReasons">{{reason.notes}}</p>
         </div>
 
-        <div>
+        <div ng-hide="report.status === 'approved'">
     		<button type="submit" ng-click="submit('approved')" class="btn btn-default">Approve</button>
     		<button type="submit" ng-click="showRejection = true" class="btn btn-default">Reject</button>
     	</div>

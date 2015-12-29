@@ -1,0 +1,36 @@
+<div class="w3-card-4 container">
+    <div class="">
+        <div class="page-header">
+            <h1>{{report.name}}  <small class="pull-right">{{report.user.name}}</small></h1>
+        </div>
+        <h3>Project:</h3>
+        <h4>{{report.project.name}}</h4>
+        <h3>Line Items:</h3>
+        <ul class="list-group">
+            <li class="list-group-item" data-ng-repeat="item in report.items"><h4>{{item.type}}: ${{item.value / 100}}</h4></li>
+        </ul>
+        <!-- <div class="media"> data-ng-repeat="receipt in report.receipts">-->
+            <!-- <div class="media-left media-middle">
+                <a href="https://upload.wikimedia.org/wikipedia/commons/0/0b/ReceiptSwiss.jpg"> -->
+                <!-- <a href="{{receipt.recieptImage}}"> -->
+                    <!-- <img class="media-object" src="https://upload.wikimedia.org/wikipedia/commons/0/0b/ReceiptSwiss.jpg"> -->
+                    <!-- <img class="media-object" src="<{{receipt.recieptImage}}"> -->
+                <!-- </a>
+            </div>
+            <div class="media-body">
+                <h4>{{receipt.name}} im a receipt name and should be deleted when receipt name is working</h4>
+            </div>
+        </div> -->
+        <div class="notes">
+            <h3>Notes: </h3>
+            <p>{{report.notes}}</p>
+            <h3>Unsubmitted because:</h3>
+            <p></p>
+        </div>
+        <h3>Status:</h3>
+        <ul class="list-group">
+            <li class="list-group-item"><h4>{{report.status}}</h4></li>
+        </ul>
+    </div>
+</div>
+

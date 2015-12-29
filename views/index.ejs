@@ -13,19 +13,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.6/angular-strap.tpl.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.js"></script>
         <script src='lib/js/angular-input-masks-standalone.min.js'></script>
-		    <script src="lib/js/ui-bootstrap-tpls.min.js"></script>
+	    <script src="lib/js/ui-bootstrap-tpls.min.js"></script>
         <script src="lib/js/ng-file-upload-shim.js"></script> <!-- for no html5 browsers support -->
         <script src="lib/js/ng-file-upload.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.16/toaster.min.js"></script>
         <script type="text/javascript" src="lib/js/angular-toastr.tpls.js"></script>
-    		<script src="lib/js/pdf.js"></script>
-    		<script src="lib/js/ng-pdfviewer.js"></script>
-    		<script src="lib/js/pdf.worker.js"></script>
+		<script src="lib/js/pdf.js"></script>
+		<script src="lib/js/ng-pdfviewer.js"></script>
+		<script src="lib/js/pdf.worker.js"></script>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
         <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="lib/css/angular-toastr.css" />
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/getProjectDemo-style.css" />
         <link rel="stylesheet" type="text/css" href="css/project-style.css" />
         <link rel="stylesheet" type="text/css" href="css/receipt.css" />
@@ -39,8 +38,9 @@
 		<script src="js/project-js/projectGetCtrl.js"></script>
 		<script src="js/factory/projectFactory.js"></script>
 		<script src="js/factory/userFactory.js"></script>
-    <script src="js/factory/approveReportsFactory.js"></script>
-    <script src="js/controllers/viewReportByIdCtrl.js"></script>
+        <script src="js/factory/approveReportsFactory.js"></script>
+        <script src="js/factory/reportsIApprovedFactory.js"></script>
+        <script src="js/controllers/viewReportByIdCtrl.js"></script>
 		<script src="js/controllers/projectSelectCtrl.js"></script>
 		<script src="js/controllers/viewReportsCtrl.js"></script>
 		<script src="js/controllers/userCtrl.js"></script>
@@ -48,8 +48,9 @@
 		<script src="js/directives/modal-directive.js"></script>
 		<script src="js/directives/fileModel-directive.js"></script>
 		<script src="js/directives/fileChange-directive.js"></script>
-    <script src="js/controllers/approveReportsCtrl.js"></script>
-    <script src="js/controllers/approveReportCtrl.js"></script>
+        <script src="js/controllers/approveReportsCtrl.js"></script>
+        <script src="js/controllers/approveReportCtrl.js"></script>
+        <script src="js/controllers/reportIApprovedCtrl.js"></script>
 
         <meta charset="UTF-8">
     </head>
@@ -77,7 +78,6 @@
                             <li ng-click="newExpenseReport()"><a class="clickable" id="expenseReportNavbarLink">Expense Report</a></li>
                         </ul>
                     </li>
-                    <li class="clickable" ui-sref="approveReports"><a>Approve reports</a></li>
                 </ul>
                 <ul class="nav navbar-nav theme">
                     <li class="dropdown">

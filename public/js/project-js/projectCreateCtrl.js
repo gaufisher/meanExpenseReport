@@ -1,5 +1,4 @@
-
-angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state', 'projectFactory', 'userFactory','toastr', function ($scope, $state, projectFactory, userFactory,toastr) {
+angular.module('QuickrBooks').controller('projectCreateCtrl',['$scope', '$state', 'projectFactory', 'userFactory', 'toaster', function ($scope, $state, projectFactory, userFactory, toaster) {
     $scope.newProject = {};
 	$scope.projectName = "";
 
@@ -22,22 +21,21 @@ angular.module('QuickrBooks').controller('projectCreateCtrl', ['$scope', '$state
 
         projectFactory.create($scope.newProject).then(function(err){
             $scope.showButton = false;
-            // toaster.pop('success',"Created",`${$scope.projectName}`);
+            toaster.pop('success',"Created",`${$scope.projectName}`);
 
             $scope.projectName = "";
             $state.go("viewReports", {}, {
                 reload: true
             });
         },function(err){
-            // toaster.pop('error',"Error",`Creating project ${$scope.projectName}`)
+            toaster.pop('error',"Error",`Creating project ${$scope.projectName}`)
         });
 
 
     }
 
     $scope.cancel = function () {
-      // toaster.pop('error',"Cancelled",`Creating project ${$scope.projectName}`)
-
+        toaster.pop('error',"Cancelled",`Creating project ${$scope.projectName}`)
         $state.go("viewReports", {}, {
             reload: true
         });
