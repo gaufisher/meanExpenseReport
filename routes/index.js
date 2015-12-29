@@ -45,7 +45,6 @@ router.get('/projects',function(req, res, next) {
 });
 
 router.get('/expense-report/:id', function(req, res, next){
-  console.log(req.params.id)
 	var idString = req.params.id.toString();
 	var objId = mongoose.Types.ObjectId(idString);
 	Report.findById(objId, function(err, report){
