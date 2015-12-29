@@ -45,13 +45,13 @@ router.get('/projects',function(req, res, next) {
 });
 
 router.get('/expense-report/:id', function(req, res, next){
+  console.log(req.params.id)
 	var idString = req.params.id.toString();
 	var objId = mongoose.Types.ObjectId(idString);
 	Report.findById(objId, function(err, report){
 		if (err) {
-            return res.status(500).json(err);;
+            return res.status(500).json(err);
         }
-        console.log(req.user._id);
         if (!report.user.equals(req.user._id)) {
             res.status(403).send('No can do');
         } else {
@@ -149,7 +149,6 @@ router.get('/line-item-types', function(req, res, next) {
 router.get('/project/:id', function(req, res, next){
 	var idString = req.params.id.toString();
 	var objId = mongoose.Types.ObjectId(idString);
-  console.log(objId)
 	Project.findById(objId, function(err, project){
 		if (err) {
             return res.status(500).json(err);
