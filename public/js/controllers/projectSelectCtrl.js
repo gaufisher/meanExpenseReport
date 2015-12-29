@@ -3,8 +3,8 @@
  * Created by Jeremy on 12/7/2015.
  */
 
-app.controller('projectSelectCtrl', ['$scope', 'getAllProjects', 'sharedProperties', 'projectFactory',
-  function ($, projects, sharedProperties, projectFactory) {
+app.controller('projectSelectCtrl', ['$scope', 'getAllProjects', 'projectFactory',
+  function ($, projects, projectFactory) {
         $.projects = projects.data;
 
         if ($.expenseReport === undefined)
@@ -15,12 +15,12 @@ app.controller('projectSelectCtrl', ['$scope', 'getAllProjects', 'sharedProperti
             if ($.dropdownvalue !== null)
                 $.expenseReport.project._id = $.dropdownvalue._id;
         };
-        $.project = {};
         $.selectProject = function () {
-            if (sharedProperties.getExpenseReport().hasOwnProperty('project')) {
-                return sharedProperties.getProjectId();
+            for (var i = 0; i < $.projects.length; i++) {
+                if ($.expenseReport.project === $.projects[i]._id) {
+                    return i;
+                }
             }
         };
-
   }
 ]);
