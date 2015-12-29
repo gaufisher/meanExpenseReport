@@ -352,6 +352,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 $scope.expenseReport.receipts.push($scope.editReceipt);
                 $scope.editReceipt = null;
                 $scope.editFile = false;
+                $scope.changeName = "";
             }
         }
 
@@ -359,6 +360,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
             $scope.expenseReport.receipts.push($scope.editReceipt);
             $scope.editReceipt = null;
             $scope.editFile = false;
+            $scope.changeName = "";
         }
 
         $scope.editFileFromScopeAndReport = function(index) {
