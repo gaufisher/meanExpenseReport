@@ -43,9 +43,15 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 $scope.expenseReport.items[i].value = datMoney;
 
             }
-            console.dir($scope.expenseReport.receipts);
+            //console.dir($scope.expenseReport.receipts);
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
               function (success) {
+				  console.log("hey hey!");
+				  console.log("status = " + status);
+				  if(status === "submitted"){
+					  console.log("here I am");
+					  expenseReportFactory.sendEmail($scope.expenseReport);
+				  }
                   $state.go("viewReports", {}, {
                       reload: true
                   });
@@ -109,10 +115,10 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 				if ($scope.expenseReport.project != null) {
 						  if ($scope.expenseReport.status != null) {
 						$scope.expenseReport.status = "submitted";
-						
 						updateReport();
 					} else {
 						console.log("reached else")
+						
 						persist("submitted");
 					}
 
@@ -213,7 +219,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         }
 
         $scope.inputFileClick = function(elem) {
-          console.dir(elem);
+          //console.dir(elem);
             $scope.fileError = "";
         }
 
@@ -292,12 +298,13 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         var addFileToExpenseReport = function(file) {
             var type = getFileType(file.name);
             var fileDataString = file.$ngfDataUrl.split("base64,");
+			//console.log(fileDataString);
             var receipt = {};
 
             receipt.name = getFileName(file);
             receipt.imgPath = "uploads/" + file.name;
             receipt.fileType = type;
-            //receipt.dataString = fileDataString[1];
+            receipt.dataString = fileDataString[1];
 
             $scope.expenseReport.receipts.push(receipt);
         }

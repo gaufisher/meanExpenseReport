@@ -20,8 +20,8 @@ var ReportSchema = new mongoose.Schema({
         {
              name: String,
              imgPath: String,
-      			 fileType: String
-      			 //dataString: String
+      		 fileType: String,
+      		 dataString: String
         }
     ],
     status: {
