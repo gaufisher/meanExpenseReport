@@ -78,3 +78,13 @@ body {
 .container {
     padding-bottom: 10px;
 }
+
+.accordion-title {
+    font-size: 1.5em;
+}
+
+.report-accordion {
+    color: #8B1C00;
+    text-decoration: underline;
+}
+

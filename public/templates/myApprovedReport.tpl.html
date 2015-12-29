@@ -7,7 +7,7 @@
         <h4>{{report.project.name}}</h4>
         <h3>Line Items:</h3>
         <ul class="list-group">
-            <li class="list-group-item" data-ng-repeat="item in report.items"><h4>{{item.type}}: ${{item.value}}</h4></li>
+            <li class="list-group-item" data-ng-repeat="item in report.items"><h4>{{item.type}}: ${{item.value / 100}}</h4></li>
         </ul>
         <!-- <div class="media"> data-ng-repeat="receipt in report.receipts">-->
             <!-- <div class="media-left media-middle">
@@ -24,21 +24,13 @@
         <div class="notes">
             <h3>Notes: </h3>
             <p>{{report.notes}}</p>
-            <h3>Reasons for unsubmitting</h3>
-            <p ng-repeat="reason in report.unsubmitReasons">{{reason.notes}}</p>
+            <h3>Unsubmitted because:</h3>
+            <p></p>
         </div>
-
-        <div ng-hide="report.status === 'approved'">
-    		<button type="submit" ng-click="submit('approved')" class="btn btn-default">Approve</button>
-    		<button type="submit" ng-click="showRejection = true" class="btn btn-default">Reject</button>
-    	</div>
-
-        <div class="form-group" ng-show="showRejection">
-            <br />
-            <label>Reason for rejection:</label>
-            <textarea data-ng-model="rejectionReason" class="form-control"></textarea>
-            <br>
-            <button type="submit" ng-click="submit('saved')" class="btn btn-default pull-right">Send</button>
-        </div>
+        <h3>Status:</h3>
+        <ul class="list-group">
+            <li class="list-group-item"><h4>{{report.status}}</h4></li>
+        </ul>
     </div>
 </div>
+
