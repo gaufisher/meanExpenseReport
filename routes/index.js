@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 var mongoose = require('mongoose');
 var path = require('path')
 require('../models/projects');
@@ -69,16 +70,17 @@ router.get('/expense-report', function(req, res, next){
 });
 
 router.post('/expense-report', function(req, res, next){
+  console.log("Hello Seng");
 	var report = new Report(req.body);
     report.user = req.user._id;
     Report.findOne({"_id": report._id}, "status", function(err, status) {
         if (err) {
-            return res.status(500).json(err);;
+            return res.status(500).json(err);
         }
         if (status === "saved" || status === null) {
             report.save(function(err, report) {
                 if (err) {
-                    return res.status(500).json(err);;
+                    return res.status(500).json(err);
                 }
                 res.json(report);
             });

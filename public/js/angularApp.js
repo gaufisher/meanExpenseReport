@@ -1,3 +1,3 @@
 'use strict';
 
-var app = angular.module('QuickrBooks', ['ui.router', 'mgcrea.ngStrap', 'ui.utils.masks', 'ngAnimate', 'toastr', 'toaster']);
+var app = angular.module('QuickrBooks', ['ui.router', 'mgcrea.ngStrap', 'ui.utils.masks', 'ngAnimate', 'toastr', 'toaster', 'ngFileUpload', 'ui.bootstrap']);

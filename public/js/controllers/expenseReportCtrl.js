@@ -1,12 +1,15 @@
-app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory',
-    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory) {
+app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory', 'projectFactory', 'LineItemTypes', 'userFactory','Upload', '$timeout', '$uibModal', '$window',
+    function ($scope, $state, expenseReportFactory, projectFactory, LineItemTypes, userFactory, Upload, $timeout, $uibModal, $window) {
         $scope.expenseReport = {};
 
         $scope.project = {};
 
         $scope.hasProject = true;
+
+        $scope.expenseReport.receipts = [];
 		$scope.showButton = false;
 		$scope.valid = true;
+
         $scope.setExpenseReport = function () {
 
             $scope.dropdownvalue = {};
@@ -40,7 +43,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
                 $scope.expenseReport.items[i].value = datMoney;
 
             }
-
+            console.dir($scope.expenseReport.receipts);
             expenseReportFactory.createExpenseReport($scope.expenseReport).then(
               function (success) {
                   $state.go("viewReports", {}, {
@@ -55,6 +58,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         var updateReport = function () {
+
             expenseReportFactory.updateExpenseReport($scope.expenseReport).then(
                 function (success) {
                     $state.go("viewReports", {}, {
@@ -121,7 +125,6 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         $scope.unsubmit = function (reportId) {
             $scope.expenseReport.status = "saved";
 
-
            if(Array.isArray($scope.expenseReport.unsubmitReasons)){
              $scope.expenseReport.unsubmitReasons.push({date:new Date(), notes:$scope.expenseReport.unsubmitReason})
            }
@@ -177,6 +180,181 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
         };
 
         $scope.LineItemTypes = LineItemTypes.data;
+
+        /************************* Receipt functions required *****************************/
+
+        $scope.onFileSelect = function(elem) {
+            var isFileAlreadyUploaded = isFileExist(elem.files[0].name);
+            var fileType = getFileType(elem.files[0].name);
+            var isValid = isValidType(type);
+
+            if (fileType === "pdf") {
+                $scope.fileThumb = "images/pdf_icon.png";
+            } else if (!isValid) {
+                $scope.fileThumb = "images/sad.jpg";
+            } else {
+                $scope.fileThumb = elem.files[0];
+            }
+
+            if (!isFileAlreadyUploaded && fileType !== "") {
+                $scope.invalidUploadFile = false;
+                $scope.fileError = "";
+                $scope.invalidFile = false;
+            } else if (isFileAlreadyUploaded) {
+                $scope.invalidUploadFile = true;
+                $scope.invalidFile = true;
+                $scope.fileError = "File already exist.";
+            } else {
+                $scope.invalidUploadFile = true;
+                $scope.invalidFile = true;
+                $scope.fileError = "Invalid file type, only jpg, jpeg, gif, and png accepted.";
+            }
+        }
+
+        $scope.inputFileClick = function(elem) {
+          console.dir(elem);
+            $scope.fileError = "";
+        }
+
+        $scope.removeUploadPreview = function() {
+            $scope.picFile = null;
+            $scope.fileError = "";
+            $scope.newFileName = "";
+        }
+
+        $scope.uploadReceipt = function(file) {
+            var name = getFileName(file);
+            var isFileAlreadyUploaded = isFileExist(name);
+            var type = getFileType(file.name);
+            var isValid = isValidType(type);
+
+            if (isValid && !isFileAlreadyUploaded) {
+                file.upload = Upload.upload({
+                      url: '/app/receipt/upload',
+                      data: {receipt: file},
+                });
+
+                file.upload.then(function (response) {
+                    $timeout(function () {
+                        file.result = response.data;
+                        if (file.result) {
+                            addFileToExpenseReport(file);
+                            $scope.removeUploadPreview();
+                        }
+                    });
+                }, function (response) {
+                    if (response.status > 0)
+                        $scope.errorMsg = response.status + ': ' + response.data;
+                }, function (evt) {
+                    // Math.min is to fix IE which reports 200% sometimes
+                    file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
+
+                $scope.invalidFile = false;
+            } else {
+                if (isFileAlreadyUploaded) {
+                    $scope.invalidFile = true;
+                    $scope.fileError = "Receipt with name already exist.";
+                } else {
+                    $scope.invalidFile = true;
+                    $scope.fileError = "Invalid file type, only jpg, jpeg, gif, and png accepted.";
+                }
+            }
+        }
+
+        $scope.removeFileFromScopeAndReport = function(index) {
+            $scope.expenseReport.receipts.splice(index, 1);
+        }
+
+        var isFileExist = function(fileName) {
+            var fileAlreadyExist = false;
+            for (var i = 0; i < $scope.expenseReport.receipts.length; i++) {
+                if (fileName === $scope.expenseReport.receipts[i].name) {
+                    fileAlreadyExist = true;
+                }
+            }
+            return fileAlreadyExist;
+        }
+
+        var getFileType = function(fileName) {
+            var fileNameSections = fileName.split(".");
+            return fileNameSections[fileNameSections.length-1];
+        }
+
+        var isValidType = function(fileType) {
+            if (fileType === "jpg" || fileType === "jpeg" || fileType === "gif" || fileType === "png") {
+                return true;
+            }
+            return false;
+        }
+
+        var addFileToExpenseReport = function(file) {
+            var type = getFileType(file.name);
+            var fileDataString = file.$ngfDataUrl.split("base64,");
+            var receipt = {};
+
+            receipt.name = getFileName(file);
+            receipt.imgPath = "uploads/" + file.name;
+            receipt.fileType = type;
+            //receipt.dataString = fileDataString[1];
+
+            $scope.expenseReport.receipts.push(receipt);
+        }
+
+        var getFileName = function(file) {
+            if ($scope.newFileName !== undefined) {
+                if ($scope.newFileName.trim() !== "") {
+                   return $scope.newFileName;
+                }
+                return file.name;
+            } else {
+                return file.name;
+            }
+        }
+
+        $scope.viewReceiptFile = function(elem) {
+            $window.open(elem.receipt.imgPath);
+            // var receipt = {};
+            // receipt.imgPath = elem.receipt.imgPath;
+            // receipt.name = elem.receipt.name;
+            // if (elem.receipt.fileType !== "pdf") {
+            //     $uibModal.open({
+            //         templateUrl: 'templates/view-image.tpl.html',
+            //         controller: 'ModalInstanceCtrl',
+            //         resolve: {
+            //             veiwReceipt: function() {
+            //                 return receipt;
+            //             }
+            //         }
+            //     });
+            // } else {
+            //     $uibModal.open({
+            //         templateUrl: 'templates/view-pdf.tpl.html',
+            //         controller: 'ModalInstanceCtrl',
+            //         resolve: {
+            //             veiwReceipt: function() {
+            //                 return receipt;
+            //             }
+            //         }
+            //     });
+            // }
+        }
+
+        $scope.editFileFromScopeAndReport = function(index) {
+            var report = {};
+            report.name = $scope.expenseReport.receipts[index].name;
+            report.index = index;
+
+            $uibModal.open({
+               templateUrl: 'templates/edit-receipt.tpl.html',
+               controller: 'ModalInstanceCtrl',
+               resolve: {
+                   editReceipt: function() {
+                       return $scope;
+                   }
+               }
+           });
+        }
 
     }
 ]);

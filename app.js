@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var receipt = require('./routes/receipt');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
@@ -34,6 +36,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 app.use(session({
         secret: "hidden",
@@ -50,6 +53,7 @@ app.use('/user', users);
 app.use('/', login);
 app.use('/app/approver', approvers);
 app.use('/app/expense-report/email', expensereports);
+app.use('/app/receipt', receipt);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
