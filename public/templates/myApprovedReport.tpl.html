@@ -40,7 +40,7 @@
         <div class="notes">
             <h3>Notes: </h3>
             <p>{{report.notes}}</p>
-            <h3>Unsubmitted because:</h3>
+            <h3 ng-show="report.unsubmitReasons.length > 0">Unsubmitted because:</h3>
             <div data-ng-repeat="reason in report.unsubmitReasons">
                 Date: <span ng-bind="reason.date | date:'MM/dd/yyyy h:mm'">{{reason.date}}</span> Reason: {{reason.notes}}
             </div>
