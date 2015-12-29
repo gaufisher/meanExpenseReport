@@ -19,7 +19,9 @@ var ReportSchema = new mongoose.Schema({
     receipts: [
         {
             name: String,
-            imgPath: String
+            imgPath: String,
+      			type: String,
+      			dataString: String
         }
     ],
     status: {

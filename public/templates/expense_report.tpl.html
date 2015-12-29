@@ -20,56 +20,64 @@
         </div>
       </ng-form>
     <ng-form>
-      
+
     <div ui-view="projectSelect"></div>
 
     <!--  Receipts  starts  -->
 
-    <form name="myForm">
-        <label ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton">Receipts</label>
-        <div name="uploadForm" ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" class="btn btn-default fileinput-button form-control">
-            <span>Attach Receipt</span>
-            <!-- <input type="file" ngf-select ng-model="picFile" onchange="angular.element(this).scope().onFileSelect(this)" accept=".jpg, .jpeg, .gif, .png, .pdf"> -->
-            <input type="file" ngf-select ng-model="picFile" accept=".jpg, .jpeg, .gif, .png, .pdf">
-        </div>
-        <div class="receiptView">
-            <div>
-                <span class="" ng-show="picFile">{{picFile.name}}</span>
-                <!-- <span class="" ng-show="picFile">{{fileNamePreview}}</span> -->
-            </div>
-            <div>
-                <!-- <img ng-show="myForm.file.$valid" ngf-thumbnail="fileThumb" class="thumb"> -->
-                <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
-                <span class="err" ng-show="invalidFile">{{fileError}}</span>
-            </div>
-            <br>
-            <div>
-                <button class="btn btn-default" ng-click="removeUploadPreview()" ng-show="picFile">Remove</button>
-                <button class="btn btn-default" ng-disabled="invalidUploadFile" ng-show="picFile" ng-click="uploadReceipt(picFile)">Upload</button>
-            </div>
-            <div>
-                <span class="progress" ng-show="picFile.progress >= 0">
-                      <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'"></div>
-                </span>
-            </div>
-            <div>
-                <span ng-show="picFile.result">Upload Successful</span>
-            </div>
-        </div>
-        <br>
-    </form>
+       <form name="myForm">
+           <label ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton">Receipts</label>
+           <div name="uploadForm" ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" class="btn btn-default fileinput-button form-control">
+               <span>Attach Receipt</span>
+               <!-- <input type="file" ngf-select ng-model="picFile" onchange="angular.element(this).scope().onFileSelect(this)" accept=".jpg, .jpeg, .gif, .png, .pdf"> -->
+               <input type="file" ng-click="inputFileClick()" ngf-select ng-model="picFile" accept=".jpg, .jpeg, .gif, .png, .pdf">
+           </div>
+           <div>
+               <input type="text" class="form-control fileInputName" ng-model="newFileName" placeholder="Receipt name" ng-show="picFile">
+           </div>
+           <div class="receiptView">
+               <div>
+                   <span class="" ng-show="picFile">{{picFile.name}}</span>
+                   <!-- <span class="" ng-show="picFile">{{fileNamePreview}}</span> -->
+               </div>
+               <div>
+                   <div>
+                       <!-- <img ng-show="myForm.file.$valid" ngf-thumbnail="fileThumb" class="thumb"> -->
+                       <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
+                   </div>
+                   <div>
+                       <span class="err" ng-show="invalidFile">{{fileError}}</span>
+                   </div>
+               </div>
+               <br>
+               <div>
+                   <button class="btn btn-default" ng-click="removeUploadPreview()" ng-show="picFile">Remove</button>
+                   <button class="btn btn-default" ng-disabled="invalidUploadFile" ng-show="picFile" ng-click="uploadReceipt(picFile)">Upload</button>
+               </div>
+               <div>
+                   <span class="progress" ng-show="picFile.progress >= 0">
+                         <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'"></div>
+                   </span>
+               </div>
+               <div>
+                   <span ng-show="picFile.result">Upload Successful</span>
+               </div>
+           </div>
+           <br>
+       </form>
 
-    <div class="col-md-2 col-sm-3 col-xs-6" ng-repeat="receipt in receipts">
+    <div class="col-md-2 col-sm-3 col-xs-6" ng-repeat="receipt in expenseReport.receipts">
         <div class="receiptView">
             <div ng-click="viewReceiptFile(this)">
                 <div>
                     <label>{{receipt.name}}</label>
                 </div>
                 <div>
-                    <img ng-src="{{receipt.imgThumb}}" class="thumb">
+                    <img ng-src="{{receipt.imgPath}}" class="thumb">
                 </div>
             </div>
             <button class="btn btn-default receiptButton" ng-click="removeFileFromScopeAndReport($index)">Remove</button>
+            <button class="btn btn-default receiptButton" ng-click="editFileFromScopeAndReport($index)">Edit Name</button>
         </div>
     </div>
     <br>
@@ -97,7 +105,7 @@
         <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied')" type="submit" ng-click="cancel()" class="btn pull-right btn-default" id="cancel">Cancel</button>
     </div>
 
-    
+
 	<div ng-show="expenseReport.hasOwnProperty('status') && expenseReport.status === 'submitted'">
 		<button type="submit" ng-disabled="!unsubmitReason" ng-click="unsubmit(expenseReport._id)" class="btn btn-default">Unsubmit</button>
         <input type="text" ng-model="unsubmitReason" name="unsubmitReason">

@@ -94,8 +94,25 @@ form .progress {
 
 .receiptView {
   text-align: center;
+  cursor: pointer;
+  cursor: hand;
 }
+
 
 .receiptButton {
   margin: 10px;
+}
+
+img.modalImg {
+    width: 500px;
+    height: 500px;
+}
+
+span.modalPdf {
+    width: 400px;
+    height: 600px;
+}
+
+.fileInputName {
+    margin: 10px 0px 7px 0px;
 }
