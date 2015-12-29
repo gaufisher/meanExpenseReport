@@ -69,13 +69,13 @@ router.post('/', function(req, res, next) {
 				var emailUserText = "The following report has been " + getStatus() + ".<br>" + emailText;
 				emailUserText += "<h2>Project: " + project.name + "</h2>";
 				if(report.status === "saved" && report.hasOwnProperty('rejections')){
-					emailUserText += "<h2>Reason(s) for Rejection: <br>";
+					emailUserText += "<h2>Reason(s) for Rejection:</h2><br>";
 					
 					for(var j = 0; j < report.rejections.length; j++){
 			
 						emailUserText += "<span class='rejection'>" + report.rejections[j].reason + "</span><br>";
 					}
-					emailUserText += "</h2>";
+
 				}
 				emailUserText += "</html>";
 			
