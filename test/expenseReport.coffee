@@ -44,6 +44,7 @@ report = {
 describe 'it should test all /app/expense-report endPoints' , (done)->
   pid = 1
   erid = 1
+  rep = 1
 
   before (done)->
     `for (var i in mongoose.connection.collections) {
@@ -71,6 +72,7 @@ describe 'it should test all /app/expense-report endPoints' , (done)->
       .which.has.property 'name'
       .which.is.equal report.name
       erid = res.body._id
+      rep = res.body
       done()
   it 'should get back the expense report just posted', (done) ->
     req.get '/app/expense-report/'+erid
@@ -82,6 +84,7 @@ describe 'it should test all /app/expense-report endPoints' , (done)->
       .which.has.property 'name'
       .which.is.equal report.name
       res.body._id.should.equal erid
+      res.body.should.containDeep rep
       done()
   it 'should get back a list of one reports', (done) ->
     req.get '/app/expense-report/'
