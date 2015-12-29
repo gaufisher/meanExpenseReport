@@ -13,7 +13,7 @@ var nodemailer = require('nodemailer');
 
 router.post('/', function(req, res, next) {
 	var transporter = nodemailer.createTransport("direct", {debug: true});
-	
+	console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 	var report = req.body;
 			
 	var subjectLine = "expense report status change";
@@ -46,7 +46,7 @@ router.post('/', function(req, res, next) {
 				}
 				var approverEmail = approver.name + "@catalystitservices.com";
 				var emailApproverText = "The following report has been " + report.status + " for your approval.<br>" + emailText;
-				var receipts = function(){
+				var attachments = function(){
 					var attachments = [];
 					for(var i = 0; i < report.receipts.length; i++){
 						attachments.push({});
@@ -68,13 +68,24 @@ router.post('/', function(req, res, next) {
 				}
 				emailApproverText += "<a href='http://localhost:8080/app#/approveReport/" + report._id + "'><button>View Report</button></a></html>";
 				
-				transporter.sendMail({
-					from: 'donotreply@quickrbooks.com',
-					to: approverEmail,
-					subject: subjectLine,
-					html: emailApproverText,
-					attachments: receipts()
-				});
+				if(report.hasOwnProperty('receipts') && report.receipts.length > 0){
+					transporter.sendMail({
+						from: 'donotreply@quickrbooks.com',
+						to: approverEmail,
+						subject: subjectLine,
+						html: emailApproverText,
+						attachments: attachments()
+					});
+				}
+				else{
+					transporter.sendMail({
+						from: 'donotreply@quickrbooks.com',
+						to: approverEmail,
+						subject: subjectLine,
+						html: emailApproverText
+					});
+				}
+				
 			});
 			
 			

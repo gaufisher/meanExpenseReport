@@ -90,6 +90,7 @@ angular.module('QuickrBooks').controller('viewReportByIdCtrl', ['$scope', 'Repor
             if ($scope.expenseReport.project != null) {
  			    if ($scope.expenseReport.hasOwnProperty('status')) {
                     $scope.expenseReport.status = "submitted";
+					expenseReportFactory.sendEmail($scope.expenseReport);
                     updateReport();
                 } else {
                     persist("submitted");

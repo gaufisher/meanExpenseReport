@@ -105,6 +105,7 @@ app.controller('expenseReportCtrl', ['$scope', '$state', 'expenseReportFactory',
 				if ($scope.expenseReport.project != null) {
 						  if ($scope.expenseReport.status != null) {
 						$scope.expenseReport.status = "submitted";
+						
 						updateReport();
 					} else {
 						console.log("reached else")
