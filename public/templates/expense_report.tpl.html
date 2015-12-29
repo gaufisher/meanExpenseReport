@@ -67,22 +67,23 @@
            <br>
        </form>
 
-    <div class="col-md-2 col-sm-3 col-xs-6" ng-repeat="receipt in expenseReport.receipts">
-        <div class="receiptView">
-            <div ng-click="viewReceiptFile(this)">
-                <div>
-                    <label>{{receipt.name}}</label>
+    <div class="container">
+        <div class="col-md-2 col-sm-3 col-xs-6" ng-repeat="receipt in expenseReport.receipts">
+            <div class="receiptView">
+                <div ng-click="viewReceiptFile(this)">
+                    <div>
+                        <label>{{receipt.name}}</label>
+                    </div>
+                    <div>
+                        <img ng-src="{{receipt.imgPath}}" class="thumb">
+                    </div>
                 </div>
-                <div>
-                    <img ng-src="{{receipt.imgPath}}" class="thumb">
-                </div>
-            </div>
 
-            <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" class="btn btn-default receiptButton" ng-click="removeFileFromScopeAndReport($index)">Remove</button>
-            <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" class="btn btn-default receiptButton" ng-click="editFileFromScopeAndReport($index)">Edit Name</button>
+                <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" class="btn btn-default receiptButton" ng-click="removeFileFromScopeAndReport($index)">Remove</button>
+                <button ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'submitted' || expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton" class="btn btn-default receiptButton" ng-click="editFileFromScopeAndReport($index)">Edit Name</button>
+            </div>
         </div>
     </div>
-    <br>
     <legend ng-hide="expenseReport.hasOwnProperty('status') && (expenseReport.status === 'approved' || expenseReport.status === 'denied') || !showButton"></legend>
 
     <!--  Receipts  ends  -->
