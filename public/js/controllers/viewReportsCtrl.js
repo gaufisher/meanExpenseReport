@@ -2,6 +2,8 @@ app.controller('viewReportsCtrl', ['$scope', '$state', "expenseReportFactory", "
     function ($scope, $state, expenseReportFactory, projectFactory, ExpenseReports, ExpenseReportsByApprover) {
         $scope.reports = ExpenseReports.data;
         $scope.reportsByApprover = ExpenseReportsByApprover;
+        console.log($scope.reports);
+        console.log($scope.reportsByApprover);
         $scope.statuses = [
             {name: 'Saved'},
             {name: 'Submitted'},

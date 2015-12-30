@@ -53,7 +53,7 @@ router.post('/', function(req, res, next) {
 						var attachments = [];
 						for(var i = 0; i < report.receipts.length; i++){
 							attachments.push({});
-							attachments[i].filename = report.receipts[i].name;
+							attachments[i].filename = report.receipts[i].name+"."+report.receipts[i].fileType;
 							attachments[i].contents = new Buffer(report.receipts[i].dataString, 'base64');
 							attachments[i].cid = report.receipts[i]._id;
 						}

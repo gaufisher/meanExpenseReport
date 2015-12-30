@@ -6,12 +6,12 @@ req = request.agent app
 
 describe 'should not login to the app', ->
 
-  it '/app responds with 401 if not logged in', (done) ->
-    req.get('/app').expect(401).end done
+  it '/app responds with 302 if not logged in', (done) ->
+    req.get('/app').expect(302).end done
 
   it '/app redirects to / if not logged in', (done) ->
     req.get '/app'
-    .expect 401
+    .expect 302
     .end (err,res) ->
       should.not.exist err
       should.exist res
@@ -79,7 +79,7 @@ describe 'it logs in to the app', ->
       should(err1).be.null()
       should(res1).not.be.null()
       req.get '/app'
-      .expect 401
+      .expect 302
       .end (err,res) ->
         should.not.exist err
         should.exist res

@@ -25,18 +25,14 @@
             </div>
         </div>
         <legend></legend>
-        <!-- <div class="media"> data-ng-repeat="receipt in report.receipts">-->
-            <!-- <div class="media-left media-middle">
-                <a href="https://upload.wikimedia.org/wikipedia/commons/0/0b/ReceiptSwiss.jpg"> -->
-                <!-- <a href="{{receipt.recieptImage}}"> -->
-                    <!-- <img class="media-object" src="https://upload.wikimedia.org/wikipedia/commons/0/0b/ReceiptSwiss.jpg"> -->
-                    <!-- <img class="media-object" src="<{{receipt.recieptImage}}"> -->
-                <!-- </a>
+        <div class="media" data-ng-repeat="receipt in report.receipts">
+            <div class="media-left media-middle">
+                <a href="{{receipt.recieptImage}}">
+                    <img ng-show="editFile" ng-src="{{editReceipt.imgPath}}" class="thumb">
+                    <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
+                </a>
             </div>
-            <div class="media-body">
-                <h4>{{receipt.name}} im a receipt name and should be deleted when receipt name is working</h4>
-            </div>
-        </div> -->
+        </div>
         <div class="notes">
             <h3>Notes: </h3>
             <p>{{report.notes}}</p>
