@@ -77,7 +77,9 @@ router.post('/expense-report', function(req, res, next){
         if (err) {
             return res.status(500).json(err);
         }
-        if (status === "saved" || status === null) {
+        if ( status === null || status === "saved") {
+            if (status === null) 
+                status = 'saved';
             report.save(function(err, report) {
                 if (err) {
                     return res.status(500).json(err);
